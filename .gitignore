@@ -1,5 +1,7 @@
 /node_modules
 /.next/
+/.next-preview/
+/.next-build/
 /out/
 /build
 .DS_Store
@@ -9,3 +11,4 @@ npm-debug.log*
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+.claude/settings.local.json

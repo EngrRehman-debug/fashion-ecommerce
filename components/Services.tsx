@@ -1,40 +1,38 @@
-import { ReturnIcon, ShieldIcon, TruckIcon } from "./icons";
+import { NeedleIcon, QrIcon, ReturnIcon, ShieldIcon, TruckIcon } from "./icons";
+import { Stagger, StaggerItem } from "./Reveal";
+import data from "@/data/services.json";
 
-const services = [
-  {
-    icon: TruckIcon,
-    title: "Worldwide Delivery",
-    text: "Insured, tracked shipping on every order, carefully packed to protect the cloth in transit.",
-  },
-  {
-    icon: ReturnIcon,
-    title: "30-Day Returns",
-    text: "Not the right fit? Return or exchange any unworn shirt within 30 days, no questions asked.",
-  },
-  {
-    icon: ShieldIcon,
-    title: "Secure Checkout",
-    text: "Encrypted payments and a private, straightforward checkout — your details stay yours.",
-  },
-];
+/** Maps the `icon` name in data/services.json to its component. */
+const ICONS = {
+  truck: TruckIcon,
+  return: ReturnIcon,
+  shield: ShieldIcon,
+  qr: QrIcon,
+  needle: NeedleIcon,
+} as const;
 
-export default function Services() {
+const services = data.services as {
+  icon: keyof typeof ICONS;
+  title: string;
+  text: string;
+}[];
+
+export default function Services({ className = "bg-cream-light" }: { className?: string }) {
   return (
-    <section className="border-t border-ink/10 bg-white py-20">
+    <section className={`border-y border-line py-14 lg:py-20 ${className}`}>
       <div className="container-lux">
-        <div className="grid gap-12 md:grid-cols-3">
-          {services.map((service) => (
-            <div key={service.title} className="flex gap-5">
-              <service.icon className="h-8 w-8 shrink-0 text-primary" />
-              <div>
-                <h3 className="font-serif text-lg text-ink">{service.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {service.text}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+        <Stagger className="grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-line">
+          {services.map((service) => {
+            const Icon = ICONS[service.icon];
+            return (
+              <StaggerItem key={service.title} className="group lg:px-10 lg:first:pl-0 lg:last:pr-0">
+                <Icon className="h-8 w-8 text-primary transition-transform duration-500 group-hover:-translate-y-1 sm:h-10 sm:w-10" />
+                <h3 className="mt-4 font-serif text-xl leading-tight text-ink sm:mt-5 sm:text-2xl">{service.title}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-ink-soft sm:text-[15px]">{service.text}</p>
+              </StaggerItem>
+            );
+          })}
+        </Stagger>
       </div>
     </section>
   );

@@ -1,0 +1,14 @@
+{
+  "announcements": [
+    "Hand-dyed batik, made in Malaysia",
+    "Order on WhatsApp · Pay securely by QR",
+    "Every print is one of one",
+    "Unstitched fabric or stitched to your size"
+  ],
+  "links": [
+    { "label": "Shop", "href": "/shop", "mega": true },
+    { "label": "About", "href": "/about" },
+    { "label": "FAQ", "href": "/faq" },
+    { "label": "Contact", "href": "/contact" }
+  ]
+}

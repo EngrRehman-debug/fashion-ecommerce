@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "image": "/images/editorial/shirt-08.webp",
+      "category": "Heritage",
+      "title": "Reading a Batik: What the Motifs Mean",
+      "excerpt": "Parang, Kawung, Truntum — the patterns on your shirt each carry a story. A short guide to the symbols woven into Javanese batik."
+    },
+    {
+      "image": "/images/editorial/shirt-04.webp",
+      "category": "Styling",
+      "title": "One Shirt, Three Ways",
+      "excerpt": "From boardroom to dinner — how to style a statement batik shirt with tailoring, denim, and everything in between."
+    },
+    {
+      "image": "/images/editorial/shirt-10.webp",
+      "category": "Care",
+      "title": "Caring for Cotton & Silk",
+      "excerpt": "Hand-dyed cloth deserves considered care. How to wash, dry and store your shirt so the colour stays true for years."
+    }
+  ]
+}

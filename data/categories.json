@@ -1,0 +1,66 @@
+[
+  {
+    "id": "batik-pawang",
+    "cover": "/images/products/api-tropika/1.webp",
+    "name": "Batik Pawang",
+    "tagline": "Our signature range — bold, hand-drawn batik on premium cotton, available as uncut fabric or stitched to your size.",
+    "sizes": ["S", "M", "L", "XL"],
+    "options": [
+      { "id": "unstitched", "label": "Unstitched", "note": "Fabric only", "price": 250, "needsSize": false },
+      { "id": "stitched", "label": "Stitched", "note": "Made to size", "price": 350, "needsSize": true }
+    ],
+    "details": { "Fabric": "Premium cotton", "Craft": "Hand-drawn batik" }
+  },
+  {
+    "id": "short-sleeve",
+    "name": "Short-Sleeve Batik",
+    "tagline": "Ready-made short-sleeve batik shirts in pure cotton — easy to wear, impossible to miss.",
+    "sizes": ["S", "M", "L", "XL"],
+    "options": [
+      { "id": "ready", "label": "Ready to wear", "note": "Ready-made", "price": 180, "needsSize": true }
+    ],
+    "details": { "Fabric": "Pure cotton", "Style": "Short sleeve, ready-made" }
+  },
+  {
+    "id": "sets",
+    "cover": "/images/products/set-bunga-kertas/1.webp",
+    "name": "Batik Sets",
+    "tagline": "Matching batik shirt and shorts — one print, head to knee.",
+    "sizes": ["S", "M", "L", "XL"],
+    "options": [
+      { "id": "ready", "label": "Shirt & shorts", "note": "Matching set", "price": null, "needsSize": true }
+    ],
+    "details": { "Includes": "Shirt and shorts" }
+  },
+  {
+    "id": "sarong",
+    "cover": "/images/products/sarong-pusaran-nila/1.webp",
+    "name": "Sarong & Kain",
+    "tagline": "Full-length batik cloth to wrap, drape or tailor — each piece dyed by hand.",
+    "sizes": [],
+    "options": [
+      { "id": "piece", "label": "Full piece", "note": "Uncut cloth", "price": null, "needsSize": false }
+    ],
+    "details": { "Format": "Uncut length of cloth" }
+  },
+  {
+    "id": "scarves",
+    "name": "Scarves",
+    "tagline": "Light, sheer batik scarves with hand-finished floral corners.",
+    "sizes": [],
+    "options": [
+      { "id": "piece", "label": "Scarf", "note": "One size", "price": null, "needsSize": false }
+    ],
+    "details": { "Format": "Square scarf" }
+  },
+  {
+    "id": "boxers",
+    "name": "Boxers",
+    "tagline": "Batik-print boxer shorts — the comfortable side of the collection.",
+    "sizes": ["S", "M", "L", "XL"],
+    "options": [
+      { "id": "ready", "label": "Ready to wear", "note": "Standard sizes", "price": null, "needsSize": true }
+    ],
+    "details": { "Style": "Boxer shorts" }
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "statement": "Hand-crafted batik for men, dyed by artisans in Malaysia. One print, one piece — made to be worn for years.",
+  "columns": [
+    {
+      "title": "Company",
+      "links": [
+        { "label": "About Us", "href": "/about" },
+        { "label": "Journal", "href": "/#journal" },
+        { "label": "Contact", "href": "/contact" }
+      ]
+    },
+    {
+      "title": "Help",
+      "links": [
+        { "label": "FAQs", "href": "/faq" },
+        { "label": "Shipping & Returns", "href": "/shipping-returns" },
+        { "label": "Privacy Policy", "href": "/privacy-policy" },
+        { "label": "Terms of Service", "href": "/terms" }
+      ]
+    }
+  ]
+}
