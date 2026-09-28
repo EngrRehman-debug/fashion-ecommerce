@@ -1,0 +1,71 @@
+{
+  "groups": [
+    {
+      "title": "Ordering & payment",
+      "items": [
+        {
+          "q": "How do I place an order?",
+          "a": "Add the pieces you like to your cart and go to checkout. Fill in your delivery details and press “Place order on WhatsApp” — your full order opens in WhatsApp, ready to send to us. Once we receive it, we confirm availability and reply with a payment QR."
+        },
+        {
+          "q": "How do I pay?",
+          "a": "Payment is made by QR. After we confirm your order on WhatsApp, we send you a payment QR code. Pay with your banking or e-wallet app, then send us the receipt. We never ask for card details on the website."
+        },
+        {
+          "q": "When is my order confirmed?",
+          "a": "Your order is confirmed once we have checked availability and received your payment receipt on WhatsApp. We then prepare and ship it."
+        },
+        {
+          "q": "Why do some items say “Price on request”?",
+          "a": "For some ranges we confirm the price with you directly. You can still add them to your cart and check out — we’ll share the price on WhatsApp before you pay, so there are no surprises."
+        },
+        {
+          "q": "Can I change or cancel my order?",
+          "a": "Yes, as long as it hasn’t shipped yet. Just message us on WhatsApp with your order number. Items stitched to your size can’t be cancelled once tailoring has started."
+        }
+      ]
+    },
+    {
+      "title": "Products & sizing",
+      "items": [
+        {
+          "q": "What is the difference between Unstitched and Stitched?",
+          "a": "Our Batik Pawang range comes two ways. Unstitched is the uncut batik fabric, ready for your own tailor. Stitched is the same fabric made into a shirt in your chosen size (S, M, L or XL)."
+        },
+        {
+          "q": "What sizes do you offer?",
+          "a": "Our shirts, sets and boxers come in S, M, L and XL. Sarongs, kain and scarves are one size. If you’re between sizes, message us on WhatsApp and we’ll help you choose."
+        },
+        {
+          "q": "Is every design really one of a kind?",
+          "a": "Each batik is dyed by hand, so no two pieces are ever exactly alike — the small irregularities of the wax and dye are part of the character of real batik."
+        },
+        {
+          "q": "Is the batik made by hand?",
+          "a": "Yes. Batik is a wax-resist dyeing tradition: molten wax is drawn onto the cloth, then dyed in stages. Our pieces are made by artisans in Malaysia, and a single piece can take days to complete."
+        },
+        {
+          "q": "How do I care for my batik?",
+          "a": "Hand-wash cold or use a gentle cycle, inside out, with mild detergent. Dry in the shade and iron on the reverse. Hand-dyed colour may soften gently over time."
+        }
+      ]
+    },
+    {
+      "title": "Shipping & returns",
+      "items": [
+        {
+          "q": "Do you ship worldwide?",
+          "a": "Yes. We ship across Malaysia and worldwide with insured, tracked delivery. The shipping cost for your address is confirmed on WhatsApp before you pay."
+        },
+        {
+          "q": "How long does delivery take?",
+          "a": "We ship as soon as payment is confirmed. Unstitched fabric and ready-to-wear pieces ship fastest; stitched-to-size shirts need extra time for tailoring. We’ll give you an estimate for your address on WhatsApp."
+        },
+        {
+          "q": "What is your returns policy?",
+          "a": "Unworn items can be returned or exchanged within 30 days of delivery. Message us on WhatsApp with your order number to start a return. See our Shipping & Returns page for full details."
+        }
+      ]
+    }
+  ]
+}

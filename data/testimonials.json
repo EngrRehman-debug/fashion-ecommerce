@@ -1,0 +1,19 @@
+{
+  "testimonials": [
+    {
+      "text": "The fabric is unlike any shirt I own — it breathes like cotton but falls like silk. I've had endless compliments, and no two people have the same print.",
+      "name": "Daniyal Rehman",
+      "role": "Karachi"
+    },
+    {
+      "text": "You can feel the hand-work in it. The stitching, the weight, the way the colour sits in the cloth. This is a grown man's shirt, not a novelty print.",
+      "name": "Omar Sheikh",
+      "role": "Dubai"
+    },
+    {
+      "text": "I bought one for a wedding and now I reach for it constantly. Knowing it's one of one makes it feel like something worth keeping.",
+      "name": "Arjun Mehta",
+      "role": "London"
+    }
+  ]
+}

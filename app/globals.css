@@ -2,36 +2,135 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-poppins: "Poppins";
-  --font-playfair: "Playfair Display";
-}
-
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: #ffffff;
-  color: #16202b;
+  background: theme("colors.cream.light");
+  color: theme("colors.ink.DEFAULT");
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: theme("colors.ink.DEFAULT");
+  color: theme("colors.cream.light");
+}
+
+:focus-visible {
+  outline: 2px solid theme("colors.primary.DEFAULT");
+  outline-offset: 3px;
+}
+
+/* Gallery auto-advance bar (used from an inline style, so defined here). */
+@keyframes progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Hide scrollbars on horizontal strips while keeping them scrollable. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 @layer components {
   .container-lux {
-    @apply mx-auto w-full max-w-container px-5 sm:px-8;
+    @apply mx-auto w-full max-w-container px-4 sm:px-6 lg:px-10 2xl:px-14;
   }
-  /* Premium: solid ink buttons, squared-off, letter-spaced */
+
+  /* Buttons: squared, letter-spaced, with a sliding fill on hover. */
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2 overflow-hidden px-8 py-4 text-[13px] font-medium uppercase tracking-[0.18em] transition-colors duration-500 ease-lux disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn::before {
+    content: "";
+    @apply absolute inset-0 -z-0 origin-left scale-x-0 transition-transform duration-500 ease-lux;
+  }
+  .btn:hover:not(:disabled)::before {
+    @apply scale-x-100;
+  }
+  .btn > * {
+    @apply relative z-10;
+  }
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-sm bg-ink px-8 py-3.5 text-xs font-medium uppercase tracking-[0.15em] text-cream-light transition-colors hover:bg-black;
+    @apply btn bg-ink text-cream-light before:bg-primary;
   }
   .btn-outline {
-    @apply inline-flex items-center justify-center rounded-sm border border-ink/40 px-8 py-3.5 text-xs font-medium uppercase tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-cream-light;
+    @apply btn border border-ink text-ink before:bg-ink hover:text-cream-light;
   }
-  .btn-dark {
-    @apply inline-flex items-center justify-center rounded-sm bg-ink px-8 py-3.5 text-xs font-medium uppercase tracking-[0.15em] text-cream-light transition-colors hover:bg-black;
+  .btn-light {
+    @apply btn bg-cream-light text-ink before:bg-ink hover:text-cream-light;
   }
+  .btn-ghost-light {
+    @apply btn border border-cream-light/60 text-cream-light before:bg-cream-light hover:text-ink;
+  }
+
+  /* Underline that grows from the left on hover. */
+  .link-underline {
+    @apply relative inline-block after:absolute after:-bottom-1 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-500 after:ease-lux hover:after:scale-x-100;
+  }
+
   .eyebrow {
-    @apply text-xs font-medium uppercase tracking-[0.3em] text-primary;
+    @apply inline-flex items-center gap-3 text-[12px] font-medium uppercase tracking-[0.32em] text-primary before:h-px before:w-8 before:bg-current;
+  }
+
+  .h-display {
+    @apply font-serif font-medium text-ink;
+  }
+
+  .field {
+    @apply w-full border border-line bg-white px-4 py-3.5 text-[15px] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-ink;
+  }
+  .field-label {
+    @apply mb-2 block text-[13px] font-medium uppercase tracking-[0.14em] text-ink-soft;
+  }
+
+  /* Long-form content: policies, about, FAQ answers. */
+  .prose-lux {
+    @apply max-w-3xl text-[16px] leading-[1.8] text-ink-soft;
+  }
+  .prose-lux h2 {
+    @apply mb-4 mt-14 font-serif text-3xl font-medium text-ink first:mt-0;
+  }
+  .prose-lux h3 {
+    @apply mb-3 mt-8 text-[15px] font-semibold uppercase tracking-[0.12em] text-ink;
+  }
+  .prose-lux p {
+    @apply mb-5;
+  }
+  .prose-lux ul {
+    @apply mb-6 list-none space-y-2.5;
+  }
+  .prose-lux li {
+    @apply relative pl-6 before:absolute before:left-0 before:top-[0.8em] before:h-px before:w-3 before:bg-gold;
+  }
+  .prose-lux a {
+    @apply text-primary underline decoration-primary/30 underline-offset-4 transition-colors hover:decoration-primary;
+  }
+  .prose-lux strong {
+    @apply font-semibold text-ink;
   }
 }

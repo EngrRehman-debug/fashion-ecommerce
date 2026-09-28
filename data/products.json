@@ -1,0 +1,1465 @@
+[
+  {
+    "slug": "rimba-emas",
+    "name": "Rimba Emas",
+    "category": "batik-pawang",
+    "colour": "Olive",
+    "family": "Green",
+    "motif": "Scaled leaf motif",
+    "images": [
+      "/images/products/rimba-emas/1.webp"
+    ]
+  },
+  {
+    "slug": "ombak-biru",
+    "name": "Ombak Biru",
+    "category": "batik-pawang",
+    "colour": "Blue",
+    "family": "Blue",
+    "motif": "Spiral wave motif",
+    "images": [
+      "/images/products/ombak-biru/1.webp"
+    ]
+  },
+  {
+    "slug": "senja-nila",
+    "name": "Senja Nila",
+    "category": "batik-pawang",
+    "colour": "Navy",
+    "family": "Blue",
+    "motif": "Swirled dusk motif",
+    "images": [
+      "/images/products/senja-nila/1.webp"
+    ]
+  },
+  {
+    "slug": "pasir-fajar",
+    "name": "Pasir Fajar",
+    "category": "batik-pawang",
+    "colour": "Neutral",
+    "family": "Earth",
+    "motif": "Patchwork motif",
+    "images": [
+      "/images/products/pasir-fajar/1.webp"
+    ]
+  },
+  {
+    "slug": "warna-warni",
+    "name": "Warna Warni",
+    "category": "batik-pawang",
+    "colour": "Multi",
+    "family": "Multi",
+    "motif": "Grid patchwork motif",
+    "images": [
+      "/images/products/warna-warni/1.webp"
+    ]
+  },
+  {
+    "slug": "bunga-raya",
+    "name": "Bunga Raya",
+    "category": "batik-pawang",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Zigzag bloom motif",
+    "images": [
+      "/images/products/bunga-raya/1.webp"
+    ]
+  },
+  {
+    "slug": "kunyit-emas",
+    "name": "Kunyit Emas",
+    "category": "batik-pawang",
+    "colour": "Yellow",
+    "family": "Earth",
+    "motif": "Geometric patchwork motif",
+    "images": [
+      "/images/products/kunyit-emas/1.webp"
+    ]
+  },
+  {
+    "slug": "hitam-putih",
+    "name": "Hitam Putih",
+    "category": "batik-pawang",
+    "colour": "Monochrome",
+    "family": "Black & White",
+    "motif": "Monochrome patch motif",
+    "images": [
+      "/images/products/hitam-putih/1.webp"
+    ]
+  },
+  {
+    "slug": "nyala-senja",
+    "name": "Nyala Senja",
+    "category": "batik-pawang",
+    "colour": "Red",
+    "family": "Red",
+    "motif": "Swirled ember motif",
+    "images": [
+      "/images/products/nyala-senja/1.webp"
+    ]
+  },
+  {
+    "slug": "pulau-pirus",
+    "name": "Pulau Pirus",
+    "category": "batik-pawang",
+    "colour": "Teal",
+    "family": "Blue",
+    "motif": "Abstract island motif",
+    "images": [
+      "/images/products/pulau-pirus/1.webp"
+    ]
+  },
+  {
+    "slug": "malam-biru",
+    "name": "Malam Biru",
+    "category": "batik-pawang",
+    "colour": "Navy",
+    "family": "Blue",
+    "motif": "Paisley swirl motif",
+    "images": [
+      "/images/products/malam-biru/1.webp"
+    ]
+  },
+  {
+    "slug": "kayu-tua",
+    "name": "Kayu Tua",
+    "category": "batik-pawang",
+    "colour": "Brown",
+    "family": "Earth",
+    "motif": "Aged paisley motif",
+    "images": [
+      "/images/products/kayu-tua/1.webp"
+    ]
+  },
+  {
+    "slug": "tanah-merah",
+    "name": "Tanah Merah",
+    "category": "batik-pawang",
+    "colour": "Maroon",
+    "family": "Red",
+    "motif": "Earth patchwork motif",
+    "images": [
+      "/images/products/tanah-merah/1.webp"
+    ]
+  },
+  {
+    "slug": "emas-malam",
+    "name": "Emas Malam",
+    "category": "batik-pawang",
+    "colour": "Black",
+    "family": "Black & White",
+    "motif": "Gilded night motif",
+    "images": [
+      "/images/products/emas-malam/1.webp"
+    ]
+  },
+  {
+    "slug": "pasir-bakau",
+    "name": "Pasir Bakau",
+    "category": "batik-pawang",
+    "colour": "Tan",
+    "family": "Earth",
+    "motif": "Banded sand motif",
+    "images": [
+      "/images/products/pasir-bakau/1.webp"
+    ]
+  },
+  {
+    "slug": "bintang-malam",
+    "name": "Bintang Malam",
+    "category": "batik-pawang",
+    "colour": "Monochrome",
+    "family": "Black & White",
+    "motif": "Scattered star motif",
+    "images": [
+      "/images/products/bintang-malam/1.webp"
+    ]
+  },
+  {
+    "slug": "merah-delima",
+    "name": "Merah Delima",
+    "category": "batik-pawang",
+    "colour": "Red",
+    "family": "Red",
+    "motif": "Ruby patchwork motif",
+    "images": [
+      "/images/products/merah-delima/1.webp"
+    ]
+  },
+  {
+    "slug": "karat-hutan",
+    "name": "Karat Hutan",
+    "category": "batik-pawang",
+    "colour": "Rust",
+    "family": "Red",
+    "motif": "Forest geometric motif",
+    "images": [
+      "/images/products/karat-hutan/1.webp"
+    ]
+  },
+  {
+    "slug": "pawang-merah-jambu",
+    "name": "Pawang Merah Jambu",
+    "category": "batik-pawang",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Signature Pawang motif",
+    "images": [
+      "/images/products/pawang-merah-jambu/1.webp"
+    ]
+  },
+  {
+    "slug": "kencana-pirus",
+    "name": "Kencana Pirus",
+    "category": "batik-pawang",
+    "colour": "Teal",
+    "family": "Blue",
+    "motif": "Kencana wave motif",
+    "images": [
+      "/images/products/kencana-pirus/1.webp"
+    ]
+  },
+  {
+    "slug": "zamrud-tropika",
+    "name": "Zamrud Tropika",
+    "category": "batik-pawang",
+    "colour": "Green",
+    "family": "Green",
+    "motif": "Tropical emerald motif",
+    "images": [
+      "/images/products/zamrud-tropika/1.webp"
+    ]
+  },
+  {
+    "slug": "delima-biru",
+    "name": "Delima Biru",
+    "category": "batik-pawang",
+    "colour": "Maroon",
+    "family": "Red",
+    "motif": "Fanned lattice motif",
+    "images": [
+      "/images/products/delima-biru/1.webp",
+      "/images/products/delima-biru/2.webp"
+    ]
+  },
+  {
+    "slug": "sulaman-emas",
+    "name": "Sulaman Emas",
+    "category": "batik-pawang",
+    "colour": "Maroon",
+    "family": "Red",
+    "motif": "Gold embroidery motif",
+    "images": [
+      "/images/products/sulaman-emas/1.webp",
+      "/images/products/sulaman-emas/2.webp"
+    ]
+  },
+  {
+    "slug": "karang-merah",
+    "name": "Karang Merah",
+    "category": "batik-pawang",
+    "colour": "Red",
+    "family": "Red",
+    "motif": "Coral branch motif",
+    "images": [
+      "/images/products/karang-merah/1.webp",
+      "/images/products/karang-merah/2.webp"
+    ]
+  },
+  {
+    "slug": "rumbia-malam",
+    "name": "Rumbia Malam",
+    "category": "batik-pawang",
+    "colour": "Teal",
+    "family": "Blue",
+    "motif": "Midnight frond motif",
+    "images": [
+      "/images/products/rumbia-malam/1.webp",
+      "/images/products/rumbia-malam/2.webp"
+    ]
+  },
+  {
+    "slug": "cengkih-coklat",
+    "name": "Cengkih Coklat",
+    "category": "batik-pawang",
+    "colour": "Brown",
+    "family": "Earth",
+    "motif": "Clove blossom motif",
+    "images": [
+      "/images/products/cengkih-coklat/1.webp",
+      "/images/products/cengkih-coklat/2.webp"
+    ]
+  },
+  {
+    "slug": "pelangi-laut",
+    "name": "Pelangi Laut",
+    "category": "batik-pawang",
+    "colour": "Blue",
+    "family": "Blue",
+    "motif": "Sea rainbow motif",
+    "images": [
+      "/images/products/pelangi-laut/1.webp",
+      "/images/products/pelangi-laut/2.webp"
+    ]
+  },
+  {
+    "slug": "nyala-jingga",
+    "name": "Nyala Jingga",
+    "category": "batik-pawang",
+    "colour": "Orange",
+    "family": "Red",
+    "motif": "Blazing lattice motif",
+    "images": [
+      "/images/products/nyala-jingga/1.webp",
+      "/images/products/nyala-jingga/2.webp"
+    ]
+  },
+  {
+    "slug": "nila-bintang",
+    "name": "Nila Bintang",
+    "category": "batik-pawang",
+    "colour": "Navy",
+    "family": "Blue",
+    "motif": "Indigo star motif",
+    "images": [
+      "/images/products/nila-bintang/1.webp",
+      "/images/products/nila-bintang/2.webp"
+    ]
+  },
+  {
+    "slug": "hutan-pirus",
+    "name": "Hutan Pirus",
+    "category": "batik-pawang",
+    "colour": "Teal",
+    "family": "Blue",
+    "motif": "Forest patch motif",
+    "images": [
+      "/images/products/hutan-pirus/1.webp",
+      "/images/products/hutan-pirus/2.webp"
+    ]
+  },
+  {
+    "slug": "hijau-padi",
+    "name": "Hijau Padi",
+    "category": "batik-pawang",
+    "colour": "Green",
+    "family": "Green",
+    "motif": "Paddy field motif",
+    "images": [
+      "/images/products/hijau-padi/1.webp",
+      "/images/products/hijau-padi/2.webp"
+    ]
+  },
+  {
+    "slug": "merah-api",
+    "name": "Merah Api",
+    "category": "batik-pawang",
+    "colour": "Red",
+    "family": "Red",
+    "motif": "Flame texture motif",
+    "images": [
+      "/images/products/merah-api/1.webp",
+      "/images/products/merah-api/2.webp"
+    ]
+  },
+  {
+    "slug": "mawar-debu",
+    "name": "Mawar Debu",
+    "category": "batik-pawang",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Dusty rose motif",
+    "images": [
+      "/images/products/mawar-debu/1.webp",
+      "/images/products/mawar-debu/2.webp"
+    ]
+  },
+  {
+    "slug": "malam-neon",
+    "name": "Malam Neon",
+    "category": "batik-pawang",
+    "colour": "Multi",
+    "family": "Multi",
+    "motif": "Neon grid motif",
+    "images": [
+      "/images/products/malam-neon/1.webp",
+      "/images/products/malam-neon/2.webp"
+    ]
+  },
+  {
+    "slug": "tembaga",
+    "name": "Tembaga",
+    "category": "batik-pawang",
+    "colour": "Brown",
+    "family": "Earth",
+    "motif": "Copper swirl motif",
+    "images": [
+      "/images/products/tembaga/1.webp",
+      "/images/products/tembaga/2.webp"
+    ]
+  },
+  {
+    "slug": "awan-putih",
+    "name": "Awan Putih",
+    "category": "batik-pawang",
+    "colour": "White",
+    "family": "Black & White",
+    "motif": "Cloud sprig motif",
+    "images": [
+      "/images/products/awan-putih/1.webp",
+      "/images/products/awan-putih/2.webp"
+    ]
+  },
+  {
+    "slug": "orkid-merah",
+    "name": "Orkid Merah",
+    "category": "batik-pawang",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Orchid paisley motif",
+    "images": [
+      "/images/products/orkid-merah/1.webp",
+      "/images/products/orkid-merah/2.webp"
+    ]
+  },
+  {
+    "slug": "senja-gelap",
+    "name": "Senja Gelap",
+    "category": "batik-pawang",
+    "colour": "Maroon",
+    "family": "Red",
+    "motif": "Dark dusk motif",
+    "images": [
+      "/images/products/senja-gelap/1.webp",
+      "/images/products/senja-gelap/2.webp"
+    ]
+  },
+  {
+    "slug": "biru-istana",
+    "name": "Biru Istana",
+    "category": "batik-pawang",
+    "colour": "Navy",
+    "family": "Blue",
+    "motif": "Palace patchwork motif",
+    "images": [
+      "/images/products/biru-istana/1.webp"
+    ]
+  },
+  {
+    "slug": "rantai-emas",
+    "name": "Rantai Emas",
+    "category": "batik-pawang",
+    "colour": "Maroon",
+    "family": "Red",
+    "motif": "Gold chain motif",
+    "images": [
+      "/images/products/rantai-emas/1.webp"
+    ]
+  },
+  {
+    "slug": "mandala-ungu",
+    "name": "Mandala Ungu",
+    "category": "batik-pawang",
+    "colour": "Purple",
+    "family": "Pink & Purple",
+    "motif": "Mandala burst motif",
+    "images": [
+      "/images/products/mandala-ungu/1.webp"
+    ]
+  },
+  {
+    "slug": "panel-biru",
+    "name": "Panel Biru",
+    "category": "batik-pawang",
+    "colour": "Navy",
+    "family": "Blue",
+    "motif": "Panelled indigo motif",
+    "images": [
+      "/images/products/panel-biru/1.webp"
+    ]
+  },
+  {
+    "slug": "ungu-malam",
+    "name": "Ungu Malam",
+    "category": "batik-pawang",
+    "colour": "Purple",
+    "family": "Pink & Purple",
+    "motif": "Diagonal dusk motif",
+    "images": [
+      "/images/products/ungu-malam/1.webp"
+    ]
+  },
+  {
+    "slug": "gelombang-biru",
+    "name": "Gelombang Biru",
+    "category": "batik-pawang",
+    "colour": "Blue",
+    "family": "Blue",
+    "motif": "Rolling wave motif",
+    "images": [
+      "/images/products/gelombang-biru/1.webp"
+    ]
+  },
+  {
+    "slug": "api-tropika",
+    "name": "Api Tropika",
+    "category": "batik-pawang",
+    "colour": "Red",
+    "family": "Red",
+    "motif": "Tropical flame motif",
+    "images": [
+      "/images/products/api-tropika/1.webp"
+    ]
+  },
+  {
+    "slug": "bulatan-merah",
+    "name": "Bulatan Merah",
+    "category": "batik-pawang",
+    "colour": "Red",
+    "family": "Red",
+    "motif": "Circular bloom motif",
+    "images": [
+      "/images/products/bulatan-merah/1.webp"
+    ]
+  },
+  {
+    "slug": "batu-kelabu",
+    "name": "Batu Kelabu",
+    "category": "batik-pawang",
+    "colour": "Grey",
+    "family": "Black & White",
+    "motif": "Stone geometric motif",
+    "images": [
+      "/images/products/batu-kelabu/1.webp"
+    ]
+  },
+  {
+    "slug": "emas-pasir",
+    "name": "Emas Pasir",
+    "category": "batik-pawang",
+    "colour": "Tan",
+    "family": "Earth",
+    "motif": "Golden sand motif",
+    "images": [
+      "/images/products/emas-pasir/1.webp"
+    ]
+  },
+  {
+    "slug": "kelabu-ungu",
+    "name": "Kelabu Ungu",
+    "category": "batik-pawang",
+    "colour": "Grey",
+    "family": "Black & White",
+    "motif": "Ash patchwork motif",
+    "images": [
+      "/images/products/kelabu-ungu/1.webp"
+    ]
+  },
+  {
+    "slug": "senja-tembaga",
+    "name": "Senja Tembaga",
+    "category": "batik-pawang",
+    "colour": "Brown",
+    "family": "Earth",
+    "motif": "Copper dusk motif",
+    "images": [
+      "/images/products/senja-tembaga/1.webp"
+    ]
+  },
+  {
+    "slug": "indigo-petak",
+    "name": "Indigo Petak",
+    "category": "batik-pawang",
+    "colour": "Blue",
+    "family": "Blue",
+    "motif": "Indigo tile motif",
+    "images": [
+      "/images/products/indigo-petak/1.webp"
+    ]
+  },
+  {
+    "slug": "kelabu-biru",
+    "name": "Kelabu Biru",
+    "category": "batik-pawang",
+    "colour": "Grey",
+    "family": "Black & White",
+    "motif": "Mixed patch motif",
+    "images": [
+      "/images/products/kelabu-biru/1.webp"
+    ]
+  },
+  {
+    "slug": "coklat-diraja",
+    "name": "Coklat Diraja",
+    "category": "batik-pawang",
+    "colour": "Brown",
+    "family": "Earth",
+    "motif": "Royal brown motif",
+    "images": [
+      "/images/products/coklat-diraja/1.webp"
+    ]
+  },
+  {
+    "slug": "biru-tanah",
+    "name": "Biru Tanah",
+    "category": "batik-pawang",
+    "colour": "Blue",
+    "family": "Blue",
+    "motif": "Earth and sky motif",
+    "images": [
+      "/images/products/biru-tanah/1.webp"
+    ]
+  },
+  {
+    "slug": "serong-ungu",
+    "name": "Serong Ungu",
+    "category": "batik-pawang",
+    "colour": "Plum",
+    "family": "Pink & Purple",
+    "motif": "Diagonal geometric patchwork",
+    "images": [
+      "/images/products/serong-ungu/1.webp"
+    ]
+  },
+  {
+    "slug": "lumut-berombak",
+    "name": "Lumut Berombak",
+    "category": "batik-pawang",
+    "colour": "Olive",
+    "family": "Green",
+    "motif": "Swirling wave motif",
+    "images": [
+      "/images/products/lumut-berombak/1.webp"
+    ]
+  },
+  {
+    "slug": "petak-tanah",
+    "name": "Petak Tanah",
+    "category": "batik-pawang",
+    "colour": "Sand",
+    "family": "Earth",
+    "motif": "Patchwork squares",
+    "images": [
+      "/images/products/petak-tanah/1.webp"
+    ]
+  },
+  {
+    "slug": "malam-berpanah",
+    "name": "Malam Berpanah",
+    "category": "batik-pawang",
+    "colour": "Navy",
+    "family": "Blue",
+    "motif": "Gold chevron stripes",
+    "images": [
+      "/images/products/malam-berpanah/1.webp"
+    ]
+  },
+  {
+    "slug": "biru-renda",
+    "name": "Biru Renda",
+    "category": "batik-pawang",
+    "colour": "Steel blue",
+    "family": "Blue",
+    "motif": "Lace-effect panels",
+    "images": [
+      "/images/products/biru-renda/1.webp"
+    ]
+  },
+  {
+    "slug": "jalur-pelangi",
+    "name": "Jalur Pelangi",
+    "category": "batik-pawang",
+    "colour": "Multicolour",
+    "family": "Multi",
+    "motif": "Vertical tonal stripes",
+    "images": [
+      "/images/products/jalur-pelangi/1.webp"
+    ]
+  },
+  {
+    "slug": "laut-cerah",
+    "name": "Laut Cerah",
+    "category": "batik-pawang",
+    "colour": "Turquoise",
+    "family": "Blue",
+    "motif": "Sketched patchwork",
+    "images": [
+      "/images/products/laut-cerah/1.webp"
+    ]
+  },
+  {
+    "slug": "permata-marun",
+    "name": "Permata Marun",
+    "category": "batik-pawang",
+    "colour": "Maroon",
+    "family": "Red",
+    "motif": "Oval medallion rows",
+    "images": [
+      "/images/products/permata-marun/1.webp"
+    ]
+  },
+  {
+    "slug": "ombak-lembayung",
+    "name": "Ombak Lembayung",
+    "category": "batik-pawang",
+    "colour": "Lilac",
+    "family": "Pink & Purple",
+    "motif": "Diagonal wave bands",
+    "images": [
+      "/images/products/ombak-lembayung/1.webp"
+    ]
+  },
+  {
+    "slug": "zigzag-nila",
+    "name": "Zigzag Nila",
+    "category": "batik-pawang",
+    "colour": "Navy",
+    "family": "Blue",
+    "motif": "Multicolour chevrons",
+    "images": [
+      "/images/products/zigzag-nila/1.webp"
+    ]
+  },
+  {
+    "slug": "segitiga-malam",
+    "name": "Segitiga Malam",
+    "category": "batik-pawang",
+    "colour": "Black",
+    "family": "Multi",
+    "motif": "Triangle mosaic",
+    "images": [
+      "/images/products/segitiga-malam/1.webp"
+    ]
+  },
+  {
+    "slug": "labirin-hijau",
+    "name": "Labirin Hijau",
+    "category": "batik-pawang",
+    "colour": "Black",
+    "family": "Multi",
+    "motif": "Maze line pattern",
+    "images": [
+      "/images/products/labirin-hijau/1.webp"
+    ]
+  },
+  {
+    "slug": "jalur-pirus",
+    "name": "Jalur Pirus",
+    "category": "batik-pawang",
+    "colour": "Teal",
+    "family": "Blue",
+    "motif": "Textured vertical stripes",
+    "images": [
+      "/images/products/jalur-pirus/1.webp"
+    ]
+  },
+  {
+    "slug": "arus-merah-jambu",
+    "name": "Arus Merah Jambu",
+    "category": "batik-pawang",
+    "colour": "Pink & blue",
+    "family": "Pink & Purple",
+    "motif": "Flowing wave bands",
+    "images": [
+      "/images/products/arus-merah-jambu/1.webp"
+    ]
+  },
+  {
+    "slug": "kabut-pasir",
+    "name": "Kabut Pasir",
+    "category": "batik-pawang",
+    "colour": "Beige",
+    "family": "Earth",
+    "motif": "Tonal paisley",
+    "images": [
+      "/images/products/kabut-pasir/1.webp"
+    ]
+  },
+  {
+    "slug": "kopi-petak",
+    "name": "Kopi Petak",
+    "category": "batik-pawang",
+    "colour": "Coffee brown",
+    "family": "Earth",
+    "motif": "Patchwork with floral inset",
+    "images": [
+      "/images/products/kopi-petak/1.webp"
+    ]
+  },
+  {
+    "slug": "hutan-rimbun",
+    "name": "Hutan Rimbun",
+    "category": "batik-pawang",
+    "colour": "Forest green",
+    "family": "Green",
+    "motif": "Geometric patchwork",
+    "images": [
+      "/images/products/hutan-rimbun/1.webp"
+    ]
+  },
+  {
+    "slug": "hujan-merah",
+    "name": "Hujan Merah",
+    "category": "batik-pawang",
+    "colour": "Crimson",
+    "family": "Red",
+    "motif": "Fine streak motif",
+    "images": [
+      "/images/products/hujan-merah/1.webp"
+    ]
+  },
+  {
+    "slug": "petak-lautan",
+    "name": "Petak Lautan",
+    "category": "batik-pawang",
+    "colour": "Teal",
+    "family": "Blue",
+    "motif": "Line-drawn patchwork",
+    "images": [
+      "/images/products/petak-lautan/1.webp"
+    ]
+  },
+  {
+    "slug": "jaring-biru",
+    "name": "Jaring Biru",
+    "category": "batik-pawang",
+    "colour": "Royal blue",
+    "family": "Blue",
+    "motif": "Grid and leaf panels",
+    "images": [
+      "/images/products/jaring-biru/1.webp"
+    ]
+  },
+  {
+    "slug": "garis-merah",
+    "name": "Garis Merah",
+    "category": "batik-pawang",
+    "colour": "Crimson",
+    "family": "Red",
+    "motif": "Line art with blue strokes",
+    "images": [
+      "/images/products/garis-merah/1.webp"
+    ]
+  },
+  {
+    "slug": "belang-hitam",
+    "name": "Belang Hitam",
+    "category": "batik-pawang",
+    "colour": "Black & white",
+    "family": "Black & White",
+    "motif": "Zebra stripe",
+    "images": [
+      "/images/products/belang-hitam/1.webp"
+    ]
+  },
+  {
+    "slug": "tampal-warna",
+    "name": "Tampal Warna",
+    "category": "batik-pawang",
+    "colour": "Multicolour",
+    "family": "Multi",
+    "motif": "Scarf-panel patchwork",
+    "images": [
+      "/images/products/tampal-warna/1.webp"
+    ]
+  },
+  {
+    "slug": "wajik-merah",
+    "name": "Wajik Merah",
+    "category": "batik-pawang",
+    "colour": "Red",
+    "family": "Red",
+    "motif": "Central diamond",
+    "images": [
+      "/images/products/wajik-merah/1.webp"
+    ]
+  },
+  {
+    "slug": "merah-bata",
+    "name": "Merah Bata",
+    "category": "batik-pawang",
+    "colour": "Brick red",
+    "family": "Red",
+    "motif": "Sketched patchwork",
+    "images": [
+      "/images/products/merah-bata/1.webp"
+    ]
+  },
+  {
+    "slug": "kesumba",
+    "name": "Kesumba",
+    "category": "batik-pawang",
+    "colour": "Magenta",
+    "family": "Pink & Purple",
+    "motif": "Swirl and dot panels",
+    "images": [
+      "/images/products/kesumba/1.webp"
+    ]
+  },
+  {
+    "slug": "daun-malam",
+    "name": "Daun Malam",
+    "category": "batik-pawang",
+    "colour": "Dark teal",
+    "family": "Green",
+    "motif": "Leaf line art",
+    "images": [
+      "/images/products/daun-malam/1.webp"
+    ]
+  },
+  {
+    "slug": "titik-merah",
+    "name": "Titik Merah",
+    "category": "batik-pawang",
+    "colour": "Coral red",
+    "family": "Red",
+    "motif": "Dotted arcs",
+    "images": [
+      "/images/products/titik-merah/1.webp"
+    ]
+  },
+  {
+    "slug": "akar-hitam",
+    "name": "Akar Hitam",
+    "category": "batik-pawang",
+    "colour": "Black",
+    "family": "Black & White",
+    "motif": "Geometric line art",
+    "images": [
+      "/images/products/akar-hitam/1.webp"
+    ]
+  },
+  {
+    "slug": "ungu-garisan",
+    "name": "Ungu Garisan",
+    "category": "batik-pawang",
+    "colour": "Plum",
+    "family": "Pink & Purple",
+    "motif": "Architectural lines",
+    "images": [
+      "/images/products/ungu-garisan/1.webp"
+    ]
+  },
+  {
+    "slug": "langit-biru",
+    "name": "Langit Biru",
+    "category": "batik-pawang",
+    "colour": "Royal blue",
+    "family": "Blue",
+    "motif": "Flowing line art",
+    "images": [
+      "/images/products/langit-biru/1.webp"
+    ]
+  },
+  {
+    "slug": "emas-kelam",
+    "name": "Emas Kelam",
+    "category": "batik-pawang",
+    "colour": "Dark olive",
+    "family": "Earth",
+    "motif": "Gold line patchwork",
+    "images": [
+      "/images/products/emas-kelam/1.webp"
+    ]
+  },
+  {
+    "slug": "biru-padi",
+    "name": "Biru Padi",
+    "category": "batik-pawang",
+    "colour": "Cobalt",
+    "family": "Blue",
+    "motif": "Paddy field motif",
+    "images": [
+      "/images/products/biru-padi/1.webp"
+    ]
+  },
+  {
+    "slug": "biru-jahitan",
+    "name": "Biru Jahitan",
+    "category": "batik-pawang",
+    "colour": "Cobalt",
+    "family": "Blue",
+    "motif": "Stitched-line patchwork",
+    "images": [
+      "/images/products/biru-jahitan/1.webp"
+    ]
+  },
+  {
+    "slug": "kasturi",
+    "name": "Kasturi",
+    "category": "batik-pawang",
+    "colour": "Brown",
+    "family": "Earth",
+    "motif": "Paisley patchwork",
+    "images": [
+      "/images/products/kasturi/1.webp"
+    ]
+  },
+  {
+    "slug": "hijau-pucuk",
+    "name": "Hijau Pucuk",
+    "category": "batik-pawang",
+    "colour": "Sage & cream",
+    "family": "Green",
+    "motif": "Abstract leaf print",
+    "images": [
+      "/images/products/hijau-pucuk/1.webp"
+    ]
+  },
+  {
+    "slug": "hitam-gading",
+    "name": "Hitam Gading",
+    "category": "batik-pawang",
+    "colour": "Black & cream",
+    "family": "Black & White",
+    "motif": "Bold abstract print",
+    "images": [
+      "/images/products/hitam-gading/1.webp"
+    ]
+  },
+  {
+    "slug": "zaitun",
+    "name": "Zaitun",
+    "category": "batik-pawang",
+    "colour": "Olive",
+    "family": "Green",
+    "motif": "Ikat-style print",
+    "images": [
+      "/images/products/zaitun/1.webp"
+    ]
+  },
+  {
+    "slug": "mentari",
+    "name": "Mentari",
+    "category": "short-sleeve",
+    "colour": "Mustard",
+    "family": "Earth",
+    "motif": "Small floral print",
+    "images": [
+      "/images/products/mentari/1.webp",
+      "/images/products/mentari/2.webp",
+      "/images/products/mentari/3.webp",
+      "/images/products/mentari/4.webp",
+      "/images/products/mentari/5.webp",
+      "/images/products/mentari/6.webp"
+    ]
+  },
+  {
+    "slug": "ungu-awan",
+    "name": "Ungu Awan",
+    "category": "short-sleeve",
+    "colour": "Violet",
+    "family": "Pink & Purple",
+    "motif": "Tie-dye bands",
+    "images": [
+      "/images/products/ungu-awan/1.webp",
+      "/images/products/ungu-awan/2.webp",
+      "/images/products/ungu-awan/3.webp",
+      "/images/products/ungu-awan/4.webp",
+      "/images/products/ungu-awan/5.webp",
+      "/images/products/ungu-awan/6.webp"
+    ]
+  },
+  {
+    "slug": "jingga-kisi",
+    "name": "Jingga Kisi",
+    "category": "short-sleeve",
+    "colour": "White & orange",
+    "family": "Earth",
+    "motif": "Painted lattice",
+    "images": [
+      "/images/products/jingga-kisi/1.webp",
+      "/images/products/jingga-kisi/2.webp",
+      "/images/products/jingga-kisi/3.webp",
+      "/images/products/jingga-kisi/4.webp",
+      "/images/products/jingga-kisi/5.webp",
+      "/images/products/jingga-kisi/6.webp"
+    ]
+  },
+  {
+    "slug": "rintik-ungu",
+    "name": "Rintik Ungu",
+    "category": "short-sleeve",
+    "colour": "Magenta",
+    "family": "Pink & Purple",
+    "motif": "Speckled print",
+    "images": [
+      "/images/products/rintik-ungu/1.webp",
+      "/images/products/rintik-ungu/2.webp",
+      "/images/products/rintik-ungu/3.webp",
+      "/images/products/rintik-ungu/4.webp",
+      "/images/products/rintik-ungu/5.webp",
+      "/images/products/rintik-ungu/6.webp"
+    ]
+  },
+  {
+    "slug": "biru-muara",
+    "name": "Biru Muara",
+    "category": "short-sleeve",
+    "colour": "Sky blue",
+    "family": "Blue",
+    "motif": "Patchwork blocks",
+    "images": [
+      "/images/products/biru-muara/1.webp",
+      "/images/products/biru-muara/2.webp",
+      "/images/products/biru-muara/3.webp",
+      "/images/products/biru-muara/4.webp",
+      "/images/products/biru-muara/5.webp",
+      "/images/products/biru-muara/6.webp"
+    ]
+  },
+  {
+    "slug": "senja-marun",
+    "name": "Senja Marun",
+    "category": "short-sleeve",
+    "colour": "Maroon",
+    "family": "Red",
+    "motif": "Hand-painted hem panel",
+    "images": [
+      "/images/products/senja-marun/1.webp",
+      "/images/products/senja-marun/2.webp",
+      "/images/products/senja-marun/3.webp",
+      "/images/products/senja-marun/4.webp",
+      "/images/products/senja-marun/5.webp",
+      "/images/products/senja-marun/6.webp"
+    ]
+  },
+  {
+    "slug": "arang-bintik",
+    "name": "Arang Bintik",
+    "category": "short-sleeve",
+    "colour": "Charcoal",
+    "family": "Black & White",
+    "motif": "Speckled print",
+    "images": [
+      "/images/products/arang-bintik/1.webp",
+      "/images/products/arang-bintik/2.webp",
+      "/images/products/arang-bintik/3.webp",
+      "/images/products/arang-bintik/4.webp",
+      "/images/products/arang-bintik/5.webp",
+      "/images/products/arang-bintik/6.webp"
+    ]
+  },
+  {
+    "slug": "kabus-ungu",
+    "name": "Kabus Ungu",
+    "category": "short-sleeve",
+    "colour": "Lilac",
+    "family": "Pink & Purple",
+    "motif": "Marbled wash",
+    "images": [
+      "/images/products/kabus-ungu/1.webp",
+      "/images/products/kabus-ungu/2.webp",
+      "/images/products/kabus-ungu/3.webp",
+      "/images/products/kabus-ungu/4.webp",
+      "/images/products/kabus-ungu/5.webp",
+      "/images/products/kabus-ungu/6.webp"
+    ]
+  },
+  {
+    "slug": "merah-kembang",
+    "name": "Merah Kembang",
+    "category": "short-sleeve",
+    "colour": "Red",
+    "family": "Red",
+    "motif": "Scattered floral",
+    "images": [
+      "/images/products/merah-kembang/1.webp",
+      "/images/products/merah-kembang/2.webp",
+      "/images/products/merah-kembang/3.webp",
+      "/images/products/merah-kembang/4.webp",
+      "/images/products/merah-kembang/5.webp",
+      "/images/products/merah-kembang/6.webp"
+    ]
+  },
+  {
+    "slug": "bulan-nila",
+    "name": "Bulan Nila",
+    "category": "short-sleeve",
+    "colour": "Navy",
+    "family": "Blue",
+    "motif": "Circle motif",
+    "images": [
+      "/images/products/bulan-nila/1.webp",
+      "/images/products/bulan-nila/2.webp",
+      "/images/products/bulan-nila/3.webp",
+      "/images/products/bulan-nila/4.webp",
+      "/images/products/bulan-nila/5.webp",
+      "/images/products/bulan-nila/6.webp"
+    ]
+  },
+  {
+    "slug": "coklat-kilat",
+    "name": "Coklat Kilat",
+    "category": "short-sleeve",
+    "colour": "Brown",
+    "family": "Earth",
+    "motif": "Gold line art",
+    "images": [
+      "/images/products/coklat-kilat/1.webp"
+    ]
+  },
+  {
+    "slug": "terakota",
+    "name": "Terakota",
+    "category": "short-sleeve",
+    "colour": "Terracotta",
+    "family": "Red",
+    "motif": "Swirl print",
+    "images": [
+      "/images/products/terakota/1.webp"
+    ]
+  },
+  {
+    "slug": "petak-ungu",
+    "name": "Petak Ungu",
+    "category": "short-sleeve",
+    "colour": "Purple",
+    "family": "Pink & Purple",
+    "motif": "Block print",
+    "images": [
+      "/images/products/petak-ungu/1.webp"
+    ]
+  },
+  {
+    "slug": "set-malam-kota",
+    "name": "Malam Kota Set",
+    "category": "sets",
+    "colour": "Black & white",
+    "family": "Black & White",
+    "motif": "Mini print shirt & shorts",
+    "images": [
+      "/images/products/set-malam-kota/1.webp",
+      "/images/products/set-malam-kota/2.webp"
+    ]
+  },
+  {
+    "slug": "set-bunga-kertas",
+    "name": "Bunga Kertas Set",
+    "category": "sets",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Leaf print shirt & shorts",
+    "images": [
+      "/images/products/set-bunga-kertas/1.webp"
+    ]
+  },
+  {
+    "slug": "set-kabus-putih",
+    "name": "Kabus Putih Set",
+    "category": "sets",
+    "colour": "White",
+    "family": "Black & White",
+    "motif": "Speckle print shirt & shorts",
+    "images": [
+      "/images/products/set-kabus-putih/1.webp"
+    ]
+  },
+  {
+    "slug": "sarong-jalur-tanah",
+    "name": "Jalur Tanah",
+    "category": "sarong",
+    "colour": "Brown",
+    "family": "Earth",
+    "motif": "Vertical stripes",
+    "images": [
+      "/images/products/sarong-jalur-tanah/1.webp",
+      "/images/products/sarong-jalur-tanah/2.webp",
+      "/images/products/sarong-jalur-tanah/3.webp",
+      "/images/products/sarong-jalur-tanah/4.webp",
+      "/images/products/sarong-jalur-tanah/5.webp",
+      "/images/products/sarong-jalur-tanah/6.webp"
+    ]
+  },
+  {
+    "slug": "sarong-pusaran-nila",
+    "name": "Pusaran Nila",
+    "category": "sarong",
+    "colour": "Navy & pink",
+    "family": "Blue",
+    "motif": "Swirling line motif",
+    "images": [
+      "/images/products/sarong-pusaran-nila/1.webp",
+      "/images/products/sarong-pusaran-nila/2.webp",
+      "/images/products/sarong-pusaran-nila/3.webp",
+      "/images/products/sarong-pusaran-nila/4.webp",
+      "/images/products/sarong-pusaran-nila/5.webp",
+      "/images/products/sarong-pusaran-nila/6.webp"
+    ]
+  },
+  {
+    "slug": "sarong-kisi-ungu",
+    "name": "Kisi Ungu",
+    "category": "sarong",
+    "colour": "Purple",
+    "family": "Pink & Purple",
+    "motif": "Geometric lattice",
+    "images": [
+      "/images/products/sarong-kisi-ungu/1.webp",
+      "/images/products/sarong-kisi-ungu/2.webp",
+      "/images/products/sarong-kisi-ungu/3.webp",
+      "/images/products/sarong-kisi-ungu/4.webp",
+      "/images/products/sarong-kisi-ungu/5.webp",
+      "/images/products/sarong-kisi-ungu/6.webp"
+    ]
+  },
+  {
+    "slug": "sarong-daun-kelam",
+    "name": "Daun Kelam",
+    "category": "sarong",
+    "colour": "Dark olive",
+    "family": "Green",
+    "motif": "Leaf outline",
+    "images": [
+      "/images/products/sarong-daun-kelam/1.webp",
+      "/images/products/sarong-daun-kelam/2.webp",
+      "/images/products/sarong-daun-kelam/3.webp",
+      "/images/products/sarong-daun-kelam/4.webp",
+      "/images/products/sarong-daun-kelam/5.webp"
+    ]
+  },
+  {
+    "slug": "sarong-hijau-pucat",
+    "name": "Hijau Pucat",
+    "category": "sarong",
+    "colour": "Sage",
+    "family": "Green",
+    "motif": "Scattered small motif",
+    "images": [
+      "/images/products/sarong-hijau-pucat/1.webp",
+      "/images/products/sarong-hijau-pucat/2.webp",
+      "/images/products/sarong-hijau-pucat/3.webp",
+      "/images/products/sarong-hijau-pucat/4.webp",
+      "/images/products/sarong-hijau-pucat/5.webp"
+    ]
+  },
+  {
+    "slug": "sarong-biru-laguna",
+    "name": "Biru Laguna",
+    "category": "sarong",
+    "colour": "Turquoise",
+    "family": "Blue",
+    "motif": "Tie-dye wash",
+    "images": [
+      "/images/products/sarong-biru-laguna/1.webp",
+      "/images/products/sarong-biru-laguna/2.webp",
+      "/images/products/sarong-biru-laguna/3.webp",
+      "/images/products/sarong-biru-laguna/4.webp",
+      "/images/products/sarong-biru-laguna/5.webp"
+    ]
+  },
+  {
+    "slug": "sarong-bunga-marun",
+    "name": "Bunga Marun",
+    "category": "sarong",
+    "colour": "Maroon",
+    "family": "Red",
+    "motif": "Large floral",
+    "images": [
+      "/images/products/sarong-bunga-marun/1.webp",
+      "/images/products/sarong-bunga-marun/2.webp",
+      "/images/products/sarong-bunga-marun/3.webp",
+      "/images/products/sarong-bunga-marun/4.webp"
+    ]
+  },
+  {
+    "slug": "sarong-marmar-laut",
+    "name": "Marmar Laut",
+    "category": "sarong",
+    "colour": "Teal & navy",
+    "family": "Blue",
+    "motif": "Marbled swirl",
+    "images": [
+      "/images/products/sarong-marmar-laut/1.webp",
+      "/images/products/sarong-marmar-laut/2.webp",
+      "/images/products/sarong-marmar-laut/3.webp",
+      "/images/products/sarong-marmar-laut/4.webp",
+      "/images/products/sarong-marmar-laut/5.webp"
+    ]
+  },
+  {
+    "slug": "sarong-rintik-jambu",
+    "name": "Rintik Jambu",
+    "category": "sarong",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Dotted chevrons",
+    "images": [
+      "/images/products/sarong-rintik-jambu/1.webp",
+      "/images/products/sarong-rintik-jambu/2.webp",
+      "/images/products/sarong-rintik-jambu/3.webp",
+      "/images/products/sarong-rintik-jambu/4.webp",
+      "/images/products/sarong-rintik-jambu/5.webp"
+    ]
+  },
+  {
+    "slug": "sarong-kotak-biru",
+    "name": "Kotak Biru",
+    "category": "sarong",
+    "colour": "Blue & violet",
+    "family": "Blue",
+    "motif": "Dyed grid",
+    "images": [
+      "/images/products/sarong-kotak-biru/1.webp",
+      "/images/products/sarong-kotak-biru/2.webp",
+      "/images/products/sarong-kotak-biru/3.webp",
+      "/images/products/sarong-kotak-biru/4.webp",
+      "/images/products/sarong-kotak-biru/5.webp"
+    ]
+  },
+  {
+    "slug": "sarong-biru-air",
+    "name": "Biru Air",
+    "category": "sarong",
+    "colour": "Pale blue",
+    "family": "Blue",
+    "motif": "Fine all-over print",
+    "images": [
+      "/images/products/sarong-biru-air/1.webp",
+      "/images/products/sarong-biru-air/2.webp",
+      "/images/products/sarong-biru-air/3.webp",
+      "/images/products/sarong-biru-air/4.webp",
+      "/images/products/sarong-biru-air/5.webp"
+    ]
+  },
+  {
+    "slug": "scarf-lavender-bunga",
+    "name": "Lavender Bunga",
+    "category": "scarves",
+    "colour": "Lilac",
+    "family": "Pink & Purple",
+    "motif": "Floral corner print",
+    "images": [
+      "/images/products/scarf-lavender-bunga/1.webp",
+      "/images/products/scarf-lavender-bunga/2.webp"
+    ]
+  },
+  {
+    "slug": "scarf-kelabu-bunga",
+    "name": "Kelabu Bunga",
+    "category": "scarves",
+    "colour": "Sage grey",
+    "family": "Green",
+    "motif": "Floral corner print",
+    "images": [
+      "/images/products/scarf-kelabu-bunga/1.webp",
+      "/images/products/scarf-kelabu-bunga/2.webp"
+    ]
+  },
+  {
+    "slug": "boxer-ombak-putih",
+    "name": "Ombak Putih",
+    "category": "boxers",
+    "colour": "White & navy",
+    "family": "Blue",
+    "motif": "Abstract print",
+    "images": [
+      "/images/products/boxer-ombak-putih/1.webp",
+      "/images/products/boxer-ombak-putih/2.webp",
+      "/images/products/boxer-ombak-putih/3.webp",
+      "/images/products/boxer-ombak-putih/4.webp",
+      "/images/products/boxer-ombak-putih/5.webp",
+      "/images/products/boxer-ombak-putih/6.webp"
+    ]
+  }
+]

@@ -1,44 +1,86 @@
 /**
  * Site-wide configuration.
  *
- * ADMIN_WHATSAPP: the number that receives order enquiries, in full
+ * ADMIN_WHATSAPP: the number that receives orders (Roslan), in full
  * international format WITHOUT the leading "+" or spaces.
  * Malaysian example: 60 (country code) + 123456789 => "60123456789".
  */
 export const ADMIN_WHATSAPP = "60192224457";
 
 export const BRAND_NAME = "CWSK Enterprises";
+/** Company registration number, as printed on the logo. */
+export const COMPANY_NO = "003317808-T";
 
-/** How a shirt is supplied: uncut fabric, or stitched to size. */
-export type Make = "unstitched" | "stitched";
+/** Public URL of the live site — used for canonical links, sitemap and schema. */
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://fashion-ecommerce-lovat-tau.vercel.app"
+).replace(/\/$/, "");
 
-export const MAKE_LABEL: Record<Make, string> = {
-  unstitched: "Unstitched (fabric only)",
-  stitched: "Stitched to size",
+export const SITE_DESCRIPTION =
+  "Hand-crafted batik shirts, sets and sarongs for men, dyed by artisans in Malaysia. One print, one shirt — order on WhatsApp.";
+
+/** The admin number formatted for display. */
+export const WHATSAPP_DISPLAY = "+60 19-222 4457";
+
+export const whatsappLink = (text?: string) =>
+  `https://wa.me/${ADMIN_WHATSAPP}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
+
+/** Absolute URL for a site path. */
+export const absoluteUrl = (path = "/") =>
+  `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`;
+
+/** Who is buying — collected at checkout. */
+export type Customer = {
+  name: string;
+  phone: string;
+  address: string;
+  city: string;
+  postcode: string;
+  state: string;
+  country: string;
+  notes?: string;
 };
 
-/** Build a WhatsApp "click to chat" link with a pre-filled order message. */
-export function buildWhatsAppOrderUrl(opts: {
-  productName: string;
-  motif: string;
-  price: string;
-  make: Make;
-  /** Only meaningful when make === "stitched". */
+/** One line of the order, already resolved to display strings. */
+export type OrderLine = {
+  name: string;
+  option: string;
   size?: string | null;
-  name?: string;
-  productUrl: string;
-}) {
-  const lines = [
-    `Hi ${BRAND_NAME}! I'd like to order:`,
-    "",
-    `*${opts.productName}* — ${opts.motif}`,
-    `Option: ${MAKE_LABEL[opts.make]}`,
-  ];
-  if (opts.make === "stitched" && opts.size) lines.push(`Size: ${opts.size}`);
-  lines.push(`Price: ${opts.price}`);
-  if (opts.name?.trim()) lines.push("", `Name: ${opts.name.trim()}`);
-  lines.push("", `Product: ${opts.productUrl}`);
+  qty: number;
+  /** "RM 350" or "To be confirmed". */
+  price: string;
+  url: string;
+};
 
-  const text = encodeURIComponent(lines.join("\n"));
-  return `https://wa.me/${ADMIN_WHATSAPP}?text=${text}`;
+/**
+ * Build the WhatsApp "click to chat" link that carries the whole order.
+ *
+ * Payment is manual: the admin replies with a payment QR, the customer sends
+ * back the receipt, and the order ships once payment is confirmed.
+ */
+export function buildWhatsAppOrderUrl(opts: {
+  orderId: string;
+  lines: OrderLine[];
+  total: string;
+  customer: Customer;
+}) {
+  const { customer } = opts;
+  const out = [`Hi ${BRAND_NAME}! I'd like to place an order.`, "", `*ORDER ${opts.orderId}*`];
+  opts.lines.forEach((l, i) => {
+    out.push(`${i + 1}. ${l.name} — ${l.option}${l.size ? `, size ${l.size}` : ""}`);
+    out.push(`   Qty ${l.qty} × ${l.price}`);
+    out.push(`   ${l.url}`);
+  });
+  out.push(`*Total: ${opts.total}*`);
+  out.push(
+    "",
+    "*DELIVER TO*",
+    `Name: ${customer.name.trim()}`,
+    `Phone: ${customer.phone.trim()}`,
+    `Address: ${customer.address.trim()}`,
+    `${customer.postcode.trim()} ${customer.city.trim()}, ${customer.state.trim()}, ${customer.country.trim()}`
+  );
+  if (customer.notes?.trim()) out.push(`Notes: ${customer.notes.trim()}`);
+  out.push("", "Please send the payment QR. I'll share the receipt once paid.");
+  return whatsappLink(out.join("\n"));
 }
