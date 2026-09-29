@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import CartView from "@/components/CartView";
-import PageHeader from "@/components/PageHeader";
+import { Breadcrumbs } from "@/components/PageHeader";
 
 export const metadata: Metadata = {
   title: "Your Cart",
@@ -11,13 +11,18 @@ export const metadata: Metadata = {
 
 export default function CartPage() {
   return (
-    <>
-      <PageHeader crumbs={[{ name: "Cart", path: "/cart" }]} eyebrow="Your selection" title={<>Shopping <em className="text-primary">Cart</em></>} />
-      <section className="bg-cream-light py-14 lg:py-20">
-        <div className="container-lux">
-          <CartView />
+    // No hero — the trail and a compact title, then straight into the cart.
+    <section className="bg-cream-light pb-14 pt-6 lg:pb-20 lg:pt-8">
+      <div className="container-lux">
+        <Breadcrumbs items={[{ name: "Cart", path: "/cart" }]} />
+        <div className="mb-8 mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 lg:mb-10 lg:mt-5">
+          <h1 className="font-serif text-3xl font-medium text-ink sm:text-4xl">Shopping Cart</h1>
+          <p className="text-[13px] uppercase tracking-[0.16em] text-muted">
+            Checkout on WhatsApp · Pay by QR
+          </p>
         </div>
-      </section>
-    </>
+        <CartView />
+      </div>
+    </section>
   );
 }

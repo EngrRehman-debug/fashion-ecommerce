@@ -1,19 +1,34 @@
 {
   "testimonials": [
     {
-      "text": "The fabric is unlike any shirt I own — it breathes like cotton but falls like silk. I've had endless compliments, and no two people have the same print.",
-      "name": "Daniyal Rehman",
-      "role": "Karachi"
+      "text": "Wore my Batik Pawang to a Hari Raya open house and lost count of the compliments. It breathes in the heat and no one else had the same print.",
+      "name": "Amirul Hakim",
+      "role": "Kuala Lumpur",
+      "bg": "#B4533A"
     },
     {
-      "text": "You can feel the hand-work in it. The stitching, the weight, the way the colour sits in the cloth. This is a grown man's shirt, not a novelty print.",
-      "name": "Omar Sheikh",
-      "role": "Dubai"
+      "text": "You can feel the hand-work in it — the weight, the way the colour sits in the cloth. A grown man's shirt, not a novelty print.",
+      "name": "Tan Wei Jie",
+      "role": "George Town, Penang",
+      "bg": "#1E5E5B"
     },
     {
-      "text": "I bought one for a wedding and now I reach for it constantly. Knowing it's one of one makes it feel like something worth keeping.",
-      "name": "Arjun Mehta",
-      "role": "London"
+      "text": "Bought one for my brother's wedding and now I reach for it every Batik Thursday at the office. Knowing it's one of one makes it special.",
+      "name": "Arvind Raj",
+      "role": "Johor Bahru",
+      "bg": "#22386E"
+    },
+    {
+      "text": "Ordered on WhatsApp, paid by QR, and the shirt reached Sabah well packed. The stitching to my size was spot on.",
+      "name": "Faizal Rahman",
+      "role": "Kota Kinabalu, Sabah",
+      "bg": "#6E2F5A"
+    },
+    {
+      "text": "The short-sleeve is my weekend shirt now — pure cotton, cool in Ipoh's heat, and the print gets people talking.",
+      "name": "Daniel Lim",
+      "role": "Ipoh, Perak",
+      "bg": "#5B6630"
     }
   ]
 }

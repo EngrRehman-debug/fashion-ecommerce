@@ -7,92 +7,103 @@ import { ArrowRight } from "./icons";
 /** Ranges ordered by how many designs they hold — the biggest gets the feature tile. */
 const RANGES = [...CATEGORIES].sort((a, b) => productsIn(b.id).length - productsIn(a.id).length);
 
+type Size = "feature" | "tall" | "small" | "wide";
+
 /**
- * One grid for heading + tiles.
- *
- * Mobile (6 cols):            Desktop (12 cols, rows: heading / top / bottom):
- *   [ feature  ][ 1 ]           [ heading   ][ 1  ][ 2  ]
- *   [          ][ 2 ]           [ feature   ][    ][    ]
- *   [  3  ][  4  ]              [           ][ 3 ][ 4 ][ 5 ]
- *   [     5      ]
+ * Mobile (6 cols):            Desktop (12 cols, 2 rows, full-height feature):
+ *   [ feature  ][ 1 ]           [ feature   ][ 1  ][ 2  ]
+ *   [          ][ 2 ]           [           ][ 3 ][ 4 ][ 5 ]
+ *   [  3  ][  4  ]
+ *   [     5      ]   ← wide, with its tagline
  */
-const PLACEMENT = [
-  // feature
-  "col-span-4 row-span-2 lg:col-span-6 lg:col-start-1 lg:row-span-2 lg:row-start-2",
-  // top-right pair — start level with the heading on desktop
-  "col-span-2 aspect-[3/4] lg:col-span-3 lg:col-start-7 lg:row-span-2 lg:row-start-1",
-  "col-span-2 aspect-[3/4] lg:col-span-3 lg:col-start-10 lg:row-span-2 lg:row-start-1",
-  // bottom-right three
-  "col-span-3 aspect-[4/5] lg:col-span-2 lg:col-start-7 lg:row-start-3",
-  "col-span-3 aspect-[4/5] lg:col-span-2 lg:col-start-9 lg:row-start-3",
-  "col-span-6 aspect-[16/7] lg:col-span-2 lg:col-start-11 lg:row-start-3",
+const PLACEMENT: { cls: string; size: Size }[] = [
+  { cls: "col-span-4 row-span-2 lg:col-span-6 lg:row-span-2", size: "feature" },
+  { cls: "col-span-2 aspect-[3/4] lg:col-span-3", size: "tall" },
+  { cls: "col-span-2 aspect-[3/4] lg:col-span-3", size: "tall" },
+  { cls: "col-span-3 aspect-[4/5] lg:col-span-2", size: "small" },
+  { cls: "col-span-3 aspect-[4/5] lg:col-span-2", size: "small" },
+  { cls: "col-span-6 aspect-[4/3] sm:aspect-[16/9] lg:col-span-2", size: "wide" },
 ];
-const EXTRA = "col-span-3 aspect-[4/5] lg:col-span-4"; // any range beyond six
+const EXTRA = { cls: "col-span-3 aspect-[4/5] lg:col-span-4", size: "small" as Size };
 
 export default function CategoryTiles() {
   return (
     <section className="bg-cream-light py-20 lg:py-28">
       <div className="container-lux">
-        <Stagger className="grid grid-cols-6 gap-3 sm:gap-4 lg:h-[min(96vh,940px)] lg:grid-cols-12 lg:grid-rows-[auto_minmax(0,1.15fr)_minmax(0,1fr)]">
-          <div className="col-span-6 mb-6 lg:col-span-6 lg:col-start-1 lg:row-start-1 lg:mb-4">
-            <SectionHeading
-              eyebrow="Shop by range"
-              title={
-                <>
-                  {RANGES.length} ways to wear <em className="text-primary">batik</em>
-                </>
-              }
-              intro="From our signature long-sleeve Batik Pawang to ready-made short-sleeves, full-length sarongs and matching sets."
-            />
-            <Link href="/shop" className="link-underline mt-6 inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.18em] text-ink">
-              View everything <ArrowRight className="h-4 w-4" />
+        <SectionHeading
+          eyebrow="Shop by range"
+          title={
+            <>
+              {RANGES.length} ways to wear <em className="text-primary">batik</em>
+            </>
+          }
+          intro="From our signature long-sleeve Batik Pawang to ready-made short-sleeves, full-length sarongs and matching sets."
+          action={
+            <Link href="/shop" className="btn-outline">
+              <span>View everything</span>
             </Link>
-          </div>
+          }
+        />
 
-          {RANGES.map((c, i) => (
-            <StaggerItem key={c.id} className={`${PLACEMENT[i] ?? EXTRA} lg:aspect-auto`}>
-              <Tile category={c} feature={i === 0} compact={i >= 3} />
-            </StaggerItem>
-          ))}
+        <Stagger className="mt-10 grid grid-cols-6 gap-3 sm:gap-4 lg:mt-14 lg:h-[min(88vh,860px)] lg:grid-cols-12 lg:grid-rows-[minmax(0,1.15fr)_minmax(0,1fr)]">
+          {RANGES.map((c, i) => {
+            const p = PLACEMENT[i] ?? EXTRA;
+            return (
+              <StaggerItem key={c.id} className={`${p.cls} lg:aspect-auto`}>
+                <Tile category={c} size={p.size} />
+              </StaggerItem>
+            );
+          })}
         </Stagger>
       </div>
     </section>
   );
 }
 
-function Tile({ category: c, feature, compact }: { category: Category; feature: boolean; compact: boolean }) {
+function Tile({ category: c, size }: { category: Category; size: Size }) {
+  const big = size === "feature";
+  const showTagline = size === "feature" || size === "wide";
   return (
     <Link href={`/shop?category=${c.id}`} className="group relative block h-full overflow-hidden bg-cream">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src={feature ? categoryCover(c) : thumb(categoryCover(c))}
+        src={big ? categoryCover(c) : thumb(categoryCover(c))}
         alt={`${c.name} by CWSK Enterprises`}
         loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover object-[center_15%] transition-transform duration-[1400ms] ease-lux group-hover:scale-[1.06]"
+        className="absolute inset-0 h-full w-full object-cover object-[center_12%] transition-transform duration-[1400ms] ease-lux group-hover:scale-[1.06]"
       />
-      <span className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/5 to-transparent" />
-      <div className={`absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 ${compact ? "p-3 sm:p-5" : "p-3.5 sm:p-6 lg:p-7"}`}>
-        <div className="min-w-0">
-          <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-cream-light/75 sm:text-xs">
-            {designs(productsIn(c.id).length)}
-          </p>
-          <h3
-            className={`mt-1 font-serif leading-[0.95] text-cream-light ${
-              feature ? "text-3xl sm:text-5xl lg:text-6xl" : compact ? "text-xl sm:text-2xl" : "text-lg sm:text-3xl"
-            }`}
-          >
-            {c.name}
-          </h3>
-          {feature && (
-            <p className="mt-3 hidden max-w-sm text-[15px] leading-relaxed text-cream-light/75 lg:block">{c.tagline}</p>
-          )}
-        </div>
-        <span
-          className={`hidden shrink-0 items-center justify-center rounded-full border border-cream-light/50 text-cream-light transition-all duration-500 group-hover:rotate-[-45deg] group-hover:border-cream-light group-hover:bg-cream-light group-hover:text-ink sm:flex ${
-            compact ? "h-10 w-10" : "h-12 w-12 lg:h-14 lg:w-14"
+      {/* Strong bottom shade so the white text reads on any photo */}
+      <span className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/45 via-35% to-transparent to-65%" />
+
+      <div className={`absolute inset-x-0 bottom-0 text-white [text-shadow:0_1px_12px_rgba(0,0,0,0.45)] ${big ? "p-4 sm:p-7 lg:p-9" : "p-3 sm:p-5"}`}>
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white sm:text-xs">
+          {designs(productsIn(c.id).length)}
+        </p>
+        <h3
+          className={`mt-1 font-serif font-medium leading-[0.95] text-white ${
+            big ? "text-3xl sm:text-5xl lg:text-7xl" : size === "wide" ? "text-3xl sm:text-3xl lg:text-2xl" : "text-lg sm:text-2xl lg:text-3xl"
           }`}
         >
-          <ArrowRight className="h-5 w-5" />
+          {c.name}
+        </h3>
+        {showTagline && (
+          <p
+            className={`mt-2 max-w-md text-[13px] leading-relaxed text-white/95 sm:text-[15px] ${
+              size === "wide" ? "lg:hidden" : "hidden sm:block"
+            }`}
+          >
+            {c.tagline}
+          </p>
+        )}
+
+        {/* The anchor: a clear "shop" call on every tile */}
+        <span
+          className={`mt-3 inline-flex items-center gap-2 border-b border-white/70 pb-1 font-semibold uppercase tracking-[0.18em] text-white transition-all duration-500 group-hover:gap-3 group-hover:border-white ${
+            big ? "text-[12px] sm:mt-5 sm:text-[13px]" : "text-[10px] sm:text-[11px]"
+          }`}
+        >
+          Shop {size === "tall" || size === "small" ? "" : c.name}
+          <ArrowRight className="h-3.5 w-3.5" />
         </span>
       </div>
     </Link>

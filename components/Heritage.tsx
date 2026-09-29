@@ -1,11 +1,15 @@
 import Link from "next/link";
-import SmartImage from "./SmartImage";
-import Reveal, { Stagger, StaggerItem } from "./Reveal";
+import RotatingShot, { type Slide } from "./RotatingShot";
+import Reveal from "./Reveal";
+import ProcessSteps from "./ProcessSteps";
 import { IMAGES } from "@/lib/images";
-import heritage from "@/data/heritage.json";
-import { ArrowRight } from "./icons";
+import { categorySlides } from "@/lib/catalog";
 
-const { steps } = heritage;
+const pawang = categorySlides("batik-pawang", 12);
+const editorial = (src: string, alt: string): Slide => ({ src, alt, href: IMAGES.heritageHref, name: "Batik Pawang" });
+const SHOTS_A = [editorial(IMAGES.heritageA, "Close-up of a hand-dyed batik shirt"), ...pawang.slice(4, 8)];
+const SHOTS_B = [editorial(IMAGES.heritageB, "Batik shirt worn"), ...pawang.slice(8, 12)];
+import { ArrowRight } from "./icons";
 
 export default function Heritage() {
   return (
@@ -14,21 +18,12 @@ export default function Heritage() {
         <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
           {/* Offset image pair */}
           <Reveal className="relative grid grid-cols-2 gap-4 sm:gap-6">
-            <div className="aspect-[3/4] overflow-hidden">
-              <SmartImage
-                src={IMAGES.heritageA}
-                fallback={IMAGES.fallback}
-                alt="Close-up of a hand-dyed batik shirt"
-                className="h-full w-full object-cover object-top transition-transform duration-[1400ms] ease-lux hover:scale-105"
-              />
+            {/* Both photos cycle through Batik Pawang, out of step with each other. */}
+            <div className="aspect-[3/4]">
+              <RotatingShot slides={SHOTS_A} every={3200} offset={1600} tag="Shop {name}" />
             </div>
-            <div className="mt-16 aspect-[3/4] overflow-hidden sm:mt-24">
-              <SmartImage
-                src={IMAGES.heritageB}
-                fallback={IMAGES.fallback}
-                alt="Batik shirt worn"
-                className="h-full w-full object-cover object-top transition-transform duration-[1400ms] ease-lux hover:scale-105"
-              />
+            <div className="mt-16 aspect-[3/4] sm:mt-24">
+              <RotatingShot slides={SHOTS_B} every={3200} offset={3200} tag="Shop {name}" />
             </div>
             <p className="absolute -bottom-4 left-0 font-serif text-[5.5rem] italic leading-none text-gold-light/80 sm:text-[8rem]">
               01
@@ -59,17 +54,7 @@ export default function Heritage() {
         </div>
 
         {/* Process steps */}
-        <Stagger className="mt-20 grid gap-px bg-cream-light/15 md:grid-cols-3 lg:mt-28">
-          {steps.map((step) => (
-            <StaggerItem key={step.n} className="group bg-ink p-8 transition-colors duration-500 hover:bg-[#1c1f25] lg:p-10">
-              <p className="font-serif text-5xl italic text-gold-light transition-transform duration-500 group-hover:-translate-y-1">
-                {step.n}
-              </p>
-              <h3 className="mt-6 font-serif text-3xl text-cream-light">{step.title}</h3>
-              <p className="mt-4 text-[16px] leading-relaxed text-cream-light/70">{step.body}</p>
-            </StaggerItem>
-          ))}
-        </Stagger>
+        <ProcessSteps className="mt-16 lg:mt-28" />
       </div>
     </section>
   );

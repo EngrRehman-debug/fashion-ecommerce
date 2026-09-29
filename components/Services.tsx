@@ -19,9 +19,9 @@ const services = data.services as {
 
 export default function Services({ className = "bg-cream-light" }: { className?: string }) {
   return (
-    <section className={`border-y border-line py-14 lg:py-20 ${className}`}>
+    <section className={`border-y border-line py-10 lg:py-16 ${className}`}>
       <div className="container-lux">
-        <Stagger className="grid grid-cols-2 gap-x-5 gap-y-10 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-line">
+        <Stagger className="grid grid-cols-2 gap-x-5 gap-y-7 lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-line">
           {services.map((service) => {
             const Icon = ICONS[service.icon];
             return (

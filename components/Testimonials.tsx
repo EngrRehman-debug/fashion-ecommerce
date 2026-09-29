@@ -38,7 +38,7 @@ export default function Testimonials() {
 
 function Row({ items, reverse = false, className = "flex" }: { items: T[]; reverse?: boolean; className?: string }) {
   // Enough copies to overfill wide screens; the track scrolls by exactly half.
-  const half = Array.from({ length: 4 }, () => items).flat();
+  const half = Array.from({ length: Math.max(2, Math.ceil(12 / items.length)) }, () => items).flat();
   return (
     <div className={`group ${className}`}>
       <div
@@ -55,21 +55,34 @@ function Row({ items, reverse = false, className = "flex" }: { items: T[]; rever
   );
 }
 
+/** "Amirul Hakim" → "AH". */
+const initials = (name: string) =>
+  name
+    .split(/\s+/)
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+
+/** Each review sits on its own colour (set as `bg` in data/testimonials.json). */
 function Card({ item, hidden }: { item: T; hidden: boolean }) {
   return (
     <figure
       aria-hidden={hidden || undefined}
-      className="flex w-[300px] shrink-0 flex-col border border-line bg-white p-7 transition-all duration-500 hover:-translate-y-1 hover:border-ink/25 hover:shadow-card sm:w-[420px] lg:p-9"
+      style={{ backgroundColor: item.bg }}
+      className="relative flex w-[300px] shrink-0 flex-col overflow-hidden p-7 text-white shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-card sm:w-[420px] lg:p-9"
     >
-      <QuoteMark className="h-6 w-6 text-gold" />
-      <blockquote className="mt-5 flex-1 font-serif text-[20px] leading-snug text-ink sm:text-[22px]">“{item.text}”</blockquote>
-      <figcaption className="mt-7 flex items-center gap-4 border-t border-line pt-5">
-        <span className="flex h-11 w-11 items-center justify-center rounded-full bg-ink font-serif text-lg text-cream-light">
-          {item.name.charAt(0)}
+      {/* Soft light in the corner, like cloth catching the sun */}
+      <span aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/10 blur-2xl" />
+      <QuoteMark className="relative h-6 w-6 text-gold-light" />
+      <blockquote className="relative mt-5 flex-1 font-serif text-[20px] leading-snug text-white sm:text-[22px]">“{item.text}”</blockquote>
+      <figcaption className="relative mt-7 flex items-center gap-4 border-t border-white/20 pt-5">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/40 bg-white/15 font-serif text-lg tracking-wide text-white backdrop-blur-sm">
+          {initials(item.name)}
         </span>
         <span>
-          <span className="block text-[15px] font-medium text-ink">{item.name}</span>
-          <span className="block text-[13px] uppercase tracking-[0.16em] text-muted">{item.role}</span>
+          <span className="block text-[15px] font-medium text-white">{item.name}</span>
+          <span className="block text-[13px] uppercase tracking-[0.16em] text-white/70">{item.role}</span>
         </span>
       </figcaption>
     </figure>

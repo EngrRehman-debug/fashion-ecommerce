@@ -1,5 +1,6 @@
 /**
- * Editorial imagery — hero, heritage, newsletter and about sections.
+ * Editorial imagery — hero, heritage and newsletter sections. Product photos
+ * that rotate in those sections come from the catalogue (categorySlides).
  *
  * These are the styled lifestyle shots (shirt-01..14). Journal card images
  * are set in data/journal.json. Everything that is actually *sold* lives in
@@ -11,11 +12,12 @@ const img = (n: number) =>
 
 export const IMAGES = {
   hero: img(1), // green geometric, styled
-  heroDetail: "/images/products/senja-marun/1.webp", // studio shoot, short sleeve
+  // Where the photo anchors ("Shop the look") lead.
+  heroHref: "/shop?category=batik-pawang",
+  heritageHref: "/shop?category=batik-pawang",
   heritageA: img(5), // teal patchwork, styled
   heritageB: img(14), // brown, styled
   newsletter: "/images/products/set-bunga-kertas/1.webp", // lifestyle shoot
-  about: "/images/products/bulan-nila/1.webp", // studio shoot
   logo: "/images/logo.webp",
   fallback: "/images/hero.svg",
 } as const;
