@@ -15,7 +15,9 @@ import {
 } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 import OptionPicker, { QtyStepper } from "./OptionPicker";
+import CardImage from "./CardImage";
 import Highlight from "./Highlight";
+import { startNavigationLoader } from "./NavigationLoader";
 import { ArrowRight, BagIcon, CloseIcon, SearchIcon, TrashIcon } from "./icons";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -248,6 +250,7 @@ function SearchPanel() {
     e.preventDefault();
     if (!q.trim()) return;
     close();
+    startNavigationLoader();
     router.push(`/shop?q=${encodeURIComponent(q.trim())}`);
   };
 
@@ -312,9 +315,8 @@ function SearchPanel() {
                 {results.slice(0, 12).map((p) => (
                   <li key={p.slug}>
                     <Link href={`/shop/${p.slug}`} onClick={close} className="group block">
-                      <div className="aspect-[3/4] overflow-hidden bg-cream">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={thumb(p.images[0])} alt={p.name} className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+                      <div className="relative aspect-[3/4] overflow-hidden bg-cream">
+                        <CardImage src={thumb(p.images[0])} alt={p.name} className="h-full w-full object-cover object-top transition-all duration-700 group-hover:scale-105" />
                       </div>
                       <p className="mt-2 font-serif text-lg leading-tight text-ink group-hover:text-primary">
                         <Highlight text={p.name} query={q} />

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { formatMYR, type Category, type Product } from "@/lib/catalog";
 import { MAX_QTY, useCart } from "@/lib/cart";
 import OptionPicker, { QtyStepper } from "./OptionPicker";
+import { startNavigationLoader } from "./NavigationLoader";
 import { BagIcon, CheckIcon, QrIcon, ReturnIcon, TruckIcon } from "./icons";
 
 /** Option/size/quantity picker with Add to Cart and Buy Now, for the product page. */
@@ -80,7 +81,9 @@ export default function PurchasePanel({ product, category }: { product: Product;
         </button>
         <button
           onClick={() => {
-            if (addToCart()) router.push("/checkout");
+            if (!addToCart()) return;
+            startNavigationLoader();
+            router.push("/checkout");
           }}
           className="btn-outline w-full"
         >

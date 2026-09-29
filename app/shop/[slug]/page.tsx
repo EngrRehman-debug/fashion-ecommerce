@@ -11,6 +11,7 @@ import Accordion from "@/components/Accordion";
 import { ArrowRight } from "@/components/icons";
 import { PRODUCTS, formatMYR, fromPrice, getCategory, getProduct } from "@/lib/catalog";
 import { pageMetadata, productSchema } from "@/lib/seo";
+import { colourSwatch } from "@/lib/colors";
 import { PRODUCT_GRID } from "@/lib/ui";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -83,7 +84,15 @@ export default async function ProductPage({ params }: Params) {
                 {product.name}
               </h1>
               <p className="mt-4 text-[17px] text-ink-soft">
-                {product.motif} · {product.colour}
+                {product.motif} ·{" "}
+                <span className="inline-flex items-center gap-1.5 align-middle">
+                  <span
+                    aria-hidden
+                    className="h-3.5 w-3.5 rounded-full border border-ink/15"
+                    style={{ background: colourSwatch(product.colour, product.family) }}
+                  />
+                  {product.colour}
+                </span>
               </p>
 
               <div className="mt-8">
@@ -97,7 +106,20 @@ export default async function ProductPage({ params }: Params) {
                     {details.map(([label, value]) => (
                       <div key={label} className="contents">
                         <dt className="text-muted">{label}</dt>
-                        <dd className="text-ink">{value}</dd>
+                        <dd className="text-ink">
+                          {label === "Colour" ? (
+                            <span className="inline-flex items-center gap-2.5">
+                              <span
+                                aria-hidden
+                                className="h-4 w-4 shrink-0 rounded-full border border-ink/15 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.35)]"
+                                style={{ background: colourSwatch(product.colour, product.family) }}
+                              />
+                              {value}
+                            </span>
+                          ) : (
+                            value
+                          )}
+                        </dd>
                       </div>
                     ))}
                   </dl>

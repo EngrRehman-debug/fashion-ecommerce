@@ -61,6 +61,7 @@ export default function Slider({
     const dx = e.clientX - d.x;
     if (Math.abs(dx) > 4 && !d.moved) {
       d.moved = true;
+      el.dataset.dragging = "true";
       el.style.scrollSnapType = "none";
       el.style.cursor = "grabbing";
     }
@@ -73,7 +74,10 @@ export default function Slider({
       el.style.cursor = "";
     }
     // Keep `moved` for one tick so the click that ends a drag doesn't open a link.
-    window.setTimeout(() => (drag.current = null), 0);
+    window.setTimeout(() => {
+      drag.current = null;
+      if (el) delete el.dataset.dragging;
+    }, 0);
   };
 
   const btn = `flex h-12 w-12 items-center justify-center rounded-full border transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-30 ${

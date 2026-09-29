@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { cardPriceText, getCategory, thumb, type Product } from "@/lib/catalog";
 import { needsChoice, useCart } from "@/lib/cart";
+import CardImage from "./CardImage";
 import Highlight from "./Highlight";
 import { BagIcon, PlusIcon } from "./icons";
 
@@ -34,8 +35,7 @@ export default function ProductCard({
     <article className="group relative">
       <div className="relative aspect-[3/4] overflow-hidden bg-cream">
         <Link href={href} aria-label={product.name} className="absolute inset-0 block">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <CardImage
             src={thumb(product.images[0])}
             alt={alt}
             loading={priority ? "eager" : "lazy"}

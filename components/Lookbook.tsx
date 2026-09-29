@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PRODUCTS, cardPriceText, getCategory, thumb } from "@/lib/catalog";
 import SectionHeading from "./SectionHeading";
 import Slider from "./Slider";
+import CardImage from "./CardImage";
 import { ArrowRight } from "./icons";
 
 /** Products with a full photoshoot (several photos) — the studio lookbook. */
@@ -37,13 +38,10 @@ export default function Lookbook() {
             className="group relative block w-[72vw] shrink-0 snap-start sm:w-[340px] lg:w-[380px]"
           >
             <div className="relative aspect-[3/4] overflow-hidden bg-cream-dark">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <CardImage
                 src={thumb(p.images.at(-1)!)}
                 alt={`${p.name} — studio lookbook`}
-                loading="lazy"
-                draggable={false}
-                className="h-full w-full select-none object-cover object-top transition-transform duration-[1400ms] ease-lux group-hover:scale-105"
+                className="h-full w-full select-none object-cover object-top transition-all duration-[1400ms] ease-lux group-hover:scale-105"
               />
               <span className="absolute left-3 top-3 bg-cream-light/90 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.16em] text-ink backdrop-blur-sm">
                 {p.images.length} looks

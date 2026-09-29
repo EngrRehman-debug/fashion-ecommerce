@@ -4,6 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Overlays from "@/components/Overlays";
+import NavigationLoader from "@/components/NavigationLoader";
+import { Suspense } from "react";
 import JsonLd from "@/components/JsonLd";
 import { CartProvider } from "@/lib/cart";
 import { organizationSchema, websiteSchema } from "@/lib/seo";
@@ -75,6 +77,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main id="main">{children}</main>
           <Footer />
           <Overlays />
+          {/* useSearchParams needs a Suspense boundary */}
+          <Suspense fallback={null}>
+            <NavigationLoader />
+          </Suspense>
         </CartProvider>
       </body>
     </html>

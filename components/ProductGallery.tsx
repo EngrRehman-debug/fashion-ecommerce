@@ -55,7 +55,7 @@ export default function ProductGallery({ images, alt }: { images: string[]; alt:
     // Desktop: thumbnails stand in a column beside the photo, and the photo is
     // sized to the screen height so the whole shot is visible without scrolling.
     <div
-      className="lg:sticky lg:top-28 lg:flex lg:items-start lg:justify-center lg:gap-3"
+      className="lg:sticky lg:top-[calc(var(--header-h,97px)+24px)] lg:flex lg:items-start lg:justify-center lg:gap-3 lg:self-start"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}

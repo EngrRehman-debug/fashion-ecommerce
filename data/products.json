@@ -3,8 +3,8 @@
     "slug": "rimba-emas",
     "name": "Rimba Emas",
     "category": "batik-pawang",
-    "colour": "Olive",
-    "family": "Green",
+    "colour": "Olive brown",
+    "family": "Earth",
     "motif": "Scaled leaf motif",
     "images": [
       "/images/products/rimba-emas/1.webp"
@@ -25,8 +25,8 @@
     "slug": "senja-nila",
     "name": "Senja Nila",
     "category": "batik-pawang",
-    "colour": "Navy",
-    "family": "Blue",
+    "colour": "Navy multicolour",
+    "family": "Multi",
     "motif": "Swirled dusk motif",
     "images": [
       "/images/products/senja-nila/1.webp"
@@ -91,8 +91,8 @@
     "slug": "nyala-senja",
     "name": "Nyala Senja",
     "category": "batik-pawang",
-    "colour": "Red",
-    "family": "Red",
+    "colour": "Purple & red",
+    "family": "Multi",
     "motif": "Swirled ember motif",
     "images": [
       "/images/products/nyala-senja/1.webp"
@@ -124,8 +124,8 @@
     "slug": "kayu-tua",
     "name": "Kayu Tua",
     "category": "batik-pawang",
-    "colour": "Brown",
-    "family": "Earth",
+    "colour": "Mauve",
+    "family": "Pink & Purple",
     "motif": "Aged paisley motif",
     "images": [
       "/images/products/kayu-tua/1.webp"
@@ -135,8 +135,8 @@
     "slug": "tanah-merah",
     "name": "Tanah Merah",
     "category": "batik-pawang",
-    "colour": "Maroon",
-    "family": "Red",
+    "colour": "Maroon & gold",
+    "family": "Multi",
     "motif": "Earth patchwork motif",
     "images": [
       "/images/products/tanah-merah/1.webp"
@@ -146,8 +146,8 @@
     "slug": "emas-malam",
     "name": "Emas Malam",
     "category": "batik-pawang",
-    "colour": "Black",
-    "family": "Black & White",
+    "colour": "Black & gold",
+    "family": "Earth",
     "motif": "Gilded night motif",
     "images": [
       "/images/products/emas-malam/1.webp"
@@ -190,8 +190,8 @@
     "slug": "karat-hutan",
     "name": "Karat Hutan",
     "category": "batik-pawang",
-    "colour": "Rust",
-    "family": "Red",
+    "colour": "Rust brown",
+    "family": "Earth",
     "motif": "Forest geometric motif",
     "images": [
       "/images/products/karat-hutan/1.webp"
@@ -234,8 +234,8 @@
     "slug": "delima-biru",
     "name": "Delima Biru",
     "category": "batik-pawang",
-    "colour": "Maroon",
-    "family": "Red",
+    "colour": "Maroon & blue",
+    "family": "Multi",
     "motif": "Fanned lattice motif",
     "images": [
       "/images/products/delima-biru/1.webp",
@@ -246,8 +246,8 @@
     "slug": "sulaman-emas",
     "name": "Sulaman Emas",
     "category": "batik-pawang",
-    "colour": "Maroon",
-    "family": "Red",
+    "colour": "Dark multicolour",
+    "family": "Multi",
     "motif": "Gold embroidery motif",
     "images": [
       "/images/products/sulaman-emas/1.webp",
@@ -270,8 +270,8 @@
     "slug": "rumbia-malam",
     "name": "Rumbia Malam",
     "category": "batik-pawang",
-    "colour": "Teal",
-    "family": "Blue",
+    "colour": "Dark teal",
+    "family": "Green",
     "motif": "Midnight frond motif",
     "images": [
       "/images/products/rumbia-malam/1.webp",
@@ -307,7 +307,7 @@
     "name": "Nyala Jingga",
     "category": "batik-pawang",
     "colour": "Orange",
-    "family": "Red",
+    "family": "Earth",
     "motif": "Blazing lattice motif",
     "images": [
       "/images/products/nyala-jingga/1.webp",
@@ -330,8 +330,8 @@
     "slug": "hutan-pirus",
     "name": "Hutan Pirus",
     "category": "batik-pawang",
-    "colour": "Teal",
-    "family": "Blue",
+    "colour": "Teal green",
+    "family": "Green",
     "motif": "Forest patch motif",
     "images": [
       "/images/products/hutan-pirus/1.webp",
@@ -378,8 +378,8 @@
     "slug": "malam-neon",
     "name": "Malam Neon",
     "category": "batik-pawang",
-    "colour": "Multi",
-    "family": "Multi",
+    "colour": "Plum",
+    "family": "Pink & Purple",
     "motif": "Neon grid motif",
     "images": [
       "/images/products/malam-neon/1.webp",
@@ -426,8 +426,8 @@
     "slug": "senja-gelap",
     "name": "Senja Gelap",
     "category": "batik-pawang",
-    "colour": "Maroon",
-    "family": "Red",
+    "colour": "Deep purple",
+    "family": "Pink & Purple",
     "motif": "Dark dusk motif",
     "images": [
       "/images/products/senja-gelap/1.webp",
@@ -449,8 +449,8 @@
     "slug": "rantai-emas",
     "name": "Rantai Emas",
     "category": "batik-pawang",
-    "colour": "Maroon",
-    "family": "Red",
+    "colour": "Plum & gold",
+    "family": "Pink & Purple",
     "motif": "Gold chain motif",
     "images": [
       "/images/products/rantai-emas/1.webp"
@@ -460,8 +460,8 @@
     "slug": "mandala-ungu",
     "name": "Mandala Ungu",
     "category": "batik-pawang",
-    "colour": "Purple",
-    "family": "Pink & Purple",
+    "colour": "Multicolour",
+    "family": "Multi",
     "motif": "Mandala burst motif",
     "images": [
       "/images/products/mandala-ungu/1.webp"
@@ -482,8 +482,8 @@
     "slug": "ungu-malam",
     "name": "Ungu Malam",
     "category": "batik-pawang",
-    "colour": "Purple",
-    "family": "Pink & Purple",
+    "colour": "Navy & magenta",
+    "family": "Blue",
     "motif": "Diagonal dusk motif",
     "images": [
       "/images/products/ungu-malam/1.webp"
@@ -559,8 +559,8 @@
     "slug": "senja-tembaga",
     "name": "Senja Tembaga",
     "category": "batik-pawang",
-    "colour": "Brown",
-    "family": "Earth",
+    "colour": "Plum",
+    "family": "Pink & Purple",
     "motif": "Copper dusk motif",
     "images": [
       "/images/products/senja-tembaga/1.webp"
@@ -581,8 +581,8 @@
     "slug": "kelabu-biru",
     "name": "Kelabu Biru",
     "category": "batik-pawang",
-    "colour": "Grey",
-    "family": "Black & White",
+    "colour": "Grey blue",
+    "family": "Blue",
     "motif": "Mixed patch motif",
     "images": [
       "/images/products/kelabu-biru/1.webp"
@@ -592,8 +592,8 @@
     "slug": "coklat-diraja",
     "name": "Coklat Diraja",
     "category": "batik-pawang",
-    "colour": "Brown",
-    "family": "Earth",
+    "colour": "Multicolour",
+    "family": "Multi",
     "motif": "Royal brown motif",
     "images": [
       "/images/products/coklat-diraja/1.webp"
@@ -724,7 +724,7 @@
     "slug": "segitiga-malam",
     "name": "Segitiga Malam",
     "category": "batik-pawang",
-    "colour": "Black",
+    "colour": "Black multicolour",
     "family": "Multi",
     "motif": "Triangle mosaic",
     "images": [
@@ -735,7 +735,7 @@
     "slug": "labirin-hijau",
     "name": "Labirin Hijau",
     "category": "batik-pawang",
-    "colour": "Black",
+    "colour": "Black & green",
     "family": "Multi",
     "motif": "Maze line pattern",
     "images": [

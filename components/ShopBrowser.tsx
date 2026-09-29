@@ -14,6 +14,7 @@ import {
   searchProducts,
   type Product,
 } from "@/lib/catalog";
+import { FAMILY_SWATCH } from "@/lib/colors";
 import { PRODUCT_GRID } from "@/lib/ui";
 import { CloseIcon, SearchIcon } from "./icons";
 
@@ -30,16 +31,6 @@ const SORTS: { id: Sort; label: string }[] = [
   { id: "za", label: "Name Z–A" },
 ];
 
-/** Swatch colour for each colour family in the filter. */
-const SWATCH: Record<string, string> = {
-  "Black & White": "linear-gradient(135deg,#15171B 50%,#F3EEE6 50%)",
-  Blue: "#2A5CAB",
-  Earth: "#9A6B3F",
-  Green: "#3F7D4E",
-  Multi: "conic-gradient(#B3262E,#E0A43A,#3F7D4E,#2A5CAB,#8E3F8F,#B3262E)",
-  "Pink & Purple": "#B04A8F",
-  Red: "#B3262E",
-};
 
 const RANGES = [{ id: "all", name: "All" }, ...CATEGORIES];
 
@@ -160,7 +151,7 @@ export default function ShopBrowser({
             <span className="mr-1 text-[12px] font-medium uppercase tracking-[0.18em] text-muted">Colour</span>
             <Swatch active={family === "all"} onClick={() => apply({ family: "all" })} label="All" />
             {families.map((f) => (
-              <Swatch key={f} active={family === f} onClick={() => apply({ family: f })} label={f} color={SWATCH[f]} />
+              <Swatch key={f} active={family === f} onClick={() => apply({ family: f })} label={f} color={FAMILY_SWATCH[f]} />
             ))}
           </div>
           <div className="flex shrink-0 items-center gap-3">
@@ -232,21 +223,19 @@ export default function ShopBrowser({
           </button>
         </div>
       ) : (
-        <div className={`mt-6 ${PRODUCT_GRID}`}>
-          <AnimatePresence initial={false}>
-            {visible.map((p, i) => (
-              <motion.div
-                key={p.slug}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5, ease: EASE, delay: Math.min(i % PAGE_SIZE, 12) * 0.03 }}
-              >
-                <ProductCard product={p} priority={i < 6} highlight={query} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
+        // Keyed by the filters: a new selection swaps the whole grid at once and
+        // fades the new cards in. (No exit animations — old cards must never linger.)
+        <div key={`${category}|${family}|${sort}|${query}`} className={`mt-6 ${PRODUCT_GRID}`}>
+          {visible.map((p, i) => (
+            <motion.div
+              key={p.slug}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: EASE, delay: Math.min(i % PAGE_SIZE, 12) * 0.03 }}
+            >
+              <ProductCard product={p} priority={i < 6} highlight={query} />
+            </motion.div>
+          ))}
         </div>
       )}
 
@@ -366,7 +355,7 @@ function FilterSheet({
             <div className="flex flex-wrap gap-2">
               <Swatch active={fam === "all"} onClick={() => setFam("all")} label="All" />
               {fams.map((f) => (
-                <Swatch key={f} active={fam === f} onClick={() => setFam(f)} label={f} color={SWATCH[f]} />
+                <Swatch key={f} active={fam === f} onClick={() => setFam(f)} label={f} color={FAMILY_SWATCH[f]} />
               ))}
             </div>
           </section>

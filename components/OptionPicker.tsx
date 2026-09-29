@@ -32,19 +32,24 @@ export default function OptionPicker({
                   type="button"
                   onClick={() => onOption(o)}
                   aria-pressed={active}
-                  className={`group/opt relative border px-4 py-4 text-left transition-all duration-300 ${
+                  className={`group/opt relative flex items-start justify-between gap-3 border px-3.5 py-3.5 text-left transition-all duration-300 sm:px-4 sm:py-4 ${
                     active
                       ? "border-ink bg-ink text-cream-light"
                       : "border-line bg-white text-ink hover:border-ink"
                   }`}
                 >
-                  <span className="block text-[15px] font-medium">{o.label}</span>
-                  <span
-                    className={`mt-0.5 block text-[13px] ${active ? "text-cream-light/70" : "text-muted"}`}
-                  >
-                    {o.note}
+                  {/* Label + note on the left, price on the right — one row. */}
+                  <span className="min-w-0">
+                    <span className="block text-[14px] font-medium sm:text-[15px]">{o.label}</span>
+                    <span
+                      className={`mt-0.5 block text-[12px] sm:text-[13px] ${active ? "text-cream-light/70" : "text-muted"}`}
+                    >
+                      {o.note}
+                    </span>
                   </span>
-                  <span className="mt-3 block font-serif text-xl">{formatMYR(o.price)}</span>
+                  <span className="shrink-0 whitespace-nowrap font-serif text-lg leading-tight sm:text-xl">
+                    {formatMYR(o.price)}
+                  </span>
                 </button>
               );
             })}
