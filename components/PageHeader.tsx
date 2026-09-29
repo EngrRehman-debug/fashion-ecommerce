@@ -45,12 +45,6 @@ export default function PageHeader({
 }) {
   return (
     <section className="relative overflow-hidden border-b border-line bg-cream">
-      <p
-        aria-hidden
-        className="pointer-events-none absolute -right-4 bottom-[-0.25em] select-none font-serif text-[22vw] italic leading-none text-ink/[0.04] lg:text-[14vw]"
-      >
-        CWSK
-      </p>
       <div className="container-lux relative py-12 lg:py-20">
         <Breadcrumbs items={crumbs} />
         {/* CSS entrance, so the heading shows before JavaScript loads. */}

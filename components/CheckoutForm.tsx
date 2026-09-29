@@ -239,7 +239,11 @@ export default function CheckoutForm() {
           )}
         </AnimatePresence>
 
-        <button type="submit" className="btn mt-8 w-full bg-[#1FAF5A] text-white before:bg-ink">
+        {/* Kept on one line on phones: tighter padding and letter-spacing below sm. */}
+        <button
+          type="submit"
+          className="btn mt-8 w-full gap-1.5 whitespace-nowrap bg-[#1FAF5A] px-3 text-[12px] tracking-[0.1em] text-white before:bg-ink max-[359px]:text-[11px] max-[359px]:tracking-[0.05em] sm:gap-2 sm:px-8 sm:text-[13px] sm:tracking-[0.18em]"
+        >
           <WhatsAppIcon className="h-5 w-5" />
           <span>Place order on WhatsApp</span>
         </button>

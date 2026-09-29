@@ -5,8 +5,9 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { useRef, type CSSProperties } from "react";
 import hero from "@/data/hero.json";
 import { IMAGES } from "@/lib/images";
-import { PRODUCTS } from "@/lib/catalog";
-import { ArrowRight, Sparkle } from "./icons";
+import { PRODUCTS, categorySlides } from "@/lib/catalog";
+import RotatingShot, { type Slide } from "./RotatingShot";
+import { ArrowRight } from "./icons";
 
 /**
  * Entrance animations here are CSS (animate-rise / animate-unveil) rather than
@@ -14,6 +15,13 @@ import { ArrowRight, Sparkle } from "./icons";
  * waiting for JavaScript. Motion only drives the scroll parallax.
  */
 const delay = (s: number): CSSProperties => ({ animationDelay: `${s}s` });
+
+const BIG: Slide[] = [
+  { src: IMAGES.hero, alt: "Model wearing a CWSK Enterprises batik shirt", href: IMAGES.heroHref, name: "Batik Pawang" },
+  ...categorySlides("batik-pawang", 4, false),
+];
+const TOP = categorySlides("sarong", 5);
+const SMALL = categorySlides("short-sleeve", 5);
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -54,12 +62,13 @@ export default function Hero() {
             {hero.body}
           </p>
 
-          <div className="mt-9 flex animate-rise flex-wrap items-center gap-4" style={delay(0.6)}>
-            <Link href="/shop" className="btn-primary">
+          {/* One row on every screen: tighter padding and tracking on phones. */}
+          <div className="mt-9 flex animate-rise items-center gap-2.5 sm:gap-4" style={delay(0.6)}>
+            <Link href="/shop" className="btn-primary whitespace-nowrap px-4 text-[12px] tracking-[0.12em] sm:px-8 sm:text-[13px] sm:tracking-[0.18em]">
               <span>Shop the collection</span>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="hidden h-4 w-4 sm:block" />
             </Link>
-            <Link href="/about" className="btn-outline">
+            <Link href="/about" className="btn-outline whitespace-nowrap px-4 text-[12px] tracking-[0.12em] sm:px-8 sm:text-[13px] sm:tracking-[0.18em]">
               <span>Our craft</span>
             </Link>
           </div>
@@ -75,43 +84,26 @@ export default function Hero() {
           </dl>
         </div>
 
-        {/* Image collage */}
-        {/* The collage takes the full hero height on desktop; width follows from its ratio. */}
+        {/* Image collage: three shots, each cycling through its own range.
+            Every shot changes every 3s, staggered by 1s — so one photo changes each second. */}
         <div className="relative mx-auto aspect-[0.98] w-full max-w-[640px] lg:ml-auto lg:mr-0 lg:h-[min(calc(100svh-190px),780px)] lg:w-auto lg:max-w-none lg:self-start">
           <motion.div style={{ y: yBig }} className="absolute right-0 top-0 aspect-[4/5] h-[90%]">
-            <div className="h-full animate-unveil overflow-hidden bg-cream shadow-card" style={delay(0.15)}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={IMAGES.hero}
-                alt="Model wearing a CWSK Enterprises handcrafted batik shirt"
-                fetchPriority="high"
-                className="h-full w-full object-cover object-top"
-              />
+            <div className="h-full animate-unveil shadow-card" style={delay(0.15)}>
+              <RotatingShot slides={BIG} offset={3000} priority tag="Shop {name}" />
+            </div>
+          </motion.div>
+
+          <motion.div style={{ y: ySmall }} className="absolute left-[4%] top-[2%] w-[29%]">
+            <div className="aspect-[3/4] animate-slide-in-left border-[6px] border-cream-light shadow-card" style={delay(0.45)}>
+              <RotatingShot slides={TOP} offset={1000} tag="Shop {name}" tagClassName="bottom-2 right-2 h-9 w-9" />
             </div>
           </motion.div>
 
           <motion.div style={{ y: ySmall }} className="absolute bottom-0 left-0 w-[40%]">
-            <div className="aspect-[3/4] animate-slide-in-left overflow-hidden border-[6px] border-cream-light bg-cream shadow-card" style={delay(0.55)}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMAGES.heroDetail} alt="Short-sleeve batik shirt from the studio shoot" className="h-full w-full object-cover object-top" />
+            <div className="aspect-[3/4] animate-slide-in-left border-[6px] border-cream-light shadow-card" style={delay(0.6)}>
+              <RotatingShot slides={SMALL} offset={2000} tag="Shop {name}" tagClassName="bottom-2 right-2 h-9 w-9" />
             </div>
           </motion.div>
-
-          {/* Rotating badge */}
-          <div className="absolute left-[4%] top-[8%] hidden h-28 w-28 animate-rise sm:block" style={delay(0.9)}>
-            <svg viewBox="0 0 100 100" className="h-full w-full animate-[spin_22s_linear_infinite]">
-              <defs>
-                <path id="badge-circle" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0" />
-              </defs>
-              <circle cx="50" cy="50" r="49" className="fill-cream-light" />
-              <text className="fill-ink text-[9px] uppercase">
-                <textPath href="#badge-circle" textLength="232" lengthAdjust="spacing">
-                  One print · One shirt · Made by hand ·
-                </textPath>
-              </text>
-            </svg>
-            <Sparkle className="absolute inset-0 m-auto h-7 w-7 text-primary" />
-          </div>
         </div>
       </div>
     </section>

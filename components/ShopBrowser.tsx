@@ -147,7 +147,7 @@ export default function ShopBrowser({
   return (
     <>
       {/* ---------- Desktop: sticky filter bar ---------- */}
-      <div className="sticky top-[69px] z-30 -mx-10 hidden border-b border-line bg-cream-light/95 px-10 py-4 backdrop-blur-md lg:block 2xl:-mx-14 2xl:px-14">
+      <div className="sticky top-[var(--header-h,69px)] z-30 -mx-10 hidden border-b border-line bg-cream-light/95 px-10 py-4 backdrop-blur-md lg:block 2xl:-mx-14 2xl:px-14">
         <div className="flex flex-wrap gap-2">
           {RANGES.map((c) => (
             <Chip key={c.id} active={category === c.id} onClick={() => apply({ category: c.id })}>
@@ -182,7 +182,8 @@ export default function ShopBrowser({
       </div>
 
       {/* ---------- Mobile / tablet: search + filter button + active chips ---------- */}
-      <div className="pt-6 lg:hidden">
+      {/* Sticks under the navbar while scrolling, so search + filter stay in reach. */}
+      <div className="sticky top-[var(--header-h,64px)] z-30 -mx-4 border-b border-line bg-cream-light/95 px-4 py-3 backdrop-blur-md sm:-mx-6 sm:px-6 lg:hidden">
         <div className="flex gap-2">
           {searchBox}
           <button

@@ -15,7 +15,9 @@ export default function ContactPage() {
   const cards = [
     {
       icon: WhatsAppIcon,
-      iconClass: "text-[#25D366]",
+      theme: "bg-[#e9f7ef] border-[#bfe6cf] hover:border-[#25D366]",
+      iconWrap: "bg-[#25D366] text-white",
+      accent: "text-[#128C4B]",
       title: "WhatsApp",
       body: WHATSAPP_DISPLAY,
       note: "Orders, payment & questions — the fastest way to reach us.",
@@ -24,7 +26,9 @@ export default function ContactPage() {
     },
     {
       icon: QrIcon,
-      iconClass: "text-primary",
+      theme: "bg-primary-wash border-[#c9d8f0] hover:border-primary",
+      iconWrap: "bg-primary text-white",
+      accent: "text-primary",
       title: "Order support",
       body: "Have an order number?",
       note: "Send it with your message and we’ll pick up right where we left off.",
@@ -33,7 +37,9 @@ export default function ContactPage() {
     },
     {
       icon: PinIcon,
-      iconClass: "text-primary",
+      theme: "bg-[#f8efe3] border-[#ead6ba] hover:border-gold",
+      iconWrap: "bg-gold text-white",
+      accent: "text-[#8a6532]",
       title: "Company",
       body: `${BRAND_NAME}`,
       note: `Registered in Malaysia · ${COMPANY_NO}`,
@@ -72,13 +78,15 @@ export default function ContactPage() {
                   <Link
                     href={c.href}
                     {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="group flex h-full flex-col border border-line bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:border-ink/30 hover:shadow-card"
+                    className={`group flex h-full flex-col border p-7 transition-all duration-500 hover:-translate-y-1 hover:shadow-card sm:p-8 ${c.theme}`}
                   >
-                    <Icon className={`h-9 w-9 ${c.iconClass}`} />
-                    <p className="mt-6 text-[12px] font-medium uppercase tracking-[0.2em] text-muted">{c.title}</p>
+                    <span className={`flex h-14 w-14 items-center justify-center rounded-full shadow-soft transition-transform duration-500 group-hover:scale-110 ${c.iconWrap}`}>
+                      <Icon className="h-7 w-7" />
+                    </span>
+                    <p className={`mt-6 text-[12px] font-medium uppercase tracking-[0.2em] ${c.accent}`}>{c.title}</p>
                     <p className="mt-2 font-serif text-3xl text-ink">{c.body}</p>
                     <p className="mt-2 flex-1 text-[15px] text-ink-soft">{c.note}</p>
-                    <span className="mt-6 inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.16em] text-ink">
+                    <span className={`mt-6 inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.16em] ${c.accent}`}>
                       {c.cta} <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
                     </span>
                   </Link>

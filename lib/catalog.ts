@@ -144,6 +144,18 @@ export function cardPriceText(product: Product) {
   return from !== null && prices.size > 1 ? `From ${formatMYR(from)}` : formatMYR(from);
 }
 
+/** A few cover photos from one category, for rotating editorial images. */
+export function categorySlides(categoryId: string, count = 5, small = true) {
+  return productsIn(categoryId)
+    .slice(0, count)
+    .map((p) => ({
+      src: small ? thumb(p.images[0]) : p.images[0],
+      alt: `${p.name} — ${p.motif}`,
+      href: `/shop/${p.slug}`,
+      name: p.name,
+    }));
+}
+
 /** "1 design" / "12 designs". */
 export const designs = (n: number) => `${n} ${n === 1 ? "design" : "designs"}`;
 

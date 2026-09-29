@@ -3,22 +3,22 @@
     {
       "icon": "qr",
       "title": "Order on WhatsApp",
-      "text": "Check out in a few taps — your order lands with us on WhatsApp and we reply with a secure payment QR."
+      "text": "Check out in a few taps — we reply with a secure QR."
     },
     {
       "icon": "needle",
       "title": "Stitched to Size",
-      "text": "Take Batik Pawang as uncut fabric, or have it stitched to your size before it ships."
+      "text": "Take it as uncut fabric, or tailored to your size."
     },
     {
       "icon": "truck",
       "title": "Worldwide Delivery",
-      "text": "Insured, tracked shipping on every order, carefully packed to protect the cloth in transit."
+      "text": "Insured, tracked shipping, packed with care."
     },
     {
       "icon": "return",
       "title": "30-Day Returns",
-      "text": "Not the right fit? Return or exchange any unworn item within 30 days of delivery."
+      "text": "Return or exchange unworn items within 30 days."
     }
   ]
 }

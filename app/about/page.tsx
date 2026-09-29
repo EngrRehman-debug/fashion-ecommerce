@@ -1,13 +1,14 @@
 import Link from "next/link";
 import CollectionStrip from "@/components/CollectionStrip";
 import ContactCta from "@/components/ContactCta";
+import RotatingShot from "@/components/RotatingShot";
 import JsonLd from "@/components/JsonLd";
-import PageHeader from "@/components/PageHeader";
-import Reveal, { Stagger, StaggerItem } from "@/components/Reveal";
+import { Breadcrumbs } from "@/components/PageHeader";
+import ProcessSteps from "@/components/ProcessSteps";
+import Reveal from "@/components/Reveal";
 import Services from "@/components/Services";
 import { ArrowRight } from "@/components/icons";
-import heritage from "@/data/heritage.json";
-import { CATEGORIES, PRODUCTS } from "@/lib/catalog";
+import { CATEGORIES, PRODUCTS, categorySlides } from "@/lib/catalog";
 import { IMAGES } from "@/lib/images";
 import { pageMetadata, webPageSchema } from "@/lib/seo";
 import { BRAND_NAME, COMPANY_NO } from "@/lib/site";
@@ -15,22 +16,11 @@ import { BRAND_NAME, COMPANY_NO } from "@/lib/site";
 const DESCRIPTION =
   "CWSK Enterprises makes hand-crafted batik for men — shirts, sets, sarongs and scarves dyed by artisans in Malaysia using centuries-old wax-resist techniques.";
 
-export const metadata = pageMetadata({ title: "About Us", description: DESCRIPTION, path: "/about" });
+const ABOUT_MAIN = categorySlides("short-sleeve", 6, false);
+const ABOUT_SIDE = categorySlides("batik-pawang", 5);
+const ABOUT_TOP = categorySlides("sarong", 5);
 
-const VALUES = [
-  {
-    title: "Made by hand",
-    text: "Every piece is drawn in wax and dyed by an artisan. No machines, no shortcuts — only wax, dye, cloth and patience.",
-  },
-  {
-    title: "One of one",
-    text: "Because each batik is made by hand, no two are ever exactly alike. The small irregularities are the signature.",
-  },
-  {
-    title: "Made to be worn",
-    text: "Bold enough for a wedding, easy enough for every day. We make batik for real life, not for the back of a wardrobe.",
-  },
-];
+export const metadata = pageMetadata({ title: "About Us", description: DESCRIPTION, path: "/about" });
 
 export default function AboutPage() {
   return (
@@ -39,32 +29,35 @@ export default function AboutPage() {
         data={webPageSchema({ type: "AboutPage", name: `About ${BRAND_NAME}`, description: DESCRIPTION, path: "/about" })}
       />
 
-      <PageHeader
-        crumbs={[{ name: "About", path: "/about" }]}
-        eyebrow="Our story"
-        title={<>Batik, carried <em className="text-primary">forward</em></>}
-        intro="We make hand-crafted batik for men — shirts, sets, sarongs and scarves — dyed by artisans in Malaysia using techniques passed down for generations."
-      />
-
-      {/* Story */}
-      <section className="bg-cream-light py-20 lg:py-28">
-        <div className="container-lux grid items-center gap-14 lg:grid-cols-2 lg:gap-24">
-          <Reveal className="relative">
-            <div className="aspect-[4/5] overflow-hidden bg-cream">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMAGES.about} alt="Short-sleeve batik shirt from the CWSK studio shoot" className="h-full w-full object-cover object-top" />
+      {/* No hero — the story opens the page. */}
+      <section className="bg-cream-light pb-20 pt-6 lg:pb-28 lg:pt-8">
+        <div className="container-lux">
+          <Breadcrumbs items={[{ name: "About", path: "/about" }]} />
+        </div>
+        <div className="container-lux mt-10 grid grid-cols-1 items-center gap-14 lg:mt-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-24">
+          {/* Main shot on the left, one smaller shot top-right and one bottom-right;
+              each cycles through its own range, out of step with the others. */}
+          <Reveal className="relative mx-auto w-full max-w-[460px] pb-10 sm:pb-16 lg:mx-0">
+            <div className="aspect-[4/5]">
+              <RotatingShot slides={ABOUT_MAIN} every={3200} offset={1600} tag="Shop {name}" />
             </div>
-            <div className="absolute -bottom-8 -right-4 hidden w-[44%] overflow-hidden border-[6px] border-cream-light sm:block lg:-right-10">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={IMAGES.heritageA} alt="Close-up of hand-dyed batik" className="aspect-[3/4] w-full object-cover object-top" />
+            <div className="absolute -right-4 top-[10%] hidden w-[34%] border-[6px] border-cream-light shadow-card sm:block lg:-right-24">
+              <div className="aspect-[3/4]">
+                <RotatingShot slides={ABOUT_TOP} every={3200} offset={2400} tag="Shop {name}" tagClassName="bottom-2 right-2 h-9 w-9" />
+              </div>
+            </div>
+            <div className="absolute -right-4 bottom-0 hidden w-[42%] border-[6px] border-cream-light shadow-card sm:block lg:-right-20">
+              <div className="aspect-[3/4]">
+                <RotatingShot slides={ABOUT_SIDE} every={3200} offset={3200} tag="Shop {name}" tagClassName="bottom-2 right-2 h-9 w-9" />
+              </div>
             </div>
           </Reveal>
 
           <Reveal delay={0.1} className="max-w-xl">
-            <p className="eyebrow">Who we are</p>
-            <h2 className="mt-5 font-serif text-[2.6rem] font-medium leading-[1] text-ink sm:text-display">
+            <p className="eyebrow">About us · Who we are</p>
+            <h1 className="mt-5 font-serif text-[2.6rem] font-medium leading-[1] text-ink sm:text-display">
               Batik is not printed. <em className="text-primary">It is made by hand.</em>
-            </h2>
+            </h1>
             <div className="prose-lux mt-8">
               <p>
                 Batik is a centuries-old wax-resist dyeing tradition, kept alive today by artisans
@@ -111,38 +104,14 @@ export default function AboutPage() {
               From wax to <em className="text-gold-light">wardrobe</em>
             </h2>
           </Reveal>
-          <Stagger className="mt-14 grid gap-px bg-cream-light/15 md:grid-cols-3">
-            {heritage.steps.map((s) => (
-              <StaggerItem key={s.n} className="bg-ink p-8 lg:p-10">
-                <p className="font-serif text-6xl italic text-gold-light">{s.n}</p>
-                <h3 className="mt-6 font-serif text-3xl">{s.title}</h3>
-                <p className="mt-4 text-[16px] leading-relaxed text-cream-light/70">{s.body}</p>
-              </StaggerItem>
-            ))}
-          </Stagger>
+          <ProcessSteps className="mt-10 lg:mt-14" />
         </div>
       </section>
 
-      {/* Values */}
-      <section className="bg-cream-light py-20 lg:py-28">
+      {/* Registered business */}
+      <section className="bg-cream-light py-14 lg:py-20">
         <div className="container-lux">
-          <Reveal className="max-w-2xl">
-            <p className="eyebrow">What we believe</p>
-            <h2 className="mt-5 font-serif text-[2.6rem] font-medium leading-[1] text-ink sm:text-display">
-              Three things we <em className="text-primary">never</em> compromise on
-            </h2>
-          </Reveal>
-          <Stagger className="mt-14 grid gap-6 md:grid-cols-3">
-            {VALUES.map((v, i) => (
-              <StaggerItem key={v.title} className="group border border-line bg-white p-8 transition-all duration-500 hover:-translate-y-1 hover:shadow-card lg:p-10">
-                <p className="font-serif text-2xl italic text-gold">0{i + 1}</p>
-                <h3 className="mt-5 font-serif text-3xl text-ink">{v.title}</h3>
-                <p className="mt-3 text-[16px] leading-relaxed text-ink-soft">{v.text}</p>
-              </StaggerItem>
-            ))}
-          </Stagger>
-
-          <Reveal className="mt-16 flex flex-col items-start justify-between gap-6 border-t border-line pt-10 sm:flex-row sm:items-center">
+          <Reveal className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
             <p className="max-w-xl font-serif text-3xl leading-snug text-ink">
               {BRAND_NAME} is a registered Malaysian business ({COMPANY_NO}).
             </p>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import PageHeader from "@/components/PageHeader";
+import { Breadcrumbs } from "@/components/PageHeader";
 import ShopBrowser from "@/components/ShopBrowser";
 import {
   CATEGORIES,
@@ -54,36 +54,26 @@ export default async function ShopPage({ searchParams }: Props) {
         ]}
       />
 
-      <PageHeader
-        crumbs={[
-          { name: "Shop", path: "/shop" },
-          ...(category ? [{ name: category.name, path: `/shop?category=${category.id}` }] : []),
-        ]}
-        eyebrow="The Collection"
-        title={category ? category.name : <>All <em className="text-primary">Products</em></>}
-        intro={description}
-      >
-        <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-6 border-t border-line pt-8">
-          <Stat label="Designs" value={String(list.length)} />
-          {category ? (
-            <>
-              {category.options.map((o) => (
-                <Stat
-                  key={o.id}
-                  label={category.options.length > 1 ? o.label : "Price"}
-                  value={formatMYR(o.price)}
-                />
-              ))}
-              {category.sizes.length > 0 && <Stat label="Sizes" value={category.sizes.join(" · ")} />}
-            </>
-          ) : (
-            <>
-              <Stat label="Ranges" value={String(CATEGORIES.length)} />
-              <Stat label="From" value={formatMYR(STARTING_PRICE)} />
-            </>
-          )}
-        </dl>
-      </PageHeader>
+      {/* No hero — just the trail and a compact title, then straight into the products. */}
+      <section className="bg-cream-light pt-6 lg:pt-8">
+        <div className="container-lux">
+          <Breadcrumbs
+            items={[
+              { name: "Shop", path: "/shop" },
+              ...(category ? [{ name: category.name, path: `/shop?category=${category.id}` }] : []),
+            ]}
+          />
+          <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 pb-2 lg:mt-5">
+            <h1 className="font-serif text-3xl font-medium text-ink sm:text-4xl">{name}</h1>
+            <p className="text-[13px] uppercase tracking-[0.16em] text-muted">
+              {list.length} designs
+              {category
+                ? ` · ${category.options.map((o) => `${o.label} ${formatMYR(o.price)}`).join(" · ")}`
+                : ` · From ${formatMYR(STARTING_PRICE)}`}
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section className="bg-cream-light pb-24">
         <div className="container-lux">
@@ -94,14 +84,5 @@ export default async function ShopPage({ searchParams }: Props) {
         </div>
       </section>
     </>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex flex-col-reverse">
-      <dt className="mt-1 text-[12px] uppercase tracking-[0.18em] text-muted sm:text-[13px]">{label}</dt>
-      <dd className="font-serif text-3xl text-ink">{value}</dd>
-    </div>
   );
 }

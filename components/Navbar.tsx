@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import navigation from "@/data/navigation.json";
 import { CATEGORIES, categoryCover, designs, productsIn, thumb } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
@@ -19,6 +19,18 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [megaOpen, setMegaOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+
+  // Publish the header height as --header-h so sticky bars can sit right under it.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const set = () => document.documentElement.style.setProperty("--header-h", `${el.offsetHeight}px`);
+    set();
+    const ro = new ResizeObserver(set);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -54,6 +66,7 @@ export default function Navbar() {
       </div>
 
       <header
+        ref={headerRef}
         onMouseLeave={() => setMegaOpen(false)}
         className={`sticky top-0 z-50 w-full border-b transition-all duration-500 ${
           scrolled || megaOpen
