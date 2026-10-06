@@ -9,7 +9,7 @@ import PurchasePanel from "@/components/PurchasePanel";
 import Reveal from "@/components/Reveal";
 import Accordion from "@/components/Accordion";
 import { ArrowRight } from "@/components/icons";
-import { PRODUCTS, formatMYR, fromPrice, getCategory, getProduct } from "@/lib/catalog";
+import { PRODUCTS, formatMYR, fromPrice, getAudience, getCategory, getProduct } from "@/lib/catalog";
 import { pageMetadata, productSchema } from "@/lib/seo";
 import { colourSwatch } from "@/lib/colors";
 import { PRODUCT_GRID } from "@/lib/ui";
@@ -65,6 +65,7 @@ export default async function ProductPage({ params }: Params) {
           <Breadcrumbs
             items={[
               { name: "Shop", path: "/shop" },
+              { name: getAudience(category.audience)!.label, path: `/shop?for=${category.audience}` },
               { name: category.name, path: `/shop?category=${category.id}` },
               { name: product.name, path: `/shop/${product.slug}` },
             ]}

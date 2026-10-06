@@ -6,7 +6,9 @@
     "Unstitched fabric or stitched to your size"
   ],
   "links": [
-    { "label": "Shop", "href": "/shop", "mega": true },
+    { "label": "Shop", "href": "/shop", "mega": "all" },
+    { "label": "Men", "href": "/shop?for=men", "mega": "men" },
+    { "label": "Women", "href": "/shop?for=women", "mega": "women" },
     { "label": "About", "href": "/about" },
     { "label": "FAQ", "href": "/faq" },
     { "label": "Contact", "href": "/contact" }

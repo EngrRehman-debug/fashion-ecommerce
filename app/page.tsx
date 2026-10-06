@@ -1,5 +1,6 @@
 import Hero from "@/components/Hero";
 import CategoryTiles from "@/components/CategoryTiles";
+import WomenCollection from "@/components/WomenCollection";
 import Products from "@/components/Products";
 import Heritage from "@/components/Heritage";
 import Lookbook from "@/components/Lookbook";
@@ -12,6 +13,7 @@ export default function Home() {
     <>
       <Hero />
       <CategoryTiles />
+      <WomenCollection />
       <Products />
       <Heritage />
       <Lookbook />

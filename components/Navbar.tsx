@@ -5,7 +5,18 @@ import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import navigation from "@/data/navigation.json";
-import { CATEGORIES, categoryCover, designs, productsIn, thumb } from "@/lib/catalog";
+import {
+  AUDIENCES,
+  cardPriceText,
+  categoriesFor,
+  categoryCover,
+  designs,
+  productsFor,
+  productsIn,
+  thumb,
+  type Audience,
+  type Category,
+} from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
 import { WHATSAPP_DISPLAY, whatsappLink } from "@/lib/site";
 import { ArrowRight, BagIcon, CloseIcon, MenuIcon, SearchIcon, WhatsAppIcon } from "./icons";
@@ -13,12 +24,70 @@ import { ArrowRight, BagIcon, CloseIcon, MenuIcon, SearchIcon, WhatsAppIcon } fr
 const { links, announcements } = navigation;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/** Men's and women's ranges, kept apart in both menus. */
+const GROUPS = AUDIENCES.map((a) => ({ ...a, ranges: categoriesFor(a.id) })).filter((g) => g.ranges.length);
+
+/* ---------- Desktop mega menus: one per nav link with a `mega` key ---------- */
+
+type MegaKey = "all" | Audience;
+type MegaItem = { href: string; img: string; name: string; sub: string };
+type MegaPanel = {
+  eyebrow: string;
+  title: string;
+  href: string;
+  cta: string;
+  sections: { label: string; href: string; items: MegaItem[] }[];
+};
+
+const MEGA_COLUMNS = 6;
+
+const rangeItem = (c: Category): MegaItem => ({
+  href: `/shop?category=${c.id}`,
+  img: thumb(categoryCover(c)),
+  name: c.name,
+  sub: designs(productsIn(c.id).length),
+});
+
+/** Shop: every range, grouped by audience. Men / Women: their ranges, topped up with their newest designs. */
+const MEGA: Record<MegaKey, MegaPanel> = {
+  all: {
+    eyebrow: "The Collection",
+    title: "Shop by range",
+    href: "/shop",
+    cta: "Shop all",
+    sections: GROUPS.map((g) => ({ label: g.label, href: `/shop?for=${g.id}`, items: g.ranges.map(rangeItem) })),
+  },
+  ...(Object.fromEntries(
+    AUDIENCES.map((a) => {
+      const ranges = categoriesFor(a.id);
+      const latest = productsFor(a.id)
+        .reverse()
+        .slice(0, Math.max(0, MEGA_COLUMNS - ranges.length))
+        .map((p) => ({ href: `/shop/${p.slug}`, img: thumb(p.images[0]), name: p.name, sub: cardPriceText(p) }));
+      const href = `/shop?for=${a.id}`;
+      return [
+        a.id,
+        {
+          eyebrow: `For ${a.label.toLowerCase()}`,
+          title: a.title,
+          href,
+          cta: `Shop all ${a.label.toLowerCase()}`,
+          sections: [
+            { label: "Ranges", href, items: ranges.map(rangeItem) },
+            { label: "New in", href, items: latest },
+          ].filter((sec) => sec.items.length),
+        },
+      ];
+    })
+  ) as Record<Audience, MegaPanel>),
+};
+
 export default function Navbar() {
   const pathname = usePathname();
   const { count, ready, openDrawer, setSearchOpen } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [megaOpen, setMegaOpen] = useState(false);
+  const [mega, setMega] = useState<MegaKey | null>(null);
   const headerRef = useRef<HTMLElement>(null);
 
   // Publish the header height as --header-h so sticky bars can sit right under it.
@@ -42,7 +111,7 @@ export default function Navbar() {
   // Close menus whenever the route changes.
   useEffect(() => {
     setMenuOpen(false);
-    setMegaOpen(false);
+    setMega(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -67,9 +136,9 @@ export default function Navbar() {
 
       <header
         ref={headerRef}
-        onMouseLeave={() => setMegaOpen(false)}
+        onMouseLeave={() => setMega(null)}
         className={`sticky top-0 z-50 w-full border-b transition-all duration-500 ${
-          scrolled || megaOpen
+          scrolled || mega
             ? "border-line bg-cream-light/95 shadow-soft backdrop-blur-md"
             : "border-transparent bg-cream-light"
         }`}
@@ -88,14 +157,14 @@ export default function Navbar() {
             >
               <MenuIcon className="h-6 w-6" />
             </button>
-            <nav className="hidden items-center gap-9 lg:flex" aria-label="Main">
+            <nav className="hidden items-center gap-6 lg:flex xl:gap-9" aria-label="Main">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  onMouseEnter={() => setMegaOpen(Boolean(link.mega))}
+                  onMouseEnter={() => setMega(link.mega ? (link.mega as MegaKey) : null)}
                   className={`link-underline py-2 text-[13px] font-medium uppercase tracking-[0.2em] transition-colors hover:text-primary ${
-                    isActive(link.href) ? "text-primary after:scale-x-100" : "text-ink"
+                    (mega ? mega === link.mega : isActive(link.href)) ? "text-primary after:scale-x-100" : "text-ink"
                   }`}
                 >
                   {link.label}
@@ -153,9 +222,9 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Desktop mega menu: ranges with their cover photos */}
+        {/* Desktop mega menu: the hovered link's panel of photos */}
         <AnimatePresence>
-          {megaOpen && (
+          {mega && (
             <motion.div
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -163,31 +232,15 @@ export default function Navbar() {
               transition={{ duration: 0.35, ease: EASE }}
               className="absolute inset-x-0 top-full hidden border-b border-line bg-cream-light shadow-card lg:block"
             >
-              <div className="container-lux grid grid-cols-[220px_1fr] gap-10 py-10">
-                <div>
-                  <p className="eyebrow">The Collection</p>
-                  <p className="mt-4 font-serif text-3xl leading-tight text-ink">Shop by range</p>
-                  <Link href="/shop" className="link-underline mt-6 inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.18em] text-ink">
-                    Shop all <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </div>
-                <div className="grid grid-cols-6 gap-5">
-                  {CATEGORIES.map((c) => (
-                    <Link key={c.id} href={`/shop?category=${c.id}`} className="group block">
-                      <div className="aspect-[4/5] overflow-hidden bg-cream">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={thumb(categoryCover(c))}
-                          alt={c.name}
-                          className="h-full w-full object-cover object-top transition-transform duration-700 ease-lux group-hover:scale-105"
-                        />
-                      </div>
-                      <p className="mt-3 font-serif text-lg text-ink group-hover:text-primary">{c.name}</p>
-                      <p className="text-[13px] text-muted">{designs(productsIn(c.id).length)}</p>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+              <motion.div
+                key={mega}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.25 }}
+                className="container-lux grid grid-cols-[220px_1fr] gap-10 py-10"
+              >
+                <MegaContent panel={MEGA[mega]} />
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -241,19 +294,21 @@ export default function Navbar() {
                 ))}
               </ul>
 
-              <div className="px-6">
-                <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted">Ranges</p>
-                <div className="mt-3 grid grid-cols-2 gap-3">
-                  {CATEGORIES.map((c) => (
-                    <Link key={c.id} href={`/shop?category=${c.id}`} className="group relative block aspect-[4/5] overflow-hidden bg-cream">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={thumb(categoryCover(c))} alt="" className="h-full w-full object-cover object-top" />
-                      <span className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent" />
-                      <span className="absolute inset-x-3 bottom-3 font-serif text-lg leading-tight text-cream-light">{c.name}</span>
-                    </Link>
-                  ))}
+              {GROUPS.map((g) => (
+                <div key={g.id} className="mt-6 px-6 first:mt-0">
+                  <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted">{g.label}</p>
+                  <div className="mt-3 grid grid-cols-2 gap-3">
+                    {g.ranges.map((c) => (
+                      <Link key={c.id} href={`/shop?category=${c.id}`} className="group relative block aspect-[4/5] overflow-hidden bg-cream">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={thumb(categoryCover(c))} alt="" className="h-full w-full object-cover object-top" />
+                        <span className="absolute inset-0 bg-gradient-to-t from-ink/70 to-transparent" />
+                        <span className="absolute inset-x-3 bottom-3 font-serif text-lg leading-tight text-cream-light">{c.name}</span>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              ))}
 
               <a
                 href={whatsappLink()}
@@ -271,6 +326,53 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
+    </>
+  );
+}
+
+function MegaContent({ panel }: { panel: MegaPanel }) {
+  const columns = panel.sections.reduce((n, sec) => n + sec.items.length, 0);
+  return (
+    <>
+      <div>
+        <p className="eyebrow">{panel.eyebrow}</p>
+        <p className="mt-4 font-serif text-3xl leading-tight text-ink">{panel.title}</p>
+        <Link href={panel.href} className="link-underline mt-6 inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.18em] text-ink">
+          {panel.cta} <ArrowRight className="h-4 w-4" />
+        </Link>
+      </div>
+      {/* One column per tile; each section spans its own tiles under a heading. */}
+      <div className="grid gap-x-5" style={{ gridTemplateColumns: `repeat(${Math.max(columns, MEGA_COLUMNS)}, minmax(0, 1fr))` }}>
+        {panel.sections.map((sec, si) => (
+          <div
+            key={sec.label}
+            className={`grid gap-x-5 ${si > 0 ? "border-l border-line pl-5" : ""}`}
+            style={{ gridColumn: `span ${sec.items.length}`, gridTemplateColumns: `repeat(${sec.items.length}, minmax(0, 1fr))` }}
+          >
+            <Link
+              href={sec.href}
+              className="mb-4 inline-flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.2em] text-ink hover:text-primary"
+              style={{ gridColumn: `span ${sec.items.length}` }}
+            >
+              {sec.label} <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            {sec.items.map((item) => (
+              <Link key={item.href} href={item.href} className="group block">
+                <div className="aspect-[4/5] overflow-hidden bg-cream">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    className="h-full w-full object-cover object-top transition-transform duration-700 ease-lux group-hover:scale-105"
+                  />
+                </div>
+                <p className="mt-3 font-serif text-lg text-ink group-hover:text-primary">{item.name}</p>
+                <p className="text-[13px] text-muted">{item.sub}</p>
+              </Link>
+            ))}
+          </div>
+        ))}
+      </div>
     </>
   );
 }

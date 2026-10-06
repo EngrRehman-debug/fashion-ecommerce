@@ -7,20 +7,37 @@ import {
   PRODUCTS,
   STARTING_PRICE,
   formatMYR,
+  fromPrice,
+  getAudience,
   getCategory,
+  productsFor,
   productsIn,
 } from "@/lib/catalog";
 import { itemListSchema, pageMetadata, webPageSchema } from "@/lib/seo";
 
-type Props = { searchParams: Promise<{ category?: string; q?: string }> };
+type Props = { searchParams: Promise<{ category?: string; for?: string; q?: string }> };
+
+const AUDIENCE_INTRO = {
+  men: "Hand-dyed batik for men — long and short-sleeve shirts, sets, sarongs and more.",
+  women: "Hand-painted crepe silk for women, sold as unstitched lengths ready for your tailor.",
+};
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
-  const category = getCategory((await searchParams).category ?? "");
+  const params = await searchParams;
+  const category = getCategory(params.category ?? "");
+  const audience = getAudience(params.for ?? "");
   if (category) {
     return pageMetadata({
       title: `${category.name} — Shop`,
       description: `${category.tagline} Browse ${productsIn(category.id).length} hand-dyed designs from CWSK Enterprises, Malaysia.`,
       path: `/shop?category=${category.id}`,
+    });
+  }
+  if (audience) {
+    return pageMetadata({
+      title: `${audience.title} — Shop`,
+      description: `${AUDIENCE_INTRO[audience.id]} Browse ${productsFor(audience.id).length} designs from CWSK Enterprises, Malaysia.`,
+      path: `/shop?for=${audience.id}`,
     });
   }
   return pageMetadata({
@@ -31,14 +48,22 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 }
 
 export default async function ShopPage({ searchParams }: Props) {
-  // /shop?category=<id> opens the shop on one range; anything else shows all.
+  // /shop?category=<id> opens one range, /shop?for=men|women one side of the
+  // collection; anything else shows all. A range implies its audience.
   const params = await searchParams;
   const category = getCategory(params.category ?? "");
-  const list = category ? productsIn(category.id) : PRODUCTS;
-  const name = category ? category.name : "All Products";
+  const audience = category ? getAudience(category.audience) : getAudience(params.for ?? "");
+  const list = category ? productsIn(category.id) : audience ? productsFor(audience.id) : PRODUCTS;
+  const name = category ? category.name : audience ? audience.title : "All Products";
   const description = category
     ? category.tagline
-    : "Every range we make — hand-dyed batik shirts, sets, sarongs and more. Pick a range below or browse them all.";
+    : audience
+      ? AUDIENCE_INTRO[audience.id]
+      : "Every range we make, for men and women — hand-dyed batik shirts, sets, sarongs and crepe silk.";
+  const listPrice = Math.min(
+    ...list.map((p) => fromPrice(getCategory(p.category)!)).filter((p): p is number => p !== null)
+  );
+  const path = category ? `/shop?category=${category.id}` : audience ? `/shop?for=${audience.id}` : "/shop";
 
   return (
     <>
@@ -48,7 +73,7 @@ export default async function ShopPage({ searchParams }: Props) {
             type: "CollectionPage",
             name,
             description,
-            path: category ? `/shop?category=${category.id}` : "/shop",
+            path,
           }),
           itemListSchema(name, list),
         ]}
@@ -60,6 +85,7 @@ export default async function ShopPage({ searchParams }: Props) {
           <Breadcrumbs
             items={[
               { name: "Shop", path: "/shop" },
+              ...(audience ? [{ name: audience.label, path: `/shop?for=${audience.id}` }] : []),
               ...(category ? [{ name: category.name, path: `/shop?category=${category.id}` }] : []),
             ]}
           />
@@ -69,7 +95,7 @@ export default async function ShopPage({ searchParams }: Props) {
               {list.length} designs
               {category
                 ? ` · ${category.options.map((o) => `${o.label} ${formatMYR(o.price)}`).join(" · ")}`
-                : ` · From ${formatMYR(STARTING_PRICE)}`}
+                : ` · From ${formatMYR(Number.isFinite(listPrice) ? listPrice : STARTING_PRICE)}`}
             </p>
           </div>
         </div>
@@ -78,6 +104,7 @@ export default async function ShopPage({ searchParams }: Props) {
       <section className="bg-cream-light pb-24">
         <div className="container-lux">
           <ShopBrowser
+            initialAudience={audience?.id ?? "all"}
             initialCategory={category?.id ?? "all"}
             initialQuery={params.q ?? ""}
           />

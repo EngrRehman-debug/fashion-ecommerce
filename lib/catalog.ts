@@ -31,8 +31,17 @@ export type Option = {
   needsSize: boolean;
 };
 
+/** Who a range is for; the shop, menus and homepage show the two separately. */
+export type Audience = "men" | "women";
+
+export const AUDIENCES: { id: Audience; label: string; title: string }[] = [
+  { id: "men", label: "Men", title: "Men's Collection" },
+  { id: "women", label: "Women", title: "Women's Collection" },
+];
+
 export type Category = {
   id: string;
+  audience: Audience;
   name: string;
   tagline: string;
   sizes: string[];
@@ -67,6 +76,8 @@ function validate() {
   const slugs = new Set<string>();
   for (const c of CATEGORIES) {
     if (!c.options?.length) throw new Error(`Category "${c.id}" has no options`);
+    if (!AUDIENCES.some((a) => a.id === c.audience))
+      throw new Error(`Category "${c.id}" needs an audience of "men" or "women"`);
     if (c.options.some((o) => o.needsSize) && !c.sizes.length)
       throw new Error(`Category "${c.id}" needs sizes for its options`);
   }
@@ -113,16 +124,20 @@ export function getProduct(slug: string) {
   return PRODUCTS.find((p) => p.slug === slug);
 }
 
-/** Colour families that actually appear in a category. */
-export function familiesFor(categoryId?: string) {
-  const pool = categoryId
-    ? PRODUCTS.filter((p) => p.category === categoryId)
-    : PRODUCTS;
-  return [...new Set(pool.map((p) => p.family))].sort();
-}
-
 export function productsIn(categoryId: string) {
   return PRODUCTS.filter((p) => p.category === categoryId);
+}
+
+export function getAudience(id: string) {
+  return AUDIENCES.find((a) => a.id === id);
+}
+
+export function categoriesFor(audience: Audience) {
+  return CATEGORIES.filter((c) => c.audience === audience);
+}
+
+export function productsFor(audience: Audience) {
+  return PRODUCTS.filter((p) => getCategory(p.category)?.audience === audience);
 }
 
 /** Case-insensitive match on name, colour, motif and range — every word must match. */

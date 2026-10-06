@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { CATEGORIES, categoryCover, designs, productsIn, thumb, type Category } from "@/lib/catalog";
+import { categoriesFor, categoryCover, designs, productsIn, thumb, type Category } from "@/lib/catalog";
 import SectionHeading from "./SectionHeading";
 import { Stagger, StaggerItem } from "./Reveal";
 import { ArrowRight } from "./icons";
 
-/** Ranges ordered by how many designs they hold — the biggest gets the feature tile. */
-const RANGES = [...CATEGORIES].sort((a, b) => productsIn(b.id).length - productsIn(a.id).length);
+/** Men's ranges (women's have their own section), biggest first — it gets the feature tile. */
+const RANGES = categoriesFor("men").sort((a, b) => productsIn(b.id).length - productsIn(a.id).length);
 
 type Size = "feature" | "tall" | "small" | "wide";
 
@@ -31,7 +31,7 @@ export default function CategoryTiles() {
     <section className="bg-cream-light py-20 lg:py-28">
       <div className="container-lux">
         <SectionHeading
-          eyebrow="Shop by range"
+          eyebrow="For men"
           title={
             <>
               {RANGES.length} ways to wear <em className="text-primary">batik</em>
@@ -39,8 +39,8 @@ export default function CategoryTiles() {
           }
           intro="From our signature long-sleeve Batik Pawang to ready-made short-sleeves, full-length sarongs and matching sets."
           action={
-            <Link href="/shop" className="btn-outline">
-              <span>View everything</span>
+            <Link href="/shop?for=men" className="btn-outline">
+              <span>Shop all men&apos;s</span>
             </Link>
           }
         />

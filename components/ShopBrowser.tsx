@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import ProductCard from "./ProductCard";
 import {
+  AUDIENCES,
   CATEGORIES,
   PRODUCTS,
   designs,
-  familiesFor,
   fromPrice,
   getCategory,
   searchProducts,
+  type Audience,
   type Product,
 } from "@/lib/catalog";
 import { FAMILY_SWATCH } from "@/lib/colors";
@@ -30,17 +31,29 @@ const SORTS: { id: Sort; label: string }[] = [
   { id: "az", label: "Name A–Z" },
   { id: "za", label: "Name Z–A" },
 ];
+type AudienceFilter = Audience | "all";
 
+const AUDIENCE_TABS: { id: AudienceFilter; label: string }[] = [{ id: "all", label: "All" }, ...AUDIENCES];
 
-const RANGES = [{ id: "all", name: "All" }, ...CATEGORIES];
+/** Range chips for the chosen audience, led by "All". */
+const rangesFor = (audience: AudienceFilter) => [
+  { id: "all", name: "All" },
+  ...CATEGORIES.filter((c) => audience === "all" || c.audience === audience),
+];
 
 const priceOf = (p: Product) => fromPrice(getCategory(p.category)!) ?? Number.POSITIVE_INFINITY;
 
-function filterProducts(category: string, family: string, query: string, sort: Sort) {
+const inScope = (p: Product, audience: AudienceFilter, category: string) =>
+  (audience === "all" || getCategory(p.category)?.audience === audience) &&
+  (category === "all" || p.category === category);
+
+/** Colour families present in the current audience and range. */
+const familiesIn = (audience: AudienceFilter, category: string) =>
+  [...new Set(PRODUCTS.filter((p) => inScope(p, audience, category)).map((p) => p.family))].sort();
+
+function filterProducts(audience: AudienceFilter, category: string, family: string, query: string, sort: Sort) {
   const pool = query.trim() ? searchProducts(query) : PRODUCTS;
-  const list = pool.filter(
-    (p) => (category === "all" || p.category === category) && (family === "all" || p.family === family)
-  );
+  const list = pool.filter((p) => inScope(p, audience, category) && (family === "all" || p.family === family));
   switch (sort) {
     case "az":
       return [...list].sort((a, b) => a.name.localeCompare(b.name));
@@ -56,13 +69,16 @@ function filterProducts(category: string, family: string, query: string, sort: S
 }
 
 export default function ShopBrowser({
+  initialAudience = "all",
   initialCategory = "all",
   initialQuery = "",
 }: {
+  initialAudience?: AudienceFilter;
   initialCategory?: string;
   initialQuery?: string;
 }) {
   const router = useRouter();
+  const [audience, setAudience] = useState<AudienceFilter>(initialAudience);
   const [category, setCategory] = useState<string>(initialCategory);
   const [family, setFamily] = useState<string>("all");
   const [query, setQuery] = useState(initialQuery);
@@ -76,31 +92,41 @@ export default function ShopBrowser({
     setShown(PAGE_SIZE);
   }, [initialQuery]);
   useEffect(() => {
+    setAudience(initialAudience);
     setCategory(initialCategory);
     setFamily("all");
     setShown(PAGE_SIZE);
-  }, [initialCategory]);
+  }, [initialAudience, initialCategory]);
 
   useEffect(() => {
     document.documentElement.style.overflow = sheetOpen ? "hidden" : "";
   }, [sheetOpen]);
 
-  const families = useMemo(() => familiesFor(category === "all" ? undefined : category), [category]);
-  const results = useMemo(() => filterProducts(category, family, query, sort), [category, family, query, sort]);
+  const ranges = useMemo(() => rangesFor(audience), [audience]);
+  const families = useMemo(() => familiesIn(audience, category), [audience, category]);
+  const results = useMemo(
+    () => filterProducts(audience, category, family, query, sort),
+    [audience, category, family, query, sort]
+  );
 
   // Keep the URL in step so the header, links and back button follow along.
-  const syncUrl = (cat: string, q: string) => {
+  // A range already implies its audience, so `for` is only set without one.
+  const syncUrl = (aud: AudienceFilter, cat: string, q: string) => {
     const params = new URLSearchParams();
     if (cat !== "all") params.set("category", cat);
+    else if (aud !== "all") params.set("for", aud);
     if (q.trim()) params.set("q", q.trim());
     const qs = params.toString();
     router.replace(qs ? `/shop?${qs}` : "/shop", { scroll: false });
   };
 
-  const apply = (next: { category?: string; family?: string; sort?: Sort; query?: string }) => {
-    const cat = next.category ?? category;
+  const apply = (next: { audience?: AudienceFilter; category?: string; family?: string; sort?: Sort; query?: string }) => {
+    const aud = next.audience ?? audience;
+    // Switching audience drops a range that belongs to the other one.
+    const cat = next.category ?? (next.audience !== undefined && next.audience !== audience ? "all" : category);
     const q = next.query ?? query;
-    if (next.category !== undefined && next.category !== category) {
+    if (aud !== audience) setAudience(aud);
+    if (cat !== category) {
       setCategory(cat);
       setFamily("all");
     }
@@ -108,7 +134,7 @@ export default function ShopBrowser({
     if (next.sort !== undefined) setSort(next.sort);
     if (next.query !== undefined) setQuery(q);
     setShown(PAGE_SIZE);
-    if (next.category !== undefined || next.query !== undefined) syncUrl(cat, q);
+    if (next.audience !== undefined || next.category !== undefined || next.query !== undefined) syncUrl(aud, cat, q);
   };
 
   const clearAll = () => apply({ category: "all", family: "all", query: "", sort: "featured" });
@@ -127,7 +153,7 @@ export default function ShopBrowser({
           setQuery(e.target.value);
           setShown(PAGE_SIZE);
         }}
-        onBlur={() => syncUrl(category, query)}
+        onBlur={() => syncUrl(audience, category, query)}
         placeholder="Search prints…"
         aria-label="Search prints"
         className="w-full border border-line bg-white py-3 pl-10 pr-3 text-[15px] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-ink lg:py-2.5"
@@ -137,10 +163,27 @@ export default function ShopBrowser({
 
   return (
     <>
+      {/* ---------- Men / Women: the first split, on every screen size ---------- */}
+      <div role="tablist" aria-label="Shop for" className="mt-4 flex gap-8 border-b border-line lg:mt-6">
+        {AUDIENCE_TABS.map((a) => (
+          <button
+            key={a.id}
+            role="tab"
+            aria-selected={audience === a.id}
+            onClick={() => apply({ audience: a.id })}
+            className={`-mb-px border-b-2 pb-3 font-serif text-xl transition-colors sm:text-2xl ${
+              audience === a.id ? "border-ink text-ink" : "border-transparent text-muted hover:text-ink"
+            }`}
+          >
+            {a.label}
+          </button>
+        ))}
+      </div>
+
       {/* ---------- Desktop: sticky filter bar ---------- */}
       <div className="sticky top-[var(--header-h,69px)] z-30 -mx-10 hidden border-b border-line bg-cream-light/95 px-10 py-4 backdrop-blur-md lg:block 2xl:-mx-14 2xl:px-14">
         <div className="flex flex-wrap gap-2">
-          {RANGES.map((c) => (
+          {ranges.map((c) => (
             <Chip key={c.id} active={category === c.id} onClick={() => apply({ category: c.id })}>
               {c.name}
             </Chip>
@@ -258,6 +301,7 @@ export default function ShopBrowser({
         {sheetOpen && (
           <FilterSheet
             key="sheet"
+            audience={audience}
             category={category}
             family={family}
             sort={sort}
@@ -278,6 +322,7 @@ export default function ShopBrowser({
 
 /** Bottom sheet: choices are drafted here and applied together. */
 function FilterSheet({
+  audience,
   category,
   family,
   sort,
@@ -285,6 +330,7 @@ function FilterSheet({
   onClose,
   onApply,
 }: {
+  audience: AudienceFilter;
   category: string;
   family: string;
   sort: Sort;
@@ -295,8 +341,9 @@ function FilterSheet({
   const [cat, setCat] = useState(category);
   const [fam, setFam] = useState(family);
   const [srt, setSrt] = useState<Sort>(sort);
-  const fams = useMemo(() => familiesFor(cat === "all" ? undefined : cat), [cat]);
-  const count = useMemo(() => filterProducts(cat, fam, query, srt).length, [cat, fam, query, srt]);
+  const ranges = useMemo(() => rangesFor(audience), [audience]);
+  const fams = useMemo(() => familiesIn(audience, cat), [audience, cat]);
+  const count = useMemo(() => filterProducts(audience, cat, fam, query, srt).length, [audience, cat, fam, query, srt]);
 
   return (
     <>
@@ -335,7 +382,7 @@ function FilterSheet({
           <section>
             <h3 className="field-label">Range</h3>
             <div className="flex flex-wrap gap-2">
-              {RANGES.map((c) => (
+              {ranges.map((c) => (
                 <Chip
                   key={c.id}
                   active={cat === c.id}

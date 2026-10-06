@@ -1461,5 +1461,137 @@
       "/images/products/boxer-ombak-putih/5.webp",
       "/images/products/boxer-ombak-putih/6.webp"
     ]
+  },
+  {
+    "slug": "crepe-marmar-karang",
+    "name": "Marmar Karang",
+    "category": "crepe-silk",
+    "colour": "Coral red & teal",
+    "family": "Multi",
+    "motif": "Marbled wave motif",
+    "images": [
+      "/images/products/crepe-marmar-karang/1.webp",
+      "/images/products/crepe-marmar-karang/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-bunga-sage",
+    "name": "Bunga Sage",
+    "category": "crepe-silk",
+    "colour": "Sage",
+    "family": "Green",
+    "motif": "Hand-painted floral",
+    "images": [
+      "/images/products/crepe-bunga-sage/1.webp",
+      "/images/products/crepe-bunga-sage/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-taman-emas",
+    "name": "Taman Emas",
+    "category": "crepe-silk",
+    "colour": "Gold",
+    "family": "Earth",
+    "motif": "Floral spray motif",
+    "images": [
+      "/images/products/crepe-taman-emas/1.webp",
+      "/images/products/crepe-taman-emas/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-renda-jingga",
+    "name": "Renda Jingga",
+    "category": "crepe-silk",
+    "colour": "Orange",
+    "family": "Earth",
+    "motif": "Lace floral on marbled ground",
+    "images": [
+      "/images/products/crepe-renda-jingga/1.webp",
+      "/images/products/crepe-renda-jingga/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-marmar-senja",
+    "name": "Marmar Senja",
+    "category": "crepe-silk",
+    "colour": "Coral red",
+    "family": "Red",
+    "motif": "Marbled motif",
+    "images": [
+      "/images/products/crepe-marmar-senja/1.webp",
+      "/images/products/crepe-marmar-senja/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-marmar-ungu",
+    "name": "Marmar Ungu",
+    "category": "crepe-silk",
+    "colour": "Purple",
+    "family": "Pink & Purple",
+    "motif": "Marbled floral motif",
+    "images": [
+      "/images/products/crepe-marmar-ungu/1.webp",
+      "/images/products/crepe-marmar-ungu/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-lavender-bunga",
+    "name": "Lavender Bunga",
+    "category": "crepe-silk",
+    "colour": "Lilac",
+    "family": "Pink & Purple",
+    "motif": "Hand-painted floral",
+    "images": [
+      "/images/products/crepe-lavender-bunga/1.webp",
+      "/images/products/crepe-lavender-bunga/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-biru-kembang",
+    "name": "Biru Kembang",
+    "category": "crepe-silk",
+    "colour": "Pale blue",
+    "family": "Blue",
+    "motif": "Hand-painted floral",
+    "images": [
+      "/images/products/crepe-biru-kembang/1.webp",
+      "/images/products/crepe-biru-kembang/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-bunga-merah-jambu",
+    "name": "Bunga Merah Jambu",
+    "category": "crepe-silk",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Floral spray motif",
+    "images": [
+      "/images/products/crepe-bunga-merah-jambu/1.webp",
+      "/images/products/crepe-bunga-merah-jambu/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-pelangi-marmar",
+    "name": "Pelangi Marmar",
+    "category": "crepe-silk",
+    "colour": "Multi",
+    "family": "Multi",
+    "motif": "Marbled rainbow motif",
+    "images": [
+      "/images/products/crepe-pelangi-marmar/1.webp",
+      "/images/products/crepe-pelangi-marmar/2.webp"
+    ]
+  },
+  {
+    "slug": "crepe-sakura-jambu",
+    "name": "Sakura Jambu",
+    "category": "crepe-silk",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Blossom and swirl motif",
+    "images": [
+      "/images/products/crepe-sakura-jambu/1.webp",
+      "/images/products/crepe-sakura-jambu/2.webp"
+    ]
   }
 ]

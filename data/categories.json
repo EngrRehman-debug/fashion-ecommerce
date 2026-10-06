@@ -1,6 +1,7 @@
 [
   {
     "id": "batik-pawang",
+    "audience": "men",
     "cover": "/images/products/api-tropika/1.webp",
     "name": "Batik Pawang",
     "tagline": "Our signature range — bold, hand-drawn batik on premium cotton, available as uncut fabric or stitched to your size.",
@@ -12,7 +13,20 @@
     "details": { "Fabric": "Premium cotton", "Craft": "Hand-drawn batik" }
   },
   {
+    "id": "crepe-silk",
+    "audience": "women",
+    "cover": "/images/products/crepe-marmar-karang/1.webp",
+    "name": "Crepe Silk",
+    "tagline": "New for women — 4-metre lengths of hand-painted crepe silk, unstitched and ready for your tailor.",
+    "sizes": [],
+    "options": [
+      { "id": "unstitched", "label": "Unstitched", "note": "4 metres, fabric only", "price": 420, "needsSize": false }
+    ],
+    "details": { "Fabric": "Crepe silk", "Length": "4 metres", "Finish": "No stone", "For": "Women" }
+  },
+  {
     "id": "short-sleeve",
+    "audience": "men",
     "name": "Short-Sleeve Batik",
     "tagline": "Ready-made short-sleeve batik shirts in pure cotton — easy to wear, impossible to miss.",
     "sizes": ["S", "M", "L", "XL"],
@@ -23,6 +37,7 @@
   },
   {
     "id": "sets",
+    "audience": "men",
     "cover": "/images/products/set-bunga-kertas/1.webp",
     "name": "Batik Sets",
     "tagline": "Matching batik shirt and shorts — one print, head to knee.",
@@ -34,6 +49,7 @@
   },
   {
     "id": "sarong",
+    "audience": "men",
     "cover": "/images/products/sarong-pusaran-nila/1.webp",
     "name": "Sarong & Kain",
     "tagline": "Full-length batik cloth to wrap, drape or tailor — each piece dyed by hand.",
@@ -45,6 +61,7 @@
   },
   {
     "id": "scarves",
+    "audience": "men",
     "name": "Scarves",
     "tagline": "Light, sheer batik scarves with hand-finished floral corners.",
     "sizes": [],
@@ -55,6 +72,7 @@
   },
   {
     "id": "boxers",
+    "audience": "men",
     "name": "Boxers",
     "tagline": "Batik-print boxer shorts — the comfortable side of the collection.",
     "sizes": ["S", "M", "L", "XL"],
