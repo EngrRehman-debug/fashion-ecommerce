@@ -1,4 +1,4 @@
-# LUX — Fashion E-commerce Landing Page
+# LUX — Fashion E-commerce Landing Page 
 
 A pixel-faithful replication of the LUX fashion landing page, built with **Next.js (App Router)**, **TypeScript**, and **Tailwind CSS**.
 
