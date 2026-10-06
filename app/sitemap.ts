@@ -24,8 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     page("/about", 0.6, "monthly"),
     page("/faq", 0.6, "monthly"),
     page("/contact", 0.5, "yearly"),
-    page("/shipping-returns", 0.4, "yearly"),
-    page("/privacy-policy", 0.2, "yearly"),
-    page("/terms", 0.2, "yearly"),
+    page("/policies", 0.4, "yearly"),
   ];
 }

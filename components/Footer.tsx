@@ -68,8 +68,7 @@ export default function Footer() {
             © {new Date().getFullYear()} {BRAND_NAME} ({COMPANY_NO}). {t.m.footer.rights}
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-            <Link href="/privacy-policy" className="transition-colors hover:text-cream-light">{t.m.footer.privacy}</Link>
-            <Link href="/terms" className="transition-colors hover:text-cream-light">{t.m.footer.terms}</Link>
+            <Link href="/policies" className="transition-colors hover:text-cream-light">{t.m.footer.policies}</Link>
             <LanguageSwitch dark />
           </div>
         </div>

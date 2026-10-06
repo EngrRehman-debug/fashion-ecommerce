@@ -7,10 +7,8 @@ import { BRAND_NAME, COMPANY_NO, SITE_DESCRIPTION, WHATSAPP_DISPLAY, absoluteUrl
 const PAGES = [
   { path: "/about", title: "About us", note: "Who we are and how our batik is made" },
   { path: "/faq", title: "FAQs", note: "Ordering, payment, sizing, care, shipping and returns" },
-  { path: "/shipping-returns", title: "Shipping & Returns", note: "Delivery, 30-day returns, refunds" },
+  { path: "/policies", title: "Shop Policies", note: "Ordering, payment, delivery, 30-day returns and privacy" },
   { path: "/contact", title: "Contact", note: `WhatsApp ${WHATSAPP_DISPLAY}` },
-  { path: "/privacy-policy", title: "Privacy Policy", note: "How personal data is handled" },
-  { path: "/terms", title: "Terms of Service", note: "Terms for orders and use of the site" },
 ];
 
 const pricing = (id: string) => {

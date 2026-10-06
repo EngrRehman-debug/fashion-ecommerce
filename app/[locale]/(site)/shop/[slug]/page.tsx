@@ -152,7 +152,7 @@ export default async function ProductPage({ params }: Params) {
                 <Accordion title={p.shippingReturns}>
                   <p>
                     {p.shippingText}{" "}
-                    <Link href="/shipping-returns" className="link-underline text-ink">
+                    <Link href="/policies#returns" className="link-underline text-ink">
                       {p.readPolicy}
                     </Link>
                     .

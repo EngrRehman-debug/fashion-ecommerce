@@ -26,20 +26,10 @@ const PAGES = {
     en: { eyebrow: "Help centre", title: "Questions, answered", subtitle: "Ordering, payment by QR, sizing, care, shipping and returns." },
     ms: { eyebrow: "Pusat bantuan", title: "Soalan, terjawab", subtitle: "Pesanan, bayaran QR, saiz, penjagaan, penghantaran dan pemulangan." },
   },
-  "privacy-policy": {
-    image: "/images/editorial/shirt-10.webp",
-    en: { eyebrow: "Your data", title: "Privacy Policy", subtitle: "How we collect, use and protect your personal data." },
-    ms: { eyebrow: "Data anda", title: "Dasar Privasi", subtitle: "Cara kami mengumpul, menggunakan dan melindungi data peribadi anda." },
-  },
-  "shipping-returns": {
+  policies: {
     image: "/images/products/set-malam-kota/1.webp",
-    en: { eyebrow: "Delivery & returns", title: "Shipping & Returns", subtitle: "Insured, tracked worldwide delivery and 30-day returns." },
-    ms: { eyebrow: "Penghantaran", title: "Penghantaran & Pemulangan", subtitle: "Penghantaran berinsurans ke seluruh dunia dan pemulangan 30 hari." },
-  },
-  terms: {
-    image: "/images/editorial/shirt-05.webp",
-    en: { eyebrow: "The small print", title: "Terms of Service", subtitle: "The terms for ordering hand-dyed batik on WhatsApp." },
-    ms: { eyebrow: "Cetakan halus", title: "Terma Perkhidmatan", subtitle: "Terma untuk memesan batik celup tangan di WhatsApp." },
+    en: { eyebrow: "Good to know", title: "Shop Policies", subtitle: "Ordering, delivery, 30-day returns and your details." },
+    ms: { eyebrow: "Perlu tahu", title: "Polisi Kedai", subtitle: "Pesanan, penghantaran, pemulangan 30 hari dan butiran anda." },
   },
 } satisfies Record<string, { image: string; en: Card; ms: Card }>;
 

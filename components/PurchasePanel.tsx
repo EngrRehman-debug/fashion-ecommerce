@@ -102,7 +102,7 @@ export default function PurchasePanel({ product, category: base }: { product: Pr
           <TruckIcon className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
           <span>
             {p.perkDelivery}{" "}
-            <Link href="/shipping-returns" className="link-underline text-ink">{p.shippingInfo}</Link>
+            <Link href="/policies#delivery" className="link-underline text-ink">{p.shippingInfo}</Link>
           </span>
         </li>
         <li className="flex items-start gap-3">

@@ -193,9 +193,7 @@ export default function CheckoutForm() {
 
         <p className="text-[13px] leading-relaxed text-muted">
           {k.consentBefore}
-          <Link href="/terms" className="link-underline text-ink">{k.consentTerms}</Link>
-          {k.consentAnd}
-          <Link href="/privacy-policy" className="link-underline text-ink">{k.consentPrivacy}</Link>
+          <Link href="/policies" className="link-underline text-ink">{k.consentPolicies}</Link>
           {k.consentAfter}
         </p>
       </div>
