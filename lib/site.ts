@@ -1,3 +1,5 @@
+import type { Messages } from "./i18n/messages/en";
+
 /**
  * Site-wide configuration.
  *
@@ -63,24 +65,26 @@ export function buildWhatsAppOrderUrl(opts: {
   lines: OrderLine[];
   total: string;
   customer: Customer;
+  /** The message wording, in the customer's language (messages.whatsapp). */
+  copy: Messages["whatsapp"];
 }) {
-  const { customer } = opts;
-  const out = [`Hi ${BRAND_NAME}! I'd like to place an order.`, "", `*ORDER ${opts.orderId}*`];
+  const { customer, copy } = opts;
+  const out = [copy.orderIntro, "", copy.orderHeading(opts.orderId)];
   opts.lines.forEach((l, i) => {
-    out.push(`${i + 1}. ${l.name} — ${l.option}${l.size ? `, size ${l.size}` : ""}`);
-    out.push(`   Qty ${l.qty} × ${l.price}`);
+    out.push(`${i + 1}. ${l.name} — ${l.option}${l.size ? `, ${copy.size(l.size)}` : ""}`);
+    out.push(`   ${copy.qty} ${l.qty} × ${l.price}`);
     out.push(`   ${l.url}`);
   });
-  out.push(`*Total: ${opts.total}*`);
+  out.push(`*${copy.total}: ${opts.total}*`);
   out.push(
     "",
-    "*DELIVER TO*",
-    `Name: ${customer.name.trim()}`,
-    `Phone: ${customer.phone.trim()}`,
-    `Address: ${customer.address.trim()}`,
+    `*${copy.deliverTo}*`,
+    `${copy.name}: ${customer.name.trim()}`,
+    `${copy.phone}: ${customer.phone.trim()}`,
+    `${copy.address}: ${customer.address.trim()}`,
     `${customer.postcode.trim()} ${customer.city.trim()}, ${customer.state.trim()}, ${customer.country.trim()}`
   );
-  if (customer.notes?.trim()) out.push(`Notes: ${customer.notes.trim()}`);
-  out.push("", "Please send the payment QR. I'll share the receipt once paid.");
+  if (customer.notes?.trim()) out.push(`${copy.notes}: ${customer.notes.trim()}`);
+  out.push("", copy.orderClosing);
   return whatsappLink(out.join("\n"));
 }

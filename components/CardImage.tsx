@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useT } from "@/lib/i18n/client";
 import DotsLoader from "./Loader";
 
 /**
@@ -22,6 +23,7 @@ export default function CardImage({
   fetchPriority?: "high" | "low" | "auto";
   loaderSize?: number;
 }) {
+  const t = useT();
   const img = useRef<HTMLImageElement>(null);
   const [loaded, setLoaded] = useState(false);
 
@@ -34,7 +36,7 @@ export default function CardImage({
     <>
       {!loaded && (
         <span className="absolute inset-0 flex items-center justify-center bg-cream">
-          <DotsLoader size={loaderSize} label={`Loading ${alt}`} className="text-ink/45" />
+          <DotsLoader size={loaderSize} label={t.m.common.loadingImage(alt)} className="text-ink/45" />
         </span>
       )}
       {/* eslint-disable-next-line @next/next/no-img-element */}

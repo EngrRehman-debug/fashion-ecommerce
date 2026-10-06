@@ -1,0 +1,20 @@
+{
+  "services": [
+    {
+      "title": "Pesan di WhatsApp",
+      "text": "Daftar keluar dalam beberapa sentuhan — kami balas dengan QR yang selamat."
+    },
+    {
+      "title": "Dijahit Ikut Saiz",
+      "text": "Ambil sebagai kain belum dipotong, atau dijahit mengikut saiz anda."
+    },
+    {
+      "title": "Penghantaran Seluruh Dunia",
+      "text": "Penghantaran berinsurans dan boleh dijejak, dibungkus dengan teliti."
+    },
+    {
+      "title": "Pemulangan 30 Hari",
+      "text": "Pulangkan atau tukar item yang belum dipakai dalam tempoh 30 hari."
+    }
+  ]
+}

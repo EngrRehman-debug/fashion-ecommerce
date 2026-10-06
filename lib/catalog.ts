@@ -18,6 +18,7 @@
 
 import categoriesData from "@/data/categories.json";
 import productsData from "@/data/products.json";
+import msText from "@/data/ms/catalog.json";
 
 /** One way to buy a product, e.g. "Unstitched" or "Stitched to size". */
 export type Option = {
@@ -140,12 +141,35 @@ export function productsFor(audience: Audience) {
   return PRODUCTS.filter((p) => getCategory(p.category)?.audience === audience);
 }
 
+const ms = msText as {
+  categories: Record<string, { name?: string }>;
+  colours: Record<string, string>;
+  motifs: Record<string, string>;
+  families: Record<string, string>;
+};
+
+/** Searchable text of a product, in English and Malay, so either language finds it. */
+const searchText = (p: Product) =>
+  [
+    p.name,
+    p.colour,
+    p.family,
+    p.motif,
+    getCategory(p.category)?.name,
+    ms.colours[p.colour],
+    ms.families[p.family],
+    ms.motifs[p.motif],
+    ms.categories[p.category]?.name,
+  ]
+    .join(" ")
+    .toLowerCase();
+
 /** Case-insensitive match on name, colour, motif and range — every word must match. */
 export function searchProducts(query: string) {
   const words = query.toLowerCase().split(/\s+/).filter(Boolean);
   if (!words.length) return [];
   return PRODUCTS.filter((p) => {
-    const hay = `${p.name} ${p.colour} ${p.family} ${p.motif} ${getCategory(p.category)?.name ?? ""}`.toLowerCase();
+    const hay = searchText(p);
     return words.every((w) => hay.includes(w));
   });
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { CATEGORIES, designs, productsIn } from "@/lib/catalog";
+import { CATEGORIES, productsIn } from "@/lib/catalog";
+import { getT } from "@/lib/i18n/server";
 import ProductCard from "./ProductCard";
 import SectionHeading from "./SectionHeading";
 import Slider from "./Slider";
@@ -17,28 +18,29 @@ function mix(count: number) {
 
 /** "From the collection" band: range links plus a draggable product slider. */
 export default function CollectionStrip({
-  eyebrow = "From the collection",
+  eyebrow,
   title,
 }: {
   eyebrow?: string;
   title: React.ReactNode;
 }) {
+  const t = getT();
   const products = mix(14);
   return (
     <section className="overflow-hidden bg-white py-20 lg:py-28">
       <div className="container-lux">
         <SectionHeading
-          eyebrow={eyebrow}
+          eyebrow={eyebrow ?? t.m.collectionStrip.eyebrow}
           title={title}
           action={
             <Link href="/shop" className="btn-primary">
-              <span>Shop all</span>
+              <span>{t.m.common.shopAll}</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           }
         />
         <div className="no-scrollbar -mx-4 mt-10 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0">
-          {CATEGORIES.map((c) => (
+          {t.categories.map((c) => (
             <Link
               key={c.id}
               href={`/shop?category=${c.id}`}
@@ -46,7 +48,7 @@ export default function CollectionStrip({
             >
               {c.name}
               <span className="text-[12px] text-muted transition-colors group-hover:text-cream-light/60">
-                {designs(productsIn(c.id).length)}
+                {t.designs(productsIn(c.id).length)}
               </span>
             </Link>
           ))}
@@ -54,7 +56,7 @@ export default function CollectionStrip({
       </div>
 
       <Slider
-        label="Pieces from the collection"
+        label={t.m.collectionStrip.sliderLabel}
         className="mt-10"
         trackClassName="gap-3 scroll-px-4 px-4 sm:gap-5 sm:scroll-px-6 sm:px-6 lg:scroll-px-10 lg:px-10 2xl:scroll-px-14 2xl:px-14"
       >

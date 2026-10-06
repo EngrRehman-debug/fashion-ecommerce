@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { thumb } from "@/lib/catalog";
+import { useT } from "@/lib/i18n/client";
 import { ChevronLeft, ChevronRight } from "./icons";
 
 /** How long each photo stays up before the gallery advances on its own. */
@@ -13,6 +14,7 @@ const INTERVAL_MS = 5000;
  * (paused while hovered, focused or being swiped, and for reduced motion).
  */
 export default function ProductGallery({ images, alt }: { images: string[]; alt: string }) {
+  const g = useT().m.product.gallery;
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [drag, setDrag] = useState(0);
@@ -69,7 +71,7 @@ export default function ProductGallery({ images, alt }: { images: string[]; alt:
         className="group relative aspect-[3/4] w-full touch-pan-y select-none overflow-hidden bg-cream lg:w-[min(100%,calc((100svh-250px)*0.75))] lg:max-w-[560px]"
         role="region"
         aria-roledescription="carousel"
-        aria-label={`${alt} — photos`}
+        aria-label={g.photos(alt)}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -86,13 +88,13 @@ export default function ProductGallery({ images, alt }: { images: string[]; alt:
               className="h-full w-full shrink-0"
               role="group"
               aria-roledescription="slide"
-              aria-label={`${i + 1} of ${images.length}`}
+              aria-label={g.slide(i + 1, images.length)}
               aria-hidden={i !== index}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={src}
-                alt={many ? `${alt} — photo ${i + 1}` : alt}
+                alt={many ? g.photo(alt, i + 1) : alt}
                 draggable={false}
                 loading={i === 0 ? "eager" : "lazy"}
                 fetchPriority={i === 0 ? "high" : "auto"}
@@ -123,14 +125,14 @@ export default function ProductGallery({ images, alt }: { images: string[]; alt:
 
             <button
               onClick={() => go(index - 1)}
-              aria-label="Previous photo"
+              aria-label={g.previous}
               className="absolute left-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-cream-light/90 text-ink shadow-soft backdrop-blur transition-all duration-300 hover:bg-ink hover:text-cream-light sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={() => go(index + 1)}
-              aria-label="Next photo"
+              aria-label={g.next}
               className="absolute right-3 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-cream-light/90 text-ink shadow-soft backdrop-blur transition-all duration-300 hover:bg-ink hover:text-cream-light sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
             >
               <ChevronRight className="h-5 w-5" />
@@ -149,7 +151,7 @@ export default function ProductGallery({ images, alt }: { images: string[]; alt:
             <button
               key={src}
               onClick={() => go(i)}
-              aria-label={`Show photo ${i + 1}`}
+              aria-label={g.show(i + 1)}
               aria-current={i === index}
               className={`relative aspect-[3/4] w-[18%] min-w-[64px] shrink-0 overflow-hidden transition-opacity duration-300 lg:w-full lg:min-w-0 ${
                 i === index ? "opacity-100" : "opacity-50 hover:opacity-100"

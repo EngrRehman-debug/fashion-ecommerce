@@ -4,16 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import {
-  CATEGORIES,
-  cardPriceText,
-  formatMYR,
-  getCategory,
-  searchProducts,
-  thumb,
-  type Product,
-} from "@/lib/catalog";
+import { getCategory, searchProducts, thumb, type Product } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
+import { useT } from "@/lib/i18n/client";
 import OptionPicker, { QtyStepper } from "./OptionPicker";
 import CardImage from "./CardImage";
 import Highlight from "./Highlight";
@@ -63,6 +56,8 @@ function Backdrop({ onClick }: { onClick: () => void }) {
 
 function CartDrawer() {
   const { lines, count, subtotal, hasUnpriced, setQty, remove, closeDrawer } = useCart();
+  const t = useT();
+  const c = t.m.cart;
 
   return (
     <>
@@ -70,7 +65,7 @@ function CartDrawer() {
       <motion.aside
         role="dialog"
         aria-modal="true"
-        aria-label="Shopping cart"
+        aria-label={c.dialog}
         className="fixed inset-y-0 right-0 z-[70] flex w-full max-w-[460px] flex-col bg-cream-light shadow-drawer"
         initial={{ x: "100%" }}
         animate={{ x: 0 }}
@@ -79,9 +74,9 @@ function CartDrawer() {
       >
         <header className="flex items-center justify-between border-b border-line px-6 py-5">
           <h2 className="font-serif text-2xl text-ink">
-            Your Cart <span className="text-muted">({count})</span>
+            {c.yourCart} <span className="text-muted">({count})</span>
           </h2>
-          <button onClick={closeDrawer} aria-label="Close cart" className="-mr-2 p-2 text-ink transition-transform hover:rotate-90">
+          <button onClick={closeDrawer} aria-label={c.closeCart} className="-mr-2 p-2 text-ink transition-transform hover:rotate-90">
             <CloseIcon className="h-6 w-6" />
           </button>
         </header>
@@ -89,10 +84,10 @@ function CartDrawer() {
         {lines.length === 0 ? (
           <div className="flex flex-1 flex-col items-center justify-center px-8 text-center">
             <BagIcon className="h-12 w-12 text-sand" />
-            <p className="mt-5 font-serif text-2xl text-ink">Your cart is empty</p>
-            <p className="mt-2 text-[15px] text-muted">Every print is one of one — find yours.</p>
+            <p className="mt-5 font-serif text-2xl text-ink">{c.empty}</p>
+            <p className="mt-2 text-[15px] text-muted">{c.emptyDrawerNote}</p>
             <Link href="/shop" onClick={closeDrawer} className="btn-primary mt-8">
-              <span>Shop the collection</span>
+              <span>{t.m.common.shopCollection}</span>
             </Link>
           </div>
         ) : (
@@ -117,17 +112,17 @@ function CartDrawer() {
                           {l.product.name}
                         </Link>
                         <p className="mt-1 text-[13px] text-muted">
-                          {l.option.label}
-                          {l.size && ` · Size ${l.size}`}
+                          {t.option(l.category.id, l.option).label}
+                          {l.size && ` · ${t.m.product.sizeValue(l.size)}`}
                         </p>
                       </div>
-                      <button onClick={() => remove(l.key)} aria-label={`Remove ${l.product.name}`} className="p-1 text-muted transition-colors hover:text-red-700">
+                      <button onClick={() => remove(l.key)} aria-label={c.remove(l.product.name)} className="p-1 text-muted transition-colors hover:text-red-700">
                         <TrashIcon className="h-[18px] w-[18px]" />
                       </button>
                     </div>
                     <div className="mt-auto flex items-center justify-between pt-3">
                       <QtyStepper small value={l.qty} onChange={(n) => setQty(l.key, n)} />
-                      <span className="text-[15px] font-medium text-ink">{formatMYR(l.total)}</span>
+                      <span className="text-[15px] font-medium text-ink">{t.money(l.total)}</span>
                     </div>
                   </div>
                 </motion.li>
@@ -136,20 +131,16 @@ function CartDrawer() {
 
             <footer className="border-t border-line bg-white px-6 py-6">
               <div className="flex items-baseline justify-between">
-                <span className="text-[13px] font-medium uppercase tracking-[0.16em] text-ink-soft">Subtotal</span>
-                <span className="font-serif text-2xl text-ink">{formatMYR(subtotal)}</span>
+                <span className="text-[13px] font-medium uppercase tracking-[0.16em] text-ink-soft">{c.subtotal}</span>
+                <span className="font-serif text-2xl text-ink">{t.money(subtotal)}</span>
               </div>
-              <p className="mt-2 text-[13px] leading-relaxed text-muted">
-                {hasUnpriced
-                  ? "Some items are priced on request — we'll confirm the total on WhatsApp."
-                  : "Shipping is confirmed with your order on WhatsApp."}
-              </p>
+              <p className="mt-2 text-[13px] leading-relaxed text-muted">{hasUnpriced ? c.unpricedNote : c.shippingNote}</p>
               <div className="mt-5 grid grid-cols-2 gap-3">
-                <Link href="/cart" onClick={closeDrawer} className="btn-outline px-4">
-                  <span>View cart</span>
+                <Link href="/cart" onClick={closeDrawer} className="btn-outline px-3 text-center">
+                  <span>{c.viewCart}</span>
                 </Link>
-                <Link href="/checkout" onClick={closeDrawer} className="btn-primary px-4">
-                  <span>Checkout</span>
+                <Link href="/checkout" onClick={closeDrawer} className="btn-primary px-3 text-center">
+                  <span>{c.checkout}</span>
                 </Link>
               </div>
             </footer>
@@ -164,7 +155,8 @@ function CartDrawer() {
 
 function QuickAdd({ product }: { product: Product }) {
   const { add, closeQuickAdd, openDrawer } = useCart();
-  const category = getCategory(product.category)!;
+  const t = useT();
+  const category = t.category(getCategory(product.category)!);
   const [option, setOption] = useState(category.options[0]);
   const [size, setSize] = useState<string | null>(null);
   const [tried, setTried] = useState(false);
@@ -185,14 +177,14 @@ function QuickAdd({ product }: { product: Product }) {
         <motion.div
           role="dialog"
           aria-modal="true"
-          aria-label={`Add ${product.name} to cart`}
+          aria-label={t.m.product.addNamed(product.name)}
           className="pointer-events-auto relative grid max-h-[92svh] w-full max-w-3xl overflow-y-auto bg-cream-light shadow-card sm:grid-cols-[0.9fr_1.1fr]"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 40 }}
           transition={{ duration: 0.5, ease: EASE }}
         >
-          <button onClick={closeQuickAdd} aria-label="Close" className="absolute right-3 top-3 z-10 bg-cream-light/90 p-2 text-ink transition-transform hover:rotate-90">
+          <button onClick={closeQuickAdd} aria-label={t.m.common.close} className="absolute right-3 top-3 z-10 bg-cream-light/90 p-2 text-ink transition-transform hover:rotate-90">
             <CloseIcon className="h-5 w-5" />
           </button>
           <div className="hidden bg-cream sm:block">
@@ -202,8 +194,8 @@ function QuickAdd({ product }: { product: Product }) {
           <div className="p-6 sm:p-9">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{category.name}</p>
             <h2 className="mt-2 font-serif text-3xl text-ink">{product.name}</h2>
-            <p className="mt-1 text-[15px] text-muted">{product.motif}</p>
-            <p className="mt-4 font-serif text-2xl text-ink">{formatMYR(option.price)}</p>
+            <p className="mt-1 text-[15px] text-muted">{t.motif(product.motif)}</p>
+            <p className="mt-4 font-serif text-2xl text-ink">{t.money(option.price)}</p>
 
             <div className="mt-7">
               <OptionPicker
@@ -218,14 +210,14 @@ function QuickAdd({ product }: { product: Product }) {
 
             <button onClick={submit} className="btn-primary mt-8 w-full">
               <BagIcon className="h-4 w-4" />
-              <span>Add to Cart</span>
+              <span>{t.m.common.addToCart}</span>
             </button>
             <Link
               href={`/shop/${product.slug}`}
               onClick={closeQuickAdd}
               className="link-underline mt-5 inline-block text-[13px] font-medium uppercase tracking-[0.16em] text-ink"
             >
-              View full details
+              {t.m.product.viewDetails}
             </Link>
           </div>
         </motion.div>
@@ -238,6 +230,8 @@ function QuickAdd({ product }: { product: Product }) {
 
 function SearchPanel() {
   const { setSearchOpen } = useCart();
+  const t = useT();
+  const s = t.m.search;
   const router = useRouter();
   const [q, setQ] = useState("");
   const input = useRef<HTMLInputElement>(null);
@@ -260,7 +254,7 @@ function SearchPanel() {
       <motion.div
         role="dialog"
         aria-modal="true"
-        aria-label="Search products"
+        aria-label={s.dialog}
         className="fixed inset-x-0 top-0 z-[70] max-h-[90svh] overflow-y-auto bg-cream-light shadow-card"
         initial={{ y: "-100%" }}
         animate={{ y: 0 }}
@@ -274,20 +268,20 @@ function SearchPanel() {
               ref={input}
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              placeholder="Search prints, colours, ranges…"
-              aria-label="Search"
+              placeholder={s.placeholder}
+              aria-label={t.m.common.search}
               className="min-w-0 flex-1 bg-transparent font-serif text-2xl text-ink outline-none placeholder:text-muted/60 focus-visible:outline-none sm:text-4xl"
             />
-            <button type="button" onClick={close} aria-label="Close search" className="p-1 text-ink transition-transform hover:rotate-90">
+            <button type="button" onClick={close} aria-label={s.close} className="p-1 text-ink transition-transform hover:rotate-90">
               <CloseIcon className="h-6 w-6 sm:h-7 sm:w-7" />
             </button>
           </form>
 
           {!q.trim() ? (
             <div className="mt-8">
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">Browse ranges</p>
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">{s.browseRanges}</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {CATEGORIES.map((c) => (
+                {t.categories.map((c) => (
                   <Link
                     key={c.id}
                     href={`/shop?category=${c.id}`}
@@ -300,15 +294,15 @@ function SearchPanel() {
               </div>
             </div>
           ) : results.length === 0 ? (
-            <p className="mt-10 text-center font-serif text-2xl text-ink">No prints match “{q}”.</p>
+            <p className="mt-10 text-center font-serif text-2xl text-ink">{s.noResults(q)}</p>
           ) : (
             <div className="mt-8">
               <div className="flex items-baseline justify-between">
                 <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted">
-                  {results.length} {results.length === 1 ? "result" : "results"}
+                  {s.results(results.length)}
                 </p>
                 <button onClick={submit} className="link-underline inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.16em] text-ink">
-                  View all <ArrowRight className="h-4 w-4" />
+                  {t.m.common.viewAll} <ArrowRight className="h-4 w-4" />
                 </button>
               </div>
               <ul className="mt-5 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-6">
@@ -322,9 +316,9 @@ function SearchPanel() {
                         <Highlight text={p.name} query={q} />
                       </p>
                       <p className="line-clamp-1 text-[13px] text-muted">
-                        <Highlight text={`${p.colour} · ${p.motif}`} query={q} />
+                        <Highlight text={`${t.colour(p.colour)} · ${t.motif(p.motif)}`} query={q} />
                       </p>
-                      <p className="text-[13px] font-medium text-ink">{cardPriceText(p)}</p>
+                      <p className="text-[13px] font-medium text-ink">{t.cardPrice(p)}</p>
                     </Link>
                   </li>
                 ))}

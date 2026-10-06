@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 import ContactCta from "./ContactCta";
 import JsonLd from "./JsonLd";
 import PageHeader from "./PageHeader";
+import { LOCALE_TAG } from "@/lib/i18n/config";
+import { getT } from "@/lib/i18n/server";
 import { webPageSchema } from "@/lib/seo";
 
 export type LegalSection = { id: string; title: string; body: ReactNode };
@@ -25,10 +27,15 @@ export default function LegalPage({
   updated: string;
   sections: LegalSection[];
 }) {
-  const updatedLabel = new Date(updated).toLocaleDateString("en-MY", { day: "numeric", month: "long", year: "numeric" });
+  const t = getT();
+  const updatedLabel = new Date(updated).toLocaleDateString(LOCALE_TAG[t.locale], {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
   return (
     <>
-      <JsonLd data={webPageSchema({ name, description, path, extra: { dateModified: updated } })} />
+      <JsonLd data={webPageSchema({ name, description, path, locale: t.locale, extra: { dateModified: updated } })} />
       <PageHeader
         crumbs={[{ name, path }]}
         eyebrow={eyebrow}
@@ -36,14 +43,14 @@ export default function LegalPage({
         intro={
           <>
             <p>{description}</p>
-            <p className="mt-4 text-[13px] uppercase tracking-[0.18em] text-muted">Last updated {updatedLabel}</p>
+            <p className="mt-4 text-[13px] uppercase tracking-[0.18em] text-muted">{t.m.legal.lastUpdated(updatedLabel)}</p>
           </>
         }
       />
       <section className="bg-cream-light py-16 lg:py-24">
         <div className="container-lux grid grid-cols-1 gap-12 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-20">
-          <nav aria-label="On this page" className="h-fit lg:sticky lg:top-28">
-            <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-muted">On this page</p>
+          <nav aria-label={t.m.legal.onThisPage} className="h-fit lg:sticky lg:top-28">
+            <p className="text-[12px] font-medium uppercase tracking-[0.2em] text-muted">{t.m.legal.onThisPage}</p>
             <ol className="mt-4 space-y-1 border-l border-line">
               {sections.map((s, i) => (
                 <li key={s.id}>

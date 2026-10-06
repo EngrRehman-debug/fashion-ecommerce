@@ -1,21 +1,23 @@
 import Link from "next/link";
-import footer from "@/data/footer.json";
-import { CATEGORIES } from "@/lib/catalog";
+import { getT } from "@/lib/i18n/server";
 import { BRAND_NAME, COMPANY_NO, WHATSAPP_DISPLAY, whatsappLink } from "@/lib/site";
+import LanguageSwitch from "./LanguageSwitch";
 import { ArrowRight, WhatsAppIcon } from "./icons";
 
 type FooterLink = { label: string; href: string };
 
-/** Shop links come from the categories, so new ranges appear automatically. */
-const shopColumn = {
-  title: "Shop",
-  links: [
-    ...CATEGORIES.map((c) => ({ label: c.name, href: `/shop?category=${c.id}` })),
-    { label: "All Products", href: "/shop" },
-  ],
-};
-
 export default function Footer() {
+  const t = getT();
+  const { footer } = t.content;
+  /** Shop links come from the categories, so new ranges appear automatically. */
+  const shopColumn = {
+    title: t.m.footer.shop,
+    links: [
+      ...t.categories.map((c) => ({ label: c.name, href: `/shop?category=${c.id}` })),
+      { label: t.m.footer.allProducts, href: "/shop" },
+    ],
+  };
+
   return (
     <footer className="relative overflow-hidden bg-ink text-cream-light">
       {/* Oversized wordmark watermark */}
@@ -31,7 +33,7 @@ export default function Footer() {
           {/* Brand + contact */}
           <div className="max-w-md">
             {/* Light version of the logo (white lettering) for the dark footer. */}
-            <Link href="/" aria-label="CWSK Enterprises — home" className="inline-block transition-opacity hover:opacity-80">
+            <Link href="/" aria-label={t.m.common.brandHome} className="inline-block transition-opacity hover:opacity-80">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/images/logo-light.webp" alt="CWSK Enterprises" width={206} height={160} className="h-20 w-auto" />
             </Link>
@@ -46,7 +48,7 @@ export default function Footer() {
             >
               <WhatsAppIcon className="h-7 w-7 text-[#25D366]" />
               <span>
-                <span className="block text-xs uppercase tracking-[0.2em] text-cream-light/60">Orders & enquiries</span>
+                <span className="block text-xs uppercase tracking-[0.2em] text-cream-light/60">{t.m.footer.ordersEnquiries}</span>
                 <span className="text-[17px] font-medium">{WHATSAPP_DISPLAY}</span>
               </span>
               <ArrowRight className="h-5 w-5 transition-transform duration-500 group-hover:translate-x-1" />
@@ -63,12 +65,13 @@ export default function Footer() {
 
         <div className="mt-20 flex flex-col gap-4 border-t border-cream-light/15 pt-8 text-[13px] text-cream-light/60 md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} {BRAND_NAME} ({COMPANY_NO}). All rights reserved.
+            © {new Date().getFullYear()} {BRAND_NAME} ({COMPANY_NO}). {t.m.footer.rights}
           </p>
-          <p className="flex flex-wrap gap-x-6 gap-y-2">
-            <Link href="/privacy-policy" className="transition-colors hover:text-cream-light">Privacy</Link>
-            <Link href="/terms" className="transition-colors hover:text-cream-light">Terms</Link>
-          </p>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <Link href="/privacy-policy" className="transition-colors hover:text-cream-light">{t.m.footer.privacy}</Link>
+            <Link href="/terms" className="transition-colors hover:text-cream-light">{t.m.footer.terms}</Link>
+            <LanguageSwitch dark />
+          </div>
         </div>
       </div>
     </footer>

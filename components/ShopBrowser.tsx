@@ -8,7 +8,6 @@ import {
   AUDIENCES,
   CATEGORIES,
   PRODUCTS,
-  designs,
   fromPrice,
   getCategory,
   searchProducts,
@@ -16,6 +15,8 @@ import {
   type Product,
 } from "@/lib/catalog";
 import { FAMILY_SWATCH } from "@/lib/colors";
+import { useT } from "@/lib/i18n/client";
+import type { Translator } from "@/lib/i18n/translator";
 import { PRODUCT_GRID } from "@/lib/ui";
 import { CloseIcon, SearchIcon } from "./icons";
 
@@ -24,21 +25,20 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 type Sort = "featured" | "az" | "za" | "price-asc" | "price-desc";
 
-const SORTS: { id: Sort; label: string }[] = [
-  { id: "featured", label: "Featured" },
-  { id: "price-asc", label: "Price: low to high" },
-  { id: "price-desc", label: "Price: high to low" },
-  { id: "az", label: "Name A–Z" },
-  { id: "za", label: "Name Z–A" },
+/** Sort ids and their label keys in messages.shop.sorts. */
+const SORTS: { id: Sort; key: keyof Translator["m"]["shop"]["sorts"] }[] = [
+  { id: "featured", key: "featured" },
+  { id: "price-asc", key: "priceAsc" },
+  { id: "price-desc", key: "priceDesc" },
+  { id: "az", key: "az" },
+  { id: "za", key: "za" },
 ];
 type AudienceFilter = Audience | "all";
 
-const AUDIENCE_TABS: { id: AudienceFilter; label: string }[] = [{ id: "all", label: "All" }, ...AUDIENCES];
-
 /** Range chips for the chosen audience, led by "All". */
-const rangesFor = (audience: AudienceFilter) => [
-  { id: "all", name: "All" },
-  ...CATEGORIES.filter((c) => audience === "all" || c.audience === audience),
+const rangesFor = (audience: AudienceFilter, t: Translator) => [
+  { id: "all", name: t.m.shop.all },
+  ...CATEGORIES.filter((c) => audience === "all" || c.audience === audience).map(t.category),
 ];
 
 const priceOf = (p: Product) => fromPrice(getCategory(p.category)!) ?? Number.POSITIVE_INFINITY;
@@ -77,6 +77,12 @@ export default function ShopBrowser({
   initialCategory?: string;
   initialQuery?: string;
 }) {
+  const t = useT();
+  const s = t.m.shop;
+  const AUDIENCE_TABS: { id: AudienceFilter; label: string }[] = [
+    { id: "all", label: s.all },
+    ...AUDIENCES.map((a) => ({ id: a.id, label: t.audience(a.id).label })),
+  ];
   const router = useRouter();
   const [audience, setAudience] = useState<AudienceFilter>(initialAudience);
   const [category, setCategory] = useState<string>(initialCategory);
@@ -102,7 +108,7 @@ export default function ShopBrowser({
     document.documentElement.style.overflow = sheetOpen ? "hidden" : "";
   }, [sheetOpen]);
 
-  const ranges = useMemo(() => rangesFor(audience), [audience]);
+  const ranges = useMemo(() => rangesFor(audience, t), [audience, t]);
   const families = useMemo(() => familiesIn(audience, category), [audience, category]);
   const results = useMemo(
     () => filterProducts(audience, category, family, query, sort),
@@ -154,8 +160,8 @@ export default function ShopBrowser({
           setShown(PAGE_SIZE);
         }}
         onBlur={() => syncUrl(audience, category, query)}
-        placeholder="Search prints…"
-        aria-label="Search prints"
+        placeholder={s.searchPlaceholder}
+        aria-label={s.searchAria}
         className="w-full border border-line bg-white py-3 pl-10 pr-3 text-[15px] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-ink lg:py-2.5"
       />
     </label>
@@ -164,7 +170,7 @@ export default function ShopBrowser({
   return (
     <>
       {/* ---------- Men / Women: the first split, on every screen size ---------- */}
-      <div role="tablist" aria-label="Shop for" className="mt-4 flex gap-8 border-b border-line lg:mt-6">
+      <div role="tablist" aria-label={s.shopFor} className="mt-4 flex gap-8 border-b border-line lg:mt-6">
         {AUDIENCE_TABS.map((a) => (
           <button
             key={a.id}
@@ -191,10 +197,10 @@ export default function ShopBrowser({
         </div>
         <div className="mt-4 flex items-center justify-between gap-6">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="mr-1 text-[12px] font-medium uppercase tracking-[0.18em] text-muted">Colour</span>
-            <Swatch active={family === "all"} onClick={() => apply({ family: "all" })} label="All" />
+            <span className="mr-1 text-[12px] font-medium uppercase tracking-[0.18em] text-muted">{s.colour}</span>
+            <Swatch active={family === "all"} onClick={() => apply({ family: "all" })} label={s.all} />
             {families.map((f) => (
-              <Swatch key={f} active={family === f} onClick={() => apply({ family: f })} label={f} color={FAMILY_SWATCH[f]} />
+              <Swatch key={f} active={family === f} onClick={() => apply({ family: f })} label={t.family(f)} color={FAMILY_SWATCH[f]} />
             ))}
           </div>
           <div className="flex shrink-0 items-center gap-3">
@@ -202,12 +208,12 @@ export default function ShopBrowser({
             <select
               value={sort}
               onChange={(e) => apply({ sort: e.target.value as Sort })}
-              aria-label="Sort products"
+              aria-label={s.sortAria}
               className="border border-line bg-white px-3 py-2.5 text-[15px] text-ink outline-none focus:border-ink"
             >
-              {SORTS.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.label}
+              {SORTS.map((o) => (
+                <option key={o.id} value={o.id}>
+                  {s.sorts[o.key]}
                 </option>
               ))}
             </select>
@@ -225,7 +231,7 @@ export default function ShopBrowser({
             className="relative flex shrink-0 items-center gap-2 border border-ink bg-ink px-4 text-[13px] font-medium uppercase tracking-[0.14em] text-cream-light"
           >
             <FilterIcon />
-            Filter
+            {s.filter}
             {activeCount > 0 && (
               <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-cream-light px-1 text-[11px] text-ink">
                 {activeCount}
@@ -236,9 +242,9 @@ export default function ShopBrowser({
         {(category !== "all" || family !== "all") && (
           <div className="no-scrollbar mt-3 flex gap-2 overflow-x-auto">
             {category !== "all" && (
-              <ActiveChip onRemove={() => apply({ category: "all" })}>{getCategory(category)?.name}</ActiveChip>
+              <ActiveChip onRemove={() => apply({ category: "all" })}>{ranges.find((r) => r.id === category)?.name}</ActiveChip>
             )}
-            {family !== "all" && <ActiveChip onRemove={() => apply({ family: "all" })}>{family}</ActiveChip>}
+            {family !== "all" && <ActiveChip onRemove={() => apply({ family: "all" })}>{t.family(family)}</ActiveChip>}
           </div>
         )}
       </div>
@@ -246,12 +252,12 @@ export default function ShopBrowser({
       {/* Count + clear */}
       <div className="mt-6 flex items-center justify-between lg:mt-8">
         <p className="text-[13px] uppercase tracking-[0.18em] text-muted">
-          {designs(results.length)}
-          {query.trim() && <> for “{query.trim()}”</>}
+          {t.designs(results.length)}
+          {query.trim() && s.forQuery(query.trim())}
         </p>
         {filtered && (
           <button onClick={clearAll} className="flex items-center gap-1.5 text-[13px] font-medium uppercase tracking-[0.14em] text-ink hover:text-primary">
-            <CloseIcon className="h-4 w-4" /> Clear
+            <CloseIcon className="h-4 w-4" /> {s.clear}
           </button>
         )}
       </div>
@@ -259,10 +265,10 @@ export default function ShopBrowser({
       {/* Grid */}
       {results.length === 0 ? (
         <div className="py-28 text-center">
-          <p className="font-serif text-4xl text-ink">No prints match that.</p>
-          <p className="mt-3 text-[16px] text-muted">Try another colour or range.</p>
+          <p className="font-serif text-4xl text-ink">{s.noMatch}</p>
+          <p className="mt-3 text-[16px] text-muted">{s.tryAnother}</p>
           <button onClick={clearAll} className="btn-outline mt-8">
-            <span>Clear filters</span>
+            <span>{s.clearFilters}</span>
           </button>
         </div>
       ) : (
@@ -286,13 +292,13 @@ export default function ShopBrowser({
       {shown < results.length && (
         <div className="mt-16 flex flex-col items-center gap-4">
           <p className="text-[13px] text-muted">
-            Showing {visible.length} of {results.length}
+            {s.showing(visible.length, results.length)}
           </p>
           <div className="h-px w-48 bg-line">
             <div className="h-px bg-ink transition-all duration-500" style={{ width: `${(visible.length / results.length) * 100}%` }} />
           </div>
           <button onClick={() => setShown((n) => n + PAGE_SIZE)} className="btn-outline mt-2">
-            <span>Load more</span>
+            <span>{s.loadMore}</span>
           </button>
         </div>
       )}
@@ -338,10 +344,12 @@ function FilterSheet({
   onClose: () => void;
   onApply: (next: { category: string; family: string; sort: Sort }) => void;
 }) {
+  const t = useT();
+  const s = t.m.shop;
+  const ranges = useMemo(() => rangesFor(audience, t), [audience, t]);
   const [cat, setCat] = useState(category);
   const [fam, setFam] = useState(family);
   const [srt, setSrt] = useState<Sort>(sort);
-  const ranges = useMemo(() => rangesFor(audience), [audience]);
   const fams = useMemo(() => familiesIn(audience, cat), [audience, cat]);
   const count = useMemo(() => filterProducts(audience, cat, fam, query, srt).length, [audience, cat, fam, query, srt]);
 
@@ -357,7 +365,7 @@ function FilterSheet({
       <motion.div
         role="dialog"
         aria-modal="true"
-        aria-label="Filter and sort"
+        aria-label={s.filterSort}
         className="fixed inset-x-0 bottom-0 z-[70] flex max-h-[88svh] flex-col rounded-t-2xl bg-cream-light lg:hidden"
         initial={{ y: "100%" }}
         animate={{ y: 0 }}
@@ -372,15 +380,15 @@ function FilterSheet({
           <span className="h-1 w-10 rounded-full bg-sand" />
         </div>
         <header className="flex items-center justify-between border-b border-line px-5 pb-4 pt-3">
-          <h2 className="font-serif text-2xl text-ink">Filter & sort</h2>
-          <button onClick={onClose} aria-label="Close filters" className="-mr-2 p-2 text-ink">
+          <h2 className="font-serif text-2xl text-ink">{s.filterSort}</h2>
+          <button onClick={onClose} aria-label={s.closeFilters} className="-mr-2 p-2 text-ink">
             <CloseIcon className="h-6 w-6" />
           </button>
         </header>
 
         <div className="flex-1 space-y-8 overflow-y-auto px-5 py-6">
           <section>
-            <h3 className="field-label">Range</h3>
+            <h3 className="field-label">{s.range}</h3>
             <div className="flex flex-wrap gap-2">
               {ranges.map((c) => (
                 <Chip
@@ -398,31 +406,31 @@ function FilterSheet({
           </section>
 
           <section>
-            <h3 className="field-label">Colour</h3>
+            <h3 className="field-label">{s.colour}</h3>
             <div className="flex flex-wrap gap-2">
-              <Swatch active={fam === "all"} onClick={() => setFam("all")} label="All" />
+              <Swatch active={fam === "all"} onClick={() => setFam("all")} label={s.all} />
               {fams.map((f) => (
-                <Swatch key={f} active={fam === f} onClick={() => setFam(f)} label={f} color={FAMILY_SWATCH[f]} />
+                <Swatch key={f} active={fam === f} onClick={() => setFam(f)} label={t.family(f)} color={FAMILY_SWATCH[f]} />
               ))}
             </div>
           </section>
 
           <section>
-            <h3 className="field-label">Sort by</h3>
+            <h3 className="field-label">{s.sortBy}</h3>
             <div className="divide-y divide-line border-y border-line">
-              {SORTS.map((s) => (
+              {SORTS.map((o) => (
                 <button
-                  key={s.id}
-                  onClick={() => setSrt(s.id)}
+                  key={o.id}
+                  onClick={() => setSrt(o.id)}
                   className="flex w-full items-center justify-between py-3.5 text-left text-[15px] text-ink"
                 >
-                  {s.label}
+                  {s.sorts[o.key]}
                   <span
                     className={`flex h-5 w-5 items-center justify-center rounded-full border ${
-                      srt === s.id ? "border-ink" : "border-sand"
+                      srt === o.id ? "border-ink" : "border-sand"
                     }`}
                   >
-                    {srt === s.id && <span className="h-2.5 w-2.5 rounded-full bg-ink" />}
+                    {srt === o.id && <span className="h-2.5 w-2.5 rounded-full bg-ink" />}
                   </span>
                 </button>
               ))}
@@ -439,10 +447,10 @@ function FilterSheet({
             }}
             className="btn-outline px-5"
           >
-            <span>Reset</span>
+            <span>{s.reset}</span>
           </button>
           <button onClick={() => onApply({ category: cat, family: fam, sort: srt })} className="btn-primary px-4" disabled={count === 0}>
-            <span>{count === 0 ? "No matches" : `Show ${designs(count)}`}</span>
+            <span>{count === 0 ? s.noMatches : s.showN(count)}</span>
           </button>
         </footer>
       </motion.div>

@@ -4,13 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import navigation from "@/data/navigation.json";
 import {
   AUDIENCES,
-  cardPriceText,
   categoriesFor,
   categoryCover,
-  designs,
   productsFor,
   productsIn,
   thumb,
@@ -18,14 +15,20 @@ import {
   type Category,
 } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
+import { useT } from "@/lib/i18n/client";
+import type { Locale } from "@/lib/i18n/config";
+import type { Translator } from "@/lib/i18n/translator";
 import { WHATSAPP_DISPLAY, whatsappLink } from "@/lib/site";
+import LanguageSwitch from "./LanguageSwitch";
 import { ArrowRight, BagIcon, CloseIcon, MenuIcon, SearchIcon, WhatsAppIcon } from "./icons";
 
-const { links, announcements } = navigation;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /** Men's and women's ranges, kept apart in both menus. */
-const GROUPS = AUDIENCES.map((a) => ({ ...a, ranges: categoriesFor(a.id) })).filter((g) => g.ranges.length);
+const groups = (t: Translator) =>
+  AUDIENCES.map((a) => ({ id: a.id, label: t.audience(a.id).label, ranges: categoriesFor(a.id).map(t.category) })).filter(
+    (g) => g.ranges.length
+  );
 
 /* ---------- Desktop mega menus: one per nav link with a `mega` key ---------- */
 
@@ -41,48 +44,60 @@ type MegaPanel = {
 
 const MEGA_COLUMNS = 6;
 
-const rangeItem = (c: Category): MegaItem => ({
-  href: `/shop?category=${c.id}`,
-  img: thumb(categoryCover(c)),
-  name: c.name,
-  sub: designs(productsIn(c.id).length),
-});
-
 /** Shop: every range, grouped by audience. Men / Women: their ranges, topped up with their newest designs. */
-const MEGA: Record<MegaKey, MegaPanel> = {
-  all: {
-    eyebrow: "The Collection",
-    title: "Shop by range",
-    href: "/shop",
-    cta: "Shop all",
-    sections: GROUPS.map((g) => ({ label: g.label, href: `/shop?for=${g.id}`, items: g.ranges.map(rangeItem) })),
-  },
-  ...(Object.fromEntries(
+function buildMega(t: Translator): Record<MegaKey, MegaPanel> {
+  const rangeItem = (c: Category): MegaItem => ({
+    href: `/shop?category=${c.id}`,
+    img: thumb(categoryCover(c)),
+    name: c.name,
+    sub: t.designs(productsIn(c.id).length),
+  });
+  const panels = Object.fromEntries(
     AUDIENCES.map((a) => {
-      const ranges = categoriesFor(a.id);
+      const copy = t.audience(a.id);
+      const ranges = categoriesFor(a.id).map(t.category);
       const latest = productsFor(a.id)
         .reverse()
         .slice(0, Math.max(0, MEGA_COLUMNS - ranges.length))
-        .map((p) => ({ href: `/shop/${p.slug}`, img: thumb(p.images[0]), name: p.name, sub: cardPriceText(p) }));
+        .map((p) => ({ href: `/shop/${p.slug}`, img: thumb(p.images[0]), name: p.name, sub: t.cardPrice(p) }));
       const href = `/shop?for=${a.id}`;
-      return [
-        a.id,
-        {
-          eyebrow: `For ${a.label.toLowerCase()}`,
-          title: a.title,
-          href,
-          cta: `Shop all ${a.label.toLowerCase()}`,
-          sections: [
-            { label: "Ranges", href, items: ranges.map(rangeItem) },
-            { label: "New in", href, items: latest },
-          ].filter((sec) => sec.items.length),
-        },
-      ];
+      const panel: MegaPanel = {
+        eyebrow: copy.eyebrow,
+        title: copy.title,
+        href,
+        cta: copy.shopAll,
+        sections: [
+          { label: t.m.nav.ranges, href, items: ranges.map(rangeItem) },
+          { label: t.m.nav.newIn, href, items: latest },
+        ].filter((sec) => sec.items.length),
+      };
+      return [a.id, panel];
     })
-  ) as Record<Audience, MegaPanel>),
-};
+  ) as Record<Audience, MegaPanel>;
+  return {
+    all: {
+      eyebrow: t.m.nav.collectionEyebrow,
+      title: t.m.nav.shopByRange,
+      href: "/shop",
+      cta: t.m.common.shopAll,
+      sections: groups(t).map((g) => ({ label: g.label, href: `/shop?for=${g.id}`, items: g.ranges.map(rangeItem) })),
+    },
+    ...panels,
+  };
+}
+
+const MEGA_CACHE = new Map<Locale, Record<MegaKey, MegaPanel>>();
+function megaFor(t: Translator) {
+  let mega = MEGA_CACHE.get(t.locale);
+  if (!mega) MEGA_CACHE.set(t.locale, (mega = buildMega(t)));
+  return mega;
+}
 
 export default function Navbar() {
+  const t = useT();
+  const { links, announcements } = t.content.navigation;
+  const MEGA = megaFor(t);
+  const GROUPS = groups(t);
   const pathname = usePathname();
   const { count, ready, openDrawer, setSearchOpen } = useCart();
   const [scrolled, setScrolled] = useState(false);
@@ -152,18 +167,18 @@ export default function Navbar() {
           <div className="flex items-center">
             <button
               onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
+              aria-label={t.m.nav.openMenu}
               className="-ml-2 p-2 text-ink lg:hidden"
             >
               <MenuIcon className="h-6 w-6" />
             </button>
-            <nav className="hidden items-center gap-6 lg:flex xl:gap-9" aria-label="Main">
+            <nav className="hidden items-center gap-5 lg:flex xl:gap-9" aria-label={t.m.nav.main}>
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onMouseEnter={() => setMega(link.mega ? (link.mega as MegaKey) : null)}
-                  className={`link-underline py-2 text-[13px] font-medium uppercase tracking-[0.2em] transition-colors hover:text-primary ${
+                  className={`link-underline whitespace-nowrap py-2 text-[13px] font-medium uppercase tracking-[0.14em] transition-colors hover:text-primary xl:tracking-[0.2em] ${
                     (mega ? mega === link.mega : isActive(link.href)) ? "text-primary after:scale-x-100" : "text-ink"
                   }`}
                 >
@@ -174,7 +189,7 @@ export default function Navbar() {
           </div>
 
           {/* Centre: logo */}
-          <Link href="/" aria-label="CWSK Enterprises — home" className="flex items-center justify-center">
+          <Link href="/" aria-label={t.m.common.brandHome} className="flex items-center justify-center">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/logo.webp"
@@ -187,23 +202,24 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Right: search + cart */}
+          {/* Right: language (tablet up — phones have it in the menu) + search + cart */}
           <div className="flex items-center justify-end gap-1 sm:gap-3">
+            <LanguageSwitch className="mr-1 hidden sm:inline-flex" />
             <button
               onClick={() => setSearchOpen(true)}
-              aria-label="Search"
+              aria-label={t.m.common.search}
               className="group flex items-center gap-2 p-2 text-ink transition-colors hover:text-primary"
             >
               <SearchIcon className="h-[22px] w-[22px]" />
-              <span className="hidden text-[13px] font-medium uppercase tracking-[0.2em] xl:inline">Search</span>
+              <span className="hidden text-[13px] font-medium uppercase tracking-[0.2em] xl:inline">{t.m.common.search}</span>
             </button>
             <button
               onClick={openDrawer}
-              aria-label={`Cart, ${count} ${count === 1 ? "item" : "items"}`}
+              aria-label={t.m.nav.cartCount(count)}
               className="group relative flex items-center gap-2 p-2 text-ink transition-colors hover:text-primary"
             >
               <BagIcon className="h-[22px] w-[22px]" />
-              <span className="hidden text-[13px] font-medium uppercase tracking-[0.2em] xl:inline">Cart</span>
+              <span className="hidden text-[13px] font-medium uppercase tracking-[0.2em] xl:inline">{t.m.common.cart}</span>
               <AnimatePresence>
                 {ready && count > 0 && (
                   <motion.span
@@ -258,7 +274,7 @@ export default function Navbar() {
               onClick={() => setMenuOpen(false)}
             />
             <motion.nav
-              aria-label="Mobile"
+              aria-label={t.m.nav.mobile}
               className="fixed inset-y-0 left-0 z-[70] flex w-[86%] max-w-sm flex-col overflow-y-auto bg-cream-light lg:hidden"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
@@ -268,13 +284,18 @@ export default function Navbar() {
               <div className="flex items-center justify-between border-b border-line px-6 py-4">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/images/logo.webp" alt="CWSK Enterprises" className="h-11 w-auto" />
-                <button onClick={() => setMenuOpen(false)} aria-label="Close menu" className="-mr-2 p-2 text-ink">
+                <button onClick={() => setMenuOpen(false)} aria-label={t.m.nav.closeMenu} className="-mr-2 p-2 text-ink">
                   <CloseIcon className="h-6 w-6" />
                 </button>
               </div>
 
+              <div className="flex items-center justify-between gap-4 border-b border-line px-6 py-3">
+                <span className="text-xs font-medium uppercase tracking-[0.22em] text-muted">{t.m.common.language}</span>
+                <LanguageSwitch large />
+              </div>
+
               <ul className="px-6 py-4">
-                {[{ label: "Home", href: "/" }, ...links].map((link, i) => (
+                {[{ label: t.m.common.home, href: "/" }, ...links].map((link, i) => (
                   <motion.li
                     key={link.href}
                     initial={{ opacity: 0, x: -16 }}
@@ -318,7 +339,7 @@ export default function Navbar() {
               >
                 <WhatsAppIcon className="h-6 w-6 text-[#25D366]" />
                 <span>
-                  <span className="block text-xs uppercase tracking-[0.18em] text-muted">Order & enquiries</span>
+                  <span className="block text-xs uppercase tracking-[0.18em] text-muted">{t.m.nav.ordersEnquiries}</span>
                   <span className="text-[15px] font-medium">{WHATSAPP_DISPLAY}</span>
                 </span>
               </a>

@@ -1,6 +1,6 @@
 import { NeedleIcon, QrIcon, ReturnIcon, ShieldIcon, TruckIcon } from "./icons";
 import { Stagger, StaggerItem } from "./Reveal";
-import data from "@/data/services.json";
+import { getT } from "@/lib/i18n/server";
 
 /** Maps the `icon` name in data/services.json to its component. */
 const ICONS = {
@@ -11,13 +11,10 @@ const ICONS = {
   needle: NeedleIcon,
 } as const;
 
-const services = data.services as {
-  icon: keyof typeof ICONS;
-  title: string;
-  text: string;
-}[];
+type Service = { icon: keyof typeof ICONS; title: string; text: string };
 
 export default function Services({ className = "bg-cream-light" }: { className?: string }) {
+  const services = getT().content.services.services as Service[];
   return (
     <section className={`border-y border-line py-10 lg:py-16 ${className}`}>
       <div className="container-lux">

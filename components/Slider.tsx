@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useT } from "@/lib/i18n/client";
 import { ChevronLeft, ChevronRight } from "./icons";
 
 /**
@@ -20,6 +21,7 @@ export default function Slider({
   trackClassName?: string;
   dark?: boolean;
 }) {
+  const t = useT();
   const track = useRef<HTMLDivElement>(null);
   const drag = useRef<{ x: number; left: number; moved: boolean } | null>(null);
   const [progress, setProgress] = useState(0);
@@ -115,10 +117,10 @@ export default function Slider({
           />
         </div>
         <div className="flex gap-2">
-          <button type="button" onClick={() => step(-1)} disabled={atStart} aria-label="Previous" className={btn}>
+          <button type="button" onClick={() => step(-1)} disabled={atStart} aria-label={t.m.common.previous} className={btn}>
             <ChevronLeft className="h-5 w-5" />
           </button>
-          <button type="button" onClick={() => step(1)} disabled={atEnd} aria-label="Next" className={btn}>
+          <button type="button" onClick={() => step(1)} disabled={atEnd} aria-label={t.m.common.next} className={btn}>
             <ChevronRight className="h-5 w-5" />
           </button>
         </div>

@@ -1,0 +1,71 @@
+{
+  "groups": [
+    {
+      "title": "Pesanan & bayaran",
+      "items": [
+        {
+          "q": "Bagaimana cara membuat pesanan?",
+          "a": "Tambahkan helaian yang anda suka ke troli dan pergi ke daftar keluar. Isi butiran penghantaran dan tekan “Pesan melalui WhatsApp” — pesanan penuh anda akan dibuka di WhatsApp, sedia untuk dihantar kepada kami. Sebaik sahaja kami menerimanya, kami akan sahkan stok dan balas dengan kod QR pembayaran."
+        },
+        {
+          "q": "Bagaimana cara membayar?",
+          "a": "Bayaran dibuat melalui QR. Selepas kami mengesahkan pesanan anda di WhatsApp, kami akan hantar kod QR pembayaran. Bayar menggunakan aplikasi bank atau e-dompet anda, kemudian hantar resit kepada kami. Kami tidak pernah meminta butiran kad di laman web ini."
+        },
+        {
+          "q": "Bilakah pesanan saya disahkan?",
+          "a": "Pesanan anda disahkan sebaik sahaja kami menyemak stok dan menerima resit pembayaran anda di WhatsApp. Kami kemudian menyediakan dan menghantarnya."
+        },
+        {
+          "q": "Kenapa sesetengah item tertulis “Harga atas permintaan”?",
+          "a": "Untuk sesetengah rangkaian, kami mengesahkan harga terus dengan anda. Anda masih boleh menambahkannya ke troli dan daftar keluar — kami akan kongsikan harganya di WhatsApp sebelum anda membayar, jadi tiada kejutan."
+        },
+        {
+          "q": "Bolehkah saya menukar atau membatalkan pesanan?",
+          "a": "Boleh, selagi pesanan belum dihantar. Hantar sahaja mesej WhatsApp kepada kami bersama nombor pesanan anda. Item yang dijahit ikut saiz tidak boleh dibatalkan selepas jahitan bermula."
+        }
+      ]
+    },
+    {
+      "title": "Produk & saiz",
+      "items": [
+        {
+          "q": "Apakah perbezaan antara Belum Dijahit dan Dijahit?",
+          "a": "Rangkaian Batik Pawang kami ditawarkan dalam dua cara. Belum Dijahit ialah kain batik yang belum dipotong, sedia untuk tukang jahit anda. Dijahit ialah kain yang sama dijadikan kemeja mengikut saiz pilihan anda (S, M, L atau XL)."
+        },
+        {
+          "q": "Apakah saiz yang ditawarkan?",
+          "a": "Kemeja, set dan seluar boxer kami ada dalam saiz S, M, L dan XL. Kain sarung, kain dan selendang adalah satu saiz. Jika anda di antara dua saiz, hantar mesej WhatsApp kepada kami dan kami akan bantu anda memilih."
+        },
+        {
+          "q": "Adakah setiap reka bentuk benar-benar satu-satunya?",
+          "a": "Setiap batik dicelup dengan tangan, jadi tiada dua helai yang betul-betul sama — ketidaksempurnaan kecil lilin dan pewarna ialah sebahagian daripada keunikan batik sebenar."
+        },
+        {
+          "q": "Adakah batik ini dibuat dengan tangan?",
+          "a": "Ya. Batik ialah tradisi pencelupan rintang lilin: lilin cair dilukis di atas kain, kemudian dicelup secara berperingkat. Helaian kami dihasilkan oleh tukang batik di Malaysia, dan sehelai boleh mengambil masa berhari-hari untuk disiapkan."
+        },
+        {
+          "q": "Bagaimana cara menjaga batik saya?",
+          "a": "Basuh dengan tangan menggunakan air sejuk atau kitaran lembut, terbalikkan pakaian, dengan sabun lembut. Keringkan di tempat teduh dan seterika di bahagian dalam. Warna celupan tangan mungkin lembut sedikit dari semasa ke semasa."
+        }
+      ]
+    },
+    {
+      "title": "Penghantaran & pemulangan",
+      "items": [
+        {
+          "q": "Adakah anda menghantar ke seluruh dunia?",
+          "a": "Ya. Kami menghantar ke seluruh Malaysia dan seluruh dunia dengan penghantaran berinsurans dan boleh dijejak. Kos penghantaran ke alamat anda disahkan di WhatsApp sebelum anda membayar."
+        },
+        {
+          "q": "Berapa lama masa penghantaran?",
+          "a": "Kami pos sebaik sahaja bayaran disahkan. Kain belum dijahit dan pakaian siap pakai dihantar paling cepat; kemeja yang dijahit ikut saiz memerlukan masa tambahan untuk jahitan. Kami akan berikan anggaran untuk alamat anda di WhatsApp."
+        },
+        {
+          "q": "Apakah polisi pemulangan anda?",
+          "a": "Item yang belum dipakai boleh dipulangkan atau ditukar dalam tempoh 30 hari selepas diterima. Hantar mesej WhatsApp kepada kami bersama nombor pesanan anda untuk memulakan pemulangan. Lihat halaman Penghantaran & Pemulangan kami untuk butiran penuh."
+        }
+      ]
+    }
+  ]
+}

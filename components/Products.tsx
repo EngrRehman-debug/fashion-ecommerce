@@ -4,6 +4,8 @@ import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { CATEGORIES, PRODUCTS, productsIn } from "@/lib/catalog";
+import { useT } from "@/lib/i18n/client";
+import { rich } from "@/lib/i18n/rich";
 import { PRODUCT_GRID } from "@/lib/ui";
 import ProductCard from "./ProductCard";
 import SectionHeading from "./SectionHeading";
@@ -24,12 +26,18 @@ function newIn() {
   return out;
 }
 
-const TABS = [
-  { id: "new", label: "New In", products: newIn() },
-  ...CATEGORIES.map((c) => ({ id: c.id, label: c.name, products: productsIn(c.id).slice(0, COUNT) })),
+const TAB_PRODUCTS = [
+  { id: "new", products: newIn() },
+  ...CATEGORIES.map((c) => ({ id: c.id, products: productsIn(c.id).slice(0, COUNT) })),
 ].filter((t) => t.products.length > 0);
 
 export default function Products() {
+  const t = useT();
+  const e = t.m.home.edit;
+  const TABS = TAB_PRODUCTS.map((tab) => ({
+    ...tab,
+    label: tab.id === "new" ? e.newIn : t.category(CATEGORIES.find((c) => c.id === tab.id)!).name,
+  }));
   const [tab, setTab] = useState(TABS[0].id);
   const active = TABS.find((t) => t.id === tab)!;
   const href = tab === "new" ? "/shop" : `/shop?category=${tab}`;
@@ -38,15 +46,11 @@ export default function Products() {
     <section id="collection" className="bg-white py-20 lg:py-28">
       <div className="container-lux">
         <SectionHeading
-          eyebrow="The Edit"
-          title={
-            <>
-              Worn once, <em className="text-primary">remembered</em> always
-            </>
-          }
+          eyebrow={e.eyebrow}
+          title={rich(e.title)}
           action={
             <Link href={href} className="link-underline inline-flex items-center gap-2 text-[13px] font-medium uppercase tracking-[0.18em] text-ink">
-              View all {tab === "new" ? PRODUCTS.length : productsIn(tab).length} <ArrowRight className="h-4 w-4" />
+              {e.viewAll(tab === "new" ? PRODUCTS.length : productsIn(tab).length)} <ArrowRight className="h-4 w-4" />
             </Link>
           }
         />
@@ -55,23 +59,23 @@ export default function Products() {
         {/* Swipeable on phones: edges fade to show there is more, and the chosen tab scrolls into view. */}
         <div
           role="tablist"
-          aria-label="Product ranges"
+          aria-label={t.m.nav.ranges}
           className="no-scrollbar -mx-4 mt-10 flex snap-x gap-2 overflow-x-auto scroll-px-4 px-4 [mask-image:linear-gradient(to_right,transparent,#000_16px,#000_calc(100%-40px),transparent)] sm:mx-0 sm:px-0 sm:[mask-image:none]"
         >
-          {TABS.map((t) => (
+          {TABS.map((tb) => (
             <button
-              key={t.id}
+              key={tb.id}
               role="tab"
-              aria-selected={t.id === tab}
-              onClick={(e) => {
-                setTab(t.id);
-                e.currentTarget.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+              aria-selected={tb.id === tab}
+              onClick={(ev) => {
+                setTab(tb.id);
+                ev.currentTarget.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
               }}
               className={`relative shrink-0 snap-start border px-4 py-2.5 text-[12px] sm:px-5 sm:py-3 sm:text-[13px] font-medium uppercase tracking-[0.16em] transition-colors duration-300 ${
-                t.id === tab ? "border-ink bg-ink text-cream-light" : "border-line text-ink hover:border-ink"
+                tb.id === tab ? "border-ink bg-ink text-cream-light" : "border-line text-ink hover:border-ink"
               }`}
             >
-              {t.label}
+              {tb.label}
             </button>
           ))}
         </div>
@@ -97,7 +101,7 @@ export default function Products() {
 
         <div className="mt-16 flex justify-center">
           <Link href={href} className="btn-primary">
-            <span>Explore the {tab === "new" ? "collection" : active.label}</span>
+            <span>{tab === "new" ? e.exploreCollection : e.explore(active.label)}</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

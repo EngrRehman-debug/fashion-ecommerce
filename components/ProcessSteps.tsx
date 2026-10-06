@@ -1,4 +1,4 @@
-import heritage from "@/data/heritage.json";
+import { getT } from "@/lib/i18n/server";
 import { Stagger, StaggerItem } from "./Reveal";
 
 /**
@@ -7,6 +7,7 @@ import { Stagger, StaggerItem } from "./Reveal";
  * Tablet up: full cards with the description.
  */
 export default function ProcessSteps({ className = "" }: { className?: string }) {
+  const { heritage } = getT().content;
   return (
     <Stagger className={`grid grid-cols-3 gap-px bg-cream-light/15 ${className}`}>
       {heritage.steps.map((step) => (

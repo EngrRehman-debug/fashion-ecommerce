@@ -1,17 +1,19 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import JsonLd from "./JsonLd";
+import { getT } from "@/lib/i18n/server";
 import { breadcrumbSchema } from "@/lib/seo";
 
 export type Crumb = { name: string; path: string };
 
 /** Breadcrumb trail (visible + BreadcrumbList schema). "Home" is added automatically. */
 export function Breadcrumbs({ items, className = "" }: { items: Crumb[]; className?: string }) {
-  const all = [{ name: "Home", path: "/" }, ...items];
+  const t = getT();
+  const all = [{ name: t.m.common.home, path: "/" }, ...items];
   return (
     <>
       <JsonLd data={breadcrumbSchema(all)} />
-      <nav aria-label="Breadcrumb" className={className}>
+      <nav aria-label={t.m.common.breadcrumb} className={className}>
         <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] uppercase tracking-[0.18em] text-muted sm:text-[13px]">
           {all.map((c, i) => (
             <li key={c.path} className="flex items-center gap-2">

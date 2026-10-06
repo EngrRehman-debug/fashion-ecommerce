@@ -4,14 +4,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
-import { formatMYR, type Category, type Product } from "@/lib/catalog";
+import type { Category, Product } from "@/lib/catalog";
 import { MAX_QTY, useCart } from "@/lib/cart";
+import { useT } from "@/lib/i18n/client";
 import OptionPicker, { QtyStepper } from "./OptionPicker";
 import { startNavigationLoader } from "./NavigationLoader";
 import { BagIcon, CheckIcon, QrIcon, ReturnIcon, TruckIcon } from "./icons";
 
 /** Option/size/quantity picker with Add to Cart and Buy Now, for the product page. */
-export default function PurchasePanel({ product, category }: { product: Product; category: Category }) {
+export default function PurchasePanel({ product, category: base }: { product: Product; category: Category }) {
+  const t = useT();
+  const p = t.m.product;
+  const category = t.category(base);
   const router = useRouter();
   const { add, openDrawer } = useCart();
   const [option, setOption] = useState(category.options[0]);
@@ -31,13 +35,11 @@ export default function PurchasePanel({ product, category }: { product: Product;
   return (
     <div>
       <div className="flex items-baseline gap-3">
-        <p className="font-serif text-4xl text-ink">{formatMYR(option.price)}</p>
+        <p className="font-serif text-4xl text-ink">{t.money(option.price)}</p>
         {category.options.length > 1 && <p className="text-[14px] text-muted">{option.label}</p>}
       </div>
       {option.price === null && (
-        <p className="mt-2 text-[14px] text-muted">
-          Add it to your cart — we’ll confirm the price with you on WhatsApp before you pay.
-        </p>
+        <p className="mt-2 text-[14px] text-muted">{p.priceOnRequestNote}</p>
       )}
 
       <div className="mt-8 border-t border-line pt-8">
@@ -52,7 +54,7 @@ export default function PurchasePanel({ product, category }: { product: Product;
       </div>
 
       <div className="mt-7">
-        <p className="field-label">Quantity</p>
+        <p className="field-label">{p.quantity}</p>
         <QtyStepper value={qty} max={MAX_QTY} onChange={(n) => setQty(Math.max(1, n))} />
       </div>
 
@@ -75,7 +77,7 @@ export default function PurchasePanel({ product, category }: { product: Product;
               className="flex items-center gap-2"
             >
               {added ? <CheckIcon className="h-4 w-4" /> : <BagIcon className="h-4 w-4" />}
-              {added ? "Added" : "Add to Cart"}
+              {added ? t.m.common.added : t.m.common.addToCart}
             </motion.span>
           </AnimatePresence>
         </button>
@@ -87,22 +89,25 @@ export default function PurchasePanel({ product, category }: { product: Product;
           }}
           className="btn-outline w-full"
         >
-          <span>Buy it now</span>
+          <span>{p.buyNow}</span>
         </button>
       </div>
 
       <ul className="mt-8 space-y-3 border-t border-line pt-7 text-[15px] text-ink-soft">
         <li className="flex items-start gap-3">
           <QrIcon className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-          Check out on WhatsApp — pay securely by QR once we confirm your order.
+          {p.perkQr}
         </li>
         <li className="flex items-start gap-3">
           <TruckIcon className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-          Insured, tracked delivery. <Link href="/shipping-returns" className="link-underline text-ink">Shipping info</Link>
+          <span>
+            {p.perkDelivery}{" "}
+            <Link href="/shipping-returns" className="link-underline text-ink">{p.shippingInfo}</Link>
+          </span>
         </li>
         <li className="flex items-start gap-3">
           <ReturnIcon className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-          30-day returns on unworn items.
+          {p.perkReturns}
         </li>
       </ul>
     </div>

@@ -2,7 +2,8 @@ import SmartImage from "./SmartImage";
 import SectionHeading from "./SectionHeading";
 import Reveal, { Stagger, StaggerItem } from "./Reveal";
 import { IMAGES } from "@/lib/images";
-import journal from "@/data/journal.json";
+import { getT } from "@/lib/i18n/server";
+import { rich } from "@/lib/i18n/rich";
 import { ArrowRight } from "./icons";
 
 /** Each story has its own colour, set by `tone` in data/journal.json. */
@@ -33,22 +34,18 @@ const TONES = {
 type Tone = keyof typeof TONES;
 const tone = (t?: string) => TONES[(t as Tone) in TONES ? (t as Tone) : "indigo"];
 
-const [featured, ...rest] = journal.posts;
-
 /** Editorial layout: one featured story beside a stacked index of the others. */
 export default function Journal() {
+  const t = getT();
+  const [featured, ...rest] = t.content.journal.posts;
   const f = tone(featured.tone);
   return (
     <section id="journal" className="bg-white py-20 lg:py-28">
       <div className="container-lux">
         <SectionHeading
-          eyebrow="Worn & written"
-          title={
-            <>
-              The <em className="text-primary">Journal</em>
-            </>
-          }
-          intro="Notes on motifs, styling and care — how to read, wear and keep your batik."
+          eyebrow={t.m.home.journal.eyebrow}
+          title={rich(t.m.home.journal.title)}
+          intro={t.m.home.journal.intro}
         />
 
         {/* Desktop: a fixed-height band so the feature and the index line up top and bottom. */}
@@ -74,7 +71,7 @@ export default function Journal() {
               </h3>
               <p className="mt-4 max-w-md text-[16px] leading-relaxed text-cream-light/80">{featured.excerpt}</p>
               <span className={`mt-6 inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.2em] ${f.accent}`}>
-                Coming soon <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
+                {t.m.common.comingSoon} <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
               </span>
             </div>
           </Reveal>
@@ -82,13 +79,13 @@ export default function Journal() {
           {/* The rest, each on its own colour card */}
           <Stagger className="flex flex-col gap-6 lg:h-full lg:gap-8">
             {rest.map((post, i) => {
-              const t = tone(post.tone);
+              const tn = tone(post.tone);
               return (
                 <StaggerItem key={post.title} className="lg:min-h-0 lg:flex-1">
                   <article
-                    className={`group relative grid h-full grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)] items-center gap-5 overflow-hidden p-4 transition-colors duration-500 sm:gap-8 sm:p-5 ${t.card}`}
+                    className={`group relative grid h-full grid-cols-[minmax(0,0.75fr)_minmax(0,1fr)] items-center gap-5 overflow-hidden p-4 transition-colors duration-500 sm:gap-8 sm:p-5 ${tn.card}`}
                   >
-                    <span className={`absolute inset-y-0 left-0 w-1 ${t.rule}`} />
+                    <span className={`absolute inset-y-0 left-0 w-1 ${tn.rule}`} />
                     <div className="aspect-[4/5] overflow-hidden bg-cream lg:aspect-auto lg:h-full">
                       <SmartImage
                         src={post.image}
@@ -98,7 +95,7 @@ export default function Journal() {
                       />
                     </div>
                     <div className="pr-2">
-                      <p className={`flex items-center gap-3 text-xs font-medium uppercase tracking-[0.22em] ${t.label}`}>
+                      <p className={`flex items-center gap-3 text-xs font-medium uppercase tracking-[0.22em] ${tn.label}`}>
                         <span className="font-serif text-2xl italic normal-case tracking-normal">
                           {String(i + 2).padStart(2, "0")}
                         </span>
@@ -106,8 +103,8 @@ export default function Journal() {
                       </p>
                       <h3 className="mt-3 font-serif text-[24px] leading-tight text-ink sm:text-[30px]">{post.title}</h3>
                       <p className="mt-3 hidden text-[15px] leading-relaxed text-ink-soft sm:block">{post.excerpt}</p>
-                      <span className={`mt-5 inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.2em] ${t.label}`}>
-                        Coming soon
+                      <span className={`mt-5 inline-flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.2em] ${tn.label}`}>
+                        {t.m.common.comingSoon}
                         <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
                       </span>
                     </div>

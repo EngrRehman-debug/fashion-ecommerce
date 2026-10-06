@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { categoriesFor, categoryCover, designs, productsIn, thumb, type Category } from "@/lib/catalog";
+import { categoriesFor, categoryCover, productsIn, thumb, type Category } from "@/lib/catalog";
+import { getT } from "@/lib/i18n/server";
+import { rich } from "@/lib/i18n/rich";
 import SectionHeading from "./SectionHeading";
 import { Stagger, StaggerItem } from "./Reveal";
 import { ArrowRight } from "./icons";
@@ -27,20 +29,18 @@ const PLACEMENT: { cls: string; size: Size }[] = [
 const EXTRA = { cls: "col-span-3 aspect-[4/5] lg:col-span-4", size: "small" as Size };
 
 export default function CategoryTiles() {
+  const t = getT();
+  const men = t.audience("men");
   return (
     <section className="bg-cream-light py-20 lg:py-28">
       <div className="container-lux">
         <SectionHeading
-          eyebrow="For men"
-          title={
-            <>
-              {RANGES.length} ways to wear <em className="text-primary">batik</em>
-            </>
-          }
-          intro="From our signature long-sleeve Batik Pawang to ready-made short-sleeves, full-length sarongs and matching sets."
+          eyebrow={men.eyebrow}
+          title={rich(t.m.home.tiles.title(RANGES.length))}
+          intro={t.m.home.tiles.intro}
           action={
             <Link href="/shop?for=men" className="btn-outline">
-              <span>Shop all men&apos;s</span>
+              <span>{men.shopAll}</span>
             </Link>
           }
         />
@@ -50,7 +50,7 @@ export default function CategoryTiles() {
             const p = PLACEMENT[i] ?? EXTRA;
             return (
               <StaggerItem key={c.id} className={`${p.cls} lg:aspect-auto`}>
-                <Tile category={c} size={p.size} />
+                <Tile category={t.category(c)} size={p.size} />
               </StaggerItem>
             );
           })}
@@ -61,6 +61,7 @@ export default function CategoryTiles() {
 }
 
 function Tile({ category: c, size }: { category: Category; size: Size }) {
+  const t = getT();
   const big = size === "feature";
   const showTagline = size === "feature" || size === "wide";
   return (
@@ -68,7 +69,7 @@ function Tile({ category: c, size }: { category: Category; size: Size }) {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={big ? categoryCover(c) : thumb(categoryCover(c))}
-        alt={`${c.name} by CWSK Enterprises`}
+        alt={t.m.home.tiles.imageAlt(c.name)}
         loading="lazy"
         className="absolute inset-0 h-full w-full object-cover object-[center_12%] transition-transform duration-[1400ms] ease-lux group-hover:scale-[1.06]"
       />
@@ -77,7 +78,7 @@ function Tile({ category: c, size }: { category: Category; size: Size }) {
 
       <div className={`absolute inset-x-0 bottom-0 text-white [text-shadow:0_1px_12px_rgba(0,0,0,0.45)] ${big ? "p-4 sm:p-7 lg:p-9" : "p-3 sm:p-5"}`}>
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white sm:text-xs">
-          {designs(productsIn(c.id).length)}
+          {t.designs(productsIn(c.id).length)}
         </p>
         <h3
           className={`mt-1 font-serif font-medium leading-[0.95] text-white ${
@@ -102,7 +103,7 @@ function Tile({ category: c, size }: { category: Category; size: Size }) {
             big ? "text-[12px] sm:mt-5 sm:text-[13px]" : "text-[10px] sm:text-[11px]"
           }`}
         >
-          Shop {size === "tall" || size === "small" ? "" : c.name}
+          {t.m.home.tiles.shop} {size === "tall" || size === "small" ? "" : c.name}
           <ArrowRight className="h-3.5 w-3.5" />
         </span>
       </div>

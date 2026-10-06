@@ -1,10 +1,11 @@
 import { QuoteMark } from "./icons";
 import SectionHeading from "./SectionHeading";
 import Reveal from "./Reveal";
-import data from "@/data/testimonials.json";
+import { getT } from "@/lib/i18n/server";
+import { rich } from "@/lib/i18n/rich";
+import type { Content } from "@/lib/i18n/content";
 
-const { testimonials } = data;
-type T = (typeof testimonials)[number];
+type T = Content["testimonials"]["testimonials"][number];
 
 /** Soft fade at both ends so cards drift in and out rather than being cut. */
 const EDGE_FADE = "[mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]";
@@ -14,17 +15,15 @@ const EDGE_FADE = "[mask-image:linear-gradient(to_right,transparent,#000_8%,#000
  * moving in opposite directions on larger screens.
  */
 export default function Testimonials() {
+  const t = getT();
+  const { testimonials } = t.content.testimonials;
   return (
     <section className="overflow-hidden bg-cream-light py-20 lg:py-28">
       <div className="container-lux">
         <SectionHeading
           center
-          eyebrow="In their words"
-          title={
-            <>
-              Worn with <em className="text-primary">confidence</em>
-            </>
-          }
+          eyebrow={t.m.home.testimonials.eyebrow}
+          title={rich(t.m.home.testimonials.title)}
         />
       </div>
 

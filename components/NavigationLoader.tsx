@@ -2,6 +2,7 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { useT } from "@/lib/i18n/client";
 import DotsLoader from "./Loader";
 
 const START_EVENT = "cwsk:navigation-start";
@@ -21,6 +22,7 @@ const GIVE_UP_AFTER_MS = 10_000;
  * and ends when the new URL (path or query) is in place.
  */
 export default function NavigationLoader() {
+  const t = useT();
   const pathname = usePathname();
   const search = useSearchParams().toString();
   const [visible, setVisible] = useState(false);
@@ -77,7 +79,7 @@ export default function NavigationLoader() {
         visible ? "opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
-      {visible && <DotsLoader size={16} label="Loading page" />}
+      {visible && <DotsLoader size={16} label={t.m.common.loadingPage} />}
     </div>
   );
 }

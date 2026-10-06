@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { cardPriceText, getCategory, thumb, type Product } from "@/lib/catalog";
+import { getCategory, thumb, type Product } from "@/lib/catalog";
 import { needsChoice, useCart } from "@/lib/cart";
+import { useT } from "@/lib/i18n/client";
 import CardImage from "./CardImage";
 import Highlight from "./Highlight";
 import { BagIcon, PlusIcon } from "./icons";
@@ -19,9 +20,11 @@ export default function ProductCard({
   highlight?: string;
 }) {
   const { add, openDrawer, openQuickAdd } = useCart();
+  const t = useT();
   const category = getCategory(product.category);
   const href = `/shop/${product.slug}`;
-  const alt = `${product.name} — ${product.motif}`;
+  const motif = t.motif(product.motif);
+  const alt = `${product.name} — ${motif}`;
   const second = product.images[1];
 
   const onAdd = () => {
@@ -58,7 +61,7 @@ export default function ProductCard({
 
         {product.images.length > 1 && (
           <span className="pointer-events-none absolute left-3 top-3 bg-cream-light/90 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-ink backdrop-blur-sm">
-            {product.images.length} photos
+            {t.m.common.photos(product.images.length)}
           </span>
         )}
 
@@ -68,13 +71,13 @@ export default function ProductCard({
           className="absolute inset-x-3 bottom-3 hidden translate-y-[calc(100%+1rem)] items-center justify-center gap-2 bg-cream-light/95 py-3.5 text-[13px] font-medium uppercase tracking-[0.16em] text-ink backdrop-blur transition-all duration-500 ease-lux hover:bg-ink hover:text-cream-light focus-visible:translate-y-0 group-hover:translate-y-0 md:flex"
         >
           <BagIcon className="h-4 w-4" />
-          Add to Cart
+          {t.m.common.addToCart}
         </button>
 
         {/* Mobile: always-visible round button */}
         <button
           onClick={onAdd}
-          aria-label={`Add ${product.name} to cart`}
+          aria-label={t.m.product.addNamed(product.name)}
           className="absolute bottom-2.5 right-2.5 flex h-10 w-10 items-center justify-center rounded-full bg-cream-light/95 text-ink shadow-soft backdrop-blur transition-transform active:scale-90 md:hidden"
         >
           <PlusIcon className="h-5 w-5" />
@@ -83,15 +86,15 @@ export default function ProductCard({
 
       <Link href={href} className="mt-4 block">
         <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted sm:text-xs">
-          {category?.name}
+          {category && t.category(category).name}
         </p>
         <h3 className="mt-1.5 font-serif text-[19px] leading-tight text-ink transition-colors group-hover:text-primary sm:text-[22px]">
           <Highlight text={product.name} query={highlight} />
         </h3>
         <p className="mt-1 line-clamp-1 text-[13px] text-muted sm:text-sm">
-          <Highlight text={`${product.colour} · ${product.motif}`} query={highlight} />
+          <Highlight text={`${t.colour(product.colour)} · ${motif}`} query={highlight} />
         </p>
-        <p className="mt-2 text-[14px] font-medium text-ink sm:text-[15px]">{cardPriceText(product)}</p>
+        <p className="mt-2 text-[14px] font-medium text-ink sm:text-[15px]">{t.cardPrice(product)}</p>
       </Link>
     </article>
   );

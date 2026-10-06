@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
-import { formatMYR, thumb } from "@/lib/catalog";
+import { thumb } from "@/lib/catalog";
 import { useCart } from "@/lib/cart";
+import { useT } from "@/lib/i18n/client";
 import { buildWhatsAppOrderUrl, type Customer } from "@/lib/site";
 import { ArrowRight, BagIcon, CheckIcon, QrIcon, WhatsAppIcon } from "./icons";
 
@@ -17,7 +18,7 @@ const STATES = [
 ];
 
 const EMPTY: Customer = {
-  name: "", phone: "", address: "", city: "", postcode: "", state: "", country: "Malaysia", notes: "",
+  name: "", phone: "", address: "", city: "", postcode: "", state: "", country: "", notes: "",
 };
 
 type LastOrder = { orderId: string; url: string; total: string; items: number; at: string };
@@ -33,7 +34,9 @@ function makeOrderId() {
 
 export default function CheckoutForm() {
   const { ready, lines, count, subtotal, hasUnpriced, clear } = useCart();
-  const [c, setC] = useState<Customer>(EMPTY);
+  const t = useT();
+  const k = t.m.checkout;
+  const [c, setC] = useState<Customer>({ ...EMPTY, country: k.defaultCountry });
   const [tried, setTried] = useState(false);
   const [done, setDone] = useState<LastOrder | null>(null);
 
@@ -41,7 +44,7 @@ export default function CheckoutForm() {
   useEffect(() => {
     try {
       const saved = window.localStorage.getItem(CUSTOMER_KEY);
-      if (saved) setC({ ...EMPTY, ...JSON.parse(saved), notes: "" });
+      if (saved) setC((prev) => ({ ...prev, ...JSON.parse(saved), notes: "" }));
     } catch {}
   }, []);
 
@@ -49,18 +52,18 @@ export default function CheckoutForm() {
     setC((prev) => ({ ...prev, [field]: e.target.value }));
 
   const errors: Partial<Record<keyof Customer, string>> = {
-    name: c.name.trim() ? "" : "Please enter your full name",
-    phone: isPhone(c.phone) ? "" : "Please enter a valid phone number",
-    address: c.address.trim() ? "" : "Please enter your street address",
-    city: c.city.trim() ? "" : "Please enter your city",
-    postcode: c.postcode.trim() ? "" : "Please enter your postcode",
-    state: c.state.trim() ? "" : "Please enter your state",
-    country: c.country.trim() ? "" : "Please enter your country",
+    name: c.name.trim() ? "" : k.errors.name,
+    phone: isPhone(c.phone) ? "" : k.errors.phone,
+    address: c.address.trim() ? "" : k.errors.address,
+    city: c.city.trim() ? "" : k.errors.city,
+    postcode: c.postcode.trim() ? "" : k.errors.postcode,
+    state: c.state.trim() ? "" : k.errors.state,
+    country: c.country.trim() ? "" : k.errors.country,
   };
   const valid = Object.values(errors).every((e) => !e);
   const err = (f: keyof Customer) => (tried ? errors[f] : "");
 
-  const total = hasUnpriced ? `${formatMYR(subtotal)} + items priced on request` : formatMYR(subtotal);
+  const total = hasUnpriced ? k.totalWithUnpriced(t.money(subtotal)) : t.money(subtotal);
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
@@ -75,12 +78,13 @@ export default function CheckoutForm() {
       orderId,
       total,
       customer: c,
+      copy: t.m.whatsapp,
       lines: lines.map((l) => ({
         name: l.product.name,
-        option: l.option.label,
+        option: t.option(l.category.id, l.option).label,
         size: l.size,
         qty: l.qty,
-        price: l.option.price === null ? "Price on request" : formatMYR(l.option.price),
+        price: t.money(l.option.price),
         url: `${window.location.origin}/shop/${l.slug}`,
       })),
     });
@@ -107,19 +111,20 @@ export default function CheckoutForm() {
         <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-ink text-cream-light">
           <CheckIcon className="h-8 w-8" />
         </span>
-        <p className="eyebrow mt-8 justify-center">Order {done.orderId}</p>
-        <h2 className="mt-4 font-serif text-4xl text-ink sm:text-5xl">Almost there</h2>
+        <p className="eyebrow mt-8 justify-center">{k.order(done.orderId)}</p>
+        <h2 className="mt-4 font-serif text-4xl text-ink sm:text-5xl">{k.almostThere}</h2>
         <p className="mx-auto mt-4 max-w-md text-[16px] leading-relaxed text-ink-soft">
-          Your order has opened in WhatsApp — just press <strong>Send</strong>. We’ll reply with a
-          payment QR, and ship as soon as your receipt is confirmed.
+          {k.openedBefore}
+          <strong>{k.openedSend}</strong>
+          {k.openedAfter}
         </p>
         <a href={done.url} target="_blank" rel="noopener noreferrer" className="btn-primary mt-9">
           <WhatsAppIcon className="h-5 w-5" />
-          <span>Open WhatsApp again</span>
+          <span>{k.openAgain}</span>
         </a>
         <div className="mt-6">
           <Link href="/shop" className="link-underline text-[13px] font-medium uppercase tracking-[0.16em] text-ink">
-            Continue shopping
+            {t.m.cart.continueShopping}
           </Link>
         </div>
       </motion.div>
@@ -130,10 +135,10 @@ export default function CheckoutForm() {
     return (
       <div className="flex flex-col items-center py-20 text-center">
         <BagIcon className="h-16 w-16 text-sand" />
-        <h2 className="mt-6 font-serif text-4xl text-ink">Nothing to check out yet</h2>
-        <p className="mt-3 text-[16px] text-muted">Add a piece to your cart to place an order.</p>
+        <h2 className="mt-6 font-serif text-4xl text-ink">{k.nothing}</h2>
+        <p className="mt-3 text-[16px] text-muted">{k.nothingNote}</p>
         <Link href="/shop" className="btn-primary mt-10">
-          <span>Shop the collection</span>
+          <span>{t.m.common.shopCollection}</span>
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
@@ -146,30 +151,30 @@ export default function CheckoutForm() {
         <Steps />
 
         <fieldset>
-          <legend className="font-serif text-3xl text-ink">Contact</legend>
+          <legend className="font-serif text-3xl text-ink">{k.contact}</legend>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            <Field label="Full name" error={err("name")}>
+            <Field label={k.fullName} error={err("name")}>
               <input className="field" autoComplete="name" value={c.name} onChange={set("name")} aria-invalid={!!err("name")} />
             </Field>
-            <Field label="Phone (WhatsApp)" error={err("phone")}>
-              <input className="field" type="tel" autoComplete="tel" placeholder="e.g. 012-345 6789" value={c.phone} onChange={set("phone")} aria-invalid={!!err("phone")} />
+            <Field label={k.phone} error={err("phone")}>
+              <input className="field" type="tel" autoComplete="tel" placeholder={k.phonePlaceholder} value={c.phone} onChange={set("phone")} aria-invalid={!!err("phone")} />
             </Field>
           </div>
         </fieldset>
 
         <fieldset>
-          <legend className="font-serif text-3xl text-ink">Delivery address</legend>
+          <legend className="font-serif text-3xl text-ink">{k.deliveryAddress}</legend>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
-            <Field label="Street address" error={err("address")} wide>
-              <input className="field" autoComplete="street-address" placeholder="House no., street, area" value={c.address} onChange={set("address")} aria-invalid={!!err("address")} />
+            <Field label={k.street} error={err("address")} wide>
+              <input className="field" autoComplete="street-address" placeholder={k.streetPlaceholder} value={c.address} onChange={set("address")} aria-invalid={!!err("address")} />
             </Field>
-            <Field label="City" error={err("city")}>
+            <Field label={k.city} error={err("city")}>
               <input className="field" autoComplete="address-level2" value={c.city} onChange={set("city")} aria-invalid={!!err("city")} />
             </Field>
-            <Field label="Postcode" error={err("postcode")}>
+            <Field label={k.postcode} error={err("postcode")}>
               <input className="field" autoComplete="postal-code" inputMode="numeric" value={c.postcode} onChange={set("postcode")} aria-invalid={!!err("postcode")} />
             </Field>
-            <Field label="State" error={err("state")}>
+            <Field label={k.state} error={err("state")}>
               <input className="field" list="my-states" autoComplete="address-level1" value={c.state} onChange={set("state")} aria-invalid={!!err("state")} />
               <datalist id="my-states">
                 {STATES.map((s) => (
@@ -177,25 +182,27 @@ export default function CheckoutForm() {
                 ))}
               </datalist>
             </Field>
-            <Field label="Country" error={err("country")}>
+            <Field label={k.country} error={err("country")}>
               <input className="field" autoComplete="country-name" value={c.country} onChange={set("country")} aria-invalid={!!err("country")} />
             </Field>
-            <Field label="Order notes (optional)" wide>
-              <textarea className="field resize-none" rows={3} placeholder="Delivery instructions, sizing questions…" value={c.notes} onChange={set("notes")} />
+            <Field label={k.notes} wide>
+              <textarea className="field resize-none" rows={3} placeholder={k.notesPlaceholder} value={c.notes} onChange={set("notes")} />
             </Field>
           </div>
         </fieldset>
 
         <p className="text-[13px] leading-relaxed text-muted">
-          Your details are saved on this device only, to fill the form next time. By placing an
-          order you agree to our <Link href="/terms" className="link-underline text-ink">Terms</Link> and{" "}
-          <Link href="/privacy-policy" className="link-underline text-ink">Privacy Policy</Link>.
+          {k.consentBefore}
+          <Link href="/terms" className="link-underline text-ink">{k.consentTerms}</Link>
+          {k.consentAnd}
+          <Link href="/privacy-policy" className="link-underline text-ink">{k.consentPrivacy}</Link>
+          {k.consentAfter}
         </p>
       </div>
 
       {/* Summary */}
       <aside className="h-fit border border-line bg-white p-7 lg:sticky lg:top-28 lg:p-9">
-        <h2 className="font-serif text-3xl text-ink">Your order</h2>
+        <h2 className="font-serif text-3xl text-ink">{k.yourOrder}</h2>
         <ul className="mt-6 max-h-[340px] divide-y divide-line overflow-y-auto border-y border-line">
           {lines.map((l) => (
             <li key={l.key} className="flex gap-4 py-4">
@@ -209,32 +216,32 @@ export default function CheckoutForm() {
               <div className="min-w-0 flex-1">
                 <p className="font-serif text-lg leading-tight text-ink">{l.product.name}</p>
                 <p className="text-[13px] text-muted">
-                  {l.option.label}
+                  {t.option(l.category.id, l.option).label}
                   {l.size && ` · ${l.size}`}
                 </p>
               </div>
-              <p className="text-[14px] font-medium">{formatMYR(l.total)}</p>
+              <p className="shrink-0 text-[14px] font-medium">{t.money(l.total)}</p>
             </li>
           ))}
         </ul>
         <dl className="space-y-3 py-6 text-[15px]">
-          <div className="flex justify-between">
-            <dt className="text-muted">Subtotal</dt>
-            <dd>{formatMYR(subtotal)}</dd>
+          <div className="flex justify-between gap-4">
+            <dt className="text-muted">{t.m.cart.subtotal}</dt>
+            <dd>{t.money(subtotal)}</dd>
           </div>
-          <div className="flex justify-between">
-            <dt className="text-muted">Shipping</dt>
-            <dd>Confirmed on WhatsApp</dd>
+          <div className="flex justify-between gap-4">
+            <dt className="text-muted">{t.m.cart.shipping}</dt>
+            <dd className="text-right">{t.m.cart.confirmedOnWhatsApp}</dd>
           </div>
         </dl>
         <div className="flex items-baseline justify-between border-t border-line pt-6">
-          <span className="text-[13px] font-medium uppercase tracking-[0.18em]">Total</span>
-          <span className="font-serif text-4xl">{formatMYR(subtotal)}</span>
+          <span className="text-[13px] font-medium uppercase tracking-[0.18em]">{t.m.cart.total}</span>
+          <span className="font-serif text-4xl">{t.money(subtotal)}</span>
         </div>
         <AnimatePresence>
           {hasUnpriced && (
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-2 text-[13px] text-muted">
-              + items priced on request, confirmed on WhatsApp.
+              {k.unpricedPlus}
             </motion.p>
           )}
         </AnimatePresence>
@@ -245,16 +252,16 @@ export default function CheckoutForm() {
           className="btn mt-8 w-full gap-1.5 whitespace-nowrap bg-[#1FAF5A] px-3 text-[12px] tracking-[0.1em] text-white before:bg-ink max-[359px]:text-[11px] max-[359px]:tracking-[0.05em] sm:gap-2 sm:px-8 sm:text-[13px] sm:tracking-[0.18em]"
         >
           <WhatsAppIcon className="h-5 w-5" />
-          <span>Place order on WhatsApp</span>
+          <span>{k.placeOrder}</span>
         </button>
         {tried && !valid && (
           <p role="alert" className="mt-3 text-center text-[13px] text-red-700">
-            Please complete the highlighted fields.
+            {k.completeFields}
           </p>
         )}
         <p className="mt-5 flex gap-3 text-[13px] leading-relaxed text-muted">
           <QrIcon className="h-5 w-5 shrink-0 text-primary" />
-          No payment is taken here. We’ll send a secure payment QR on WhatsApp once we confirm your order.
+          {k.noPayment}
         </p>
       </aside>
     </form>
@@ -282,11 +289,7 @@ function Field({
 }
 
 function Steps() {
-  const steps = [
-    { n: "1", title: "Your details", text: "Fill in delivery details below." },
-    { n: "2", title: "Send on WhatsApp", text: "Your order opens ready to send." },
-    { n: "3", title: "Pay by QR", text: "We confirm and send a QR code." },
-  ];
+  const steps = useT().m.checkout.steps.map((s, i) => ({ ...s, n: String(i + 1) }));
   return (
     <ol className="grid gap-3 sm:grid-cols-3">
       {steps.map((s, i) => (
