@@ -1222,6 +1222,28 @@
     ]
   },
   {
+    "slug": "taman-pirus",
+    "name": "Taman Pirus",
+    "category": "short-sleeve",
+    "colour": "Teal & navy",
+    "family": "Blue",
+    "motif": "Scattered floral",
+    "images": [
+      "/images/products/taman-pirus/1.webp"
+    ]
+  },
+  {
+    "slug": "serong-jambu",
+    "name": "Serong Jambu",
+    "category": "short-sleeve",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Tie-dye bands",
+    "images": [
+      "/images/products/serong-jambu/1.webp"
+    ]
+  },
+  {
     "slug": "set-malam-kota",
     "name": "Malam Kota Set",
     "category": "sets",
@@ -1592,6 +1614,193 @@
     "images": [
       "/images/products/crepe-sakura-jambu/1.webp",
       "/images/products/crepe-sakura-jambu/2.webp"
+    ]
+  },
+  {
+    "slug": "linen-serong-nila",
+    "name": "Serong Nila",
+    "category": "linen-batik",
+    "colour": "Blue & violet",
+    "family": "Blue",
+    "motif": "Multicolour chevrons",
+    "images": [
+      "/images/products/linen-serong-nila/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-paisli-kelabu",
+    "name": "Paisli Kelabu",
+    "category": "linen-batik",
+    "colour": "Grey blue",
+    "family": "Blue",
+    "motif": "Fine all-over print",
+    "images": [
+      "/images/products/linen-paisli-kelabu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-daun-laut",
+    "name": "Daun Laut",
+    "category": "linen-batik",
+    "colour": "Teal green",
+    "family": "Green",
+    "motif": "Abstract leaf print",
+    "images": [
+      "/images/products/linen-daun-laut/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-bunga-nila",
+    "name": "Bunga Nila",
+    "category": "linen-batik",
+    "colour": "Navy",
+    "family": "Blue",
+    "motif": "Scattered floral",
+    "images": [
+      "/images/products/linen-bunga-nila/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-pusaran-pirus",
+    "name": "Pusaran Pirus",
+    "category": "linen-batik",
+    "colour": "Teal & navy",
+    "family": "Blue",
+    "motif": "Swirling wave motif",
+    "images": [
+      "/images/products/linen-pusaran-pirus/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-tampal-coklat",
+    "name": "Tampal Coklat",
+    "category": "linen-batik",
+    "colour": "Brown",
+    "family": "Earth",
+    "motif": "Geometric patchwork",
+    "images": [
+      "/images/products/linen-tampal-coklat/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-kisi-magenta",
+    "name": "Kisi Magenta",
+    "category": "linen-batik",
+    "colour": "Magenta",
+    "family": "Pink & Purple",
+    "motif": "Geometric lattice",
+    "images": [
+      "/images/products/linen-kisi-magenta/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-jaring-coklat",
+    "name": "Jaring Coklat",
+    "category": "linen-batik",
+    "colour": "Coffee brown",
+    "family": "Earth",
+    "motif": "Dyed grid",
+    "images": [
+      "/images/products/linen-jaring-coklat/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-ungu-bintang",
+    "name": "Ungu Bintang",
+    "category": "linen-batik",
+    "colour": "Deep purple",
+    "family": "Pink & Purple",
+    "motif": "Scattered star motif",
+    "images": [
+      "/images/products/linen-ungu-bintang/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-paisli-pelangi",
+    "name": "Paisli Pelangi",
+    "category": "linen-batik",
+    "colour": "Multicolour",
+    "family": "Multi",
+    "motif": "Paisley swirl motif",
+    "images": [
+      "/images/products/linen-paisli-pelangi/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-medalion-jambu",
+    "name": "Medalion Jambu",
+    "category": "linen-batik",
+    "colour": "Pink",
+    "family": "Pink & Purple",
+    "motif": "Oval medallion rows",
+    "images": [
+      "/images/products/linen-medalion-jambu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-ikat-ungu",
+    "name": "Ikat Ungu",
+    "category": "linen-batik",
+    "colour": "Mauve",
+    "family": "Pink & Purple",
+    "motif": "Ikat-style print",
+    "images": [
+      "/images/products/linen-ikat-ungu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-paisli-krim",
+    "name": "Paisli Krim",
+    "category": "linen-batik",
+    "colour": "Beige",
+    "family": "Earth",
+    "motif": "Aged paisley motif",
+    "images": [
+      "/images/products/linen-paisli-krim/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-pusaran-zaitun",
+    "name": "Pusaran Zaitun",
+    "category": "linen-batik",
+    "colour": "Olive",
+    "family": "Green",
+    "motif": "Mandala burst motif",
+    "images": [
+      "/images/products/linen-pusaran-zaitun/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-hutan-paisli",
+    "name": "Hutan Paisli",
+    "category": "linen-batik",
+    "colour": "Dark olive",
+    "family": "Green",
+    "motif": "Tonal paisley",
+    "images": [
+      "/images/products/linen-hutan-paisli/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-gelombang-ungu",
+    "name": "Gelombang Ungu",
+    "category": "linen-batik",
+    "colour": "Blue & violet",
+    "family": "Blue",
+    "motif": "Flowing wave bands",
+    "images": [
+      "/images/products/linen-gelombang-ungu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-sulur-merah",
+    "name": "Sulur Merah",
+    "category": "linen-batik",
+    "colour": "Brick red",
+    "family": "Red",
+    "motif": "Swirling line motif",
+    "images": [
+      "/images/products/linen-sulur-merah/1.webp"
     ]
   }
 ]

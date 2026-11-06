@@ -1,5 +1,16 @@
 [
   {
+    "id": "linen-batik",
+    "audience": "men",
+    "name": "Linen Batik",
+    "tagline": "New arrival — long-sleeve batik shirts in breathable linen, ready to wear.",
+    "sizes": ["S", "M", "L", "XL"],
+    "options": [
+      { "id": "ready", "label": "Ready to wear", "note": "Ready-made", "price": 600, "needsSize": true }
+    ],
+    "details": { "Fabric": "Linen", "Style": "Long sleeve, ready-made" }
+  },
+  {
     "id": "batik-pawang",
     "audience": "men",
     "cover": "/images/products/api-tropika/1.webp",

@@ -17,6 +17,14 @@
       },
       "details": { "Fabrik": "Sutera krep", "Panjang": "4 meter", "Kemasan": "Tanpa batu", "Untuk": "Wanita" }
     },
+    "linen-batik": {
+      "name": "Batik Linen",
+      "tagline": "Ketibaan baharu — kemeja batik lengan panjang dalam linen yang sejuk dan selesa, siap pakai.",
+      "options": {
+        "ready": { "label": "Siap pakai", "note": "Siap dijahit" }
+      },
+      "details": { "Fabrik": "Linen", "Gaya": "Lengan panjang, siap pakai" }
+    },
     "short-sleeve": {
       "name": "Batik Lengan Pendek",
       "tagline": "Kemeja batik lengan pendek siap pakai dalam kapas tulen — mudah dipakai, pasti menarik perhatian.",
