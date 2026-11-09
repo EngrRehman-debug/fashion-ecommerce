@@ -1802,5 +1802,247 @@
     "images": [
       "/images/products/linen-sulur-merah/1.webp"
     ]
+  },
+  {
+    "slug": "linen-jalur-plum",
+    "name": "Jalur Plum",
+    "category": "linen-batik",
+    "colour": "Plum",
+    "family": "Pink & Purple",
+    "motif": "Horizontal speckle bands",
+    "images": [
+      "/images/products/linen-jalur-plum/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-daun-bara",
+    "name": "Daun Bara",
+    "category": "linen-batik",
+    "colour": "Red",
+    "family": "Red",
+    "motif": "Abstract leaf print",
+    "images": [
+      "/images/products/linen-daun-bara/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-serong-lilak",
+    "name": "Serong Lilak",
+    "category": "linen-batik",
+    "colour": "Lilac",
+    "family": "Pink & Purple",
+    "motif": "Diagonal floral bands",
+    "images": [
+      "/images/products/linen-serong-lilak/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-mandala-zaitun",
+    "name": "Mandala Zaitun",
+    "category": "linen-batik",
+    "colour": "Olive",
+    "family": "Green",
+    "motif": "Mandala burst motif",
+    "images": [
+      "/images/products/linen-mandala-zaitun/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-serong-firus",
+    "name": "Serong Firus",
+    "category": "linen-batik",
+    "colour": "Turquoise",
+    "family": "Blue",
+    "motif": "Diagonal floral bands",
+    "images": [
+      "/images/products/linen-serong-firus/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-silang-ungu",
+    "name": "Silang Ungu",
+    "category": "linen-batik",
+    "colour": "Violet",
+    "family": "Pink & Purple",
+    "motif": "Crossed diagonal bands",
+    "images": [
+      "/images/products/linen-silang-ungu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-kisi-kelabu",
+    "name": "Kisi Kelabu",
+    "category": "linen-batik",
+    "colour": "Grey",
+    "family": "Black & White",
+    "motif": "Geometric lattice",
+    "images": [
+      "/images/products/linen-kisi-kelabu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-pakis-hijau",
+    "name": "Pakis Hijau",
+    "category": "linen-batik",
+    "colour": "Forest green",
+    "family": "Green",
+    "motif": "Fern leaf print",
+    "images": [
+      "/images/products/linen-pakis-hijau/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-pakis-marun",
+    "name": "Pakis Marun",
+    "category": "linen-batik",
+    "colour": "Maroon",
+    "family": "Red",
+    "motif": "Fern leaf print",
+    "images": [
+      "/images/products/linen-pakis-marun/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-panel-plum",
+    "name": "Panel Plum",
+    "category": "linen-batik",
+    "colour": "Plum",
+    "family": "Pink & Purple",
+    "motif": "Lattice with navy panel",
+    "images": [
+      "/images/products/linen-panel-plum/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-wajik-ungu",
+    "name": "Wajik Ungu",
+    "category": "linen-batik",
+    "colour": "Purple",
+    "family": "Pink & Purple",
+    "motif": "Diamond floral motif",
+    "images": [
+      "/images/products/linen-wajik-ungu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-serong-zaitun",
+    "name": "Serong Zaitun",
+    "category": "linen-batik",
+    "colour": "Olive",
+    "family": "Green",
+    "motif": "Diagonal medallion bands",
+    "images": [
+      "/images/products/linen-serong-zaitun/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-sarang-pelangi",
+    "name": "Sarang Pelangi",
+    "category": "linen-batik",
+    "colour": "Multicolour",
+    "family": "Multi",
+    "motif": "Hexagon patchwork",
+    "images": [
+      "/images/products/linen-sarang-pelangi/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-pakis-nila",
+    "name": "Pakis Nila",
+    "category": "linen-batik",
+    "colour": "Navy & pink",
+    "family": "Blue",
+    "motif": "Fern leaf print",
+    "images": [
+      "/images/products/linen-pakis-nila/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-jambangan-kelabu",
+    "name": "Jambangan Kelabu",
+    "category": "linen-batik",
+    "colour": "Steel blue",
+    "family": "Blue",
+    "motif": "Floral spray motif",
+    "images": [
+      "/images/products/linen-jambangan-kelabu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-pakis-malam",
+    "name": "Pakis Malam",
+    "category": "linen-batik",
+    "colour": "Navy & magenta",
+    "family": "Blue",
+    "motif": "Fern leaf print",
+    "images": [
+      "/images/products/linen-pakis-malam/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-daun-kabus",
+    "name": "Daun Kabus",
+    "category": "linen-batik",
+    "colour": "Mauve",
+    "family": "Pink & Purple",
+    "motif": "Banded leaf motif",
+    "images": [
+      "/images/products/linen-daun-kabus/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-tampal-biru",
+    "name": "Tampal Biru",
+    "category": "linen-batik",
+    "colour": "Blue",
+    "family": "Blue",
+    "motif": "Patchwork blocks",
+    "images": [
+      "/images/products/linen-tampal-biru/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-medalion-emas",
+    "name": "Medalion Emas",
+    "category": "linen-batik",
+    "colour": "Olive & gold",
+    "family": "Green",
+    "motif": "Diagonal medallion bands",
+    "images": [
+      "/images/products/linen-medalion-emas/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-kerawang-ungu",
+    "name": "Kerawang Ungu",
+    "category": "linen-batik",
+    "colour": "Violet",
+    "family": "Pink & Purple",
+    "motif": "Diagonal geometric bands",
+    "images": [
+      "/images/products/linen-kerawang-ungu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-ranting-kelabu",
+    "name": "Ranting Kelabu",
+    "category": "linen-batik",
+    "colour": "Grey",
+    "family": "Black & White",
+    "motif": "Fine all-over print",
+    "images": [
+      "/images/products/linen-ranting-kelabu/1.webp"
+    ]
+  },
+  {
+    "slug": "linen-jalur-zaitun",
+    "name": "Jalur Zaitun",
+    "category": "linen-batik",
+    "colour": "Olive brown",
+    "family": "Earth",
+    "motif": "Textured vertical stripes",
+    "images": [
+      "/images/products/linen-jalur-zaitun/1.webp"
+    ]
   }
 ]
